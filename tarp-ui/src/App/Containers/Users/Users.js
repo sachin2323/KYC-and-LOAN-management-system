@@ -41,7 +41,7 @@ export default class Users extends Component {
       dataIndex: 'role',
       key: 'role',
     }, {
-      title: 'Aadhaar ID',
+      title: 'PPS ID',
       dataIndex: 'national_id',
       render: (text) => {
         if (text) {

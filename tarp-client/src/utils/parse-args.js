@@ -26,14 +26,14 @@ let addRoleToOrganizationArray = args => {
 
 let addUserArray = args => {
   console.log("TCL: args", args);
-  if (args.aadhaarId) {
+  if (args.PPSId) {
     return [
       getRandomValue(),
       args.name,
       args.role,
       args.email,
       args.timestamp || new Date().toISOString(),
-      args.aadhaarId
+      args.PPSId
     ];
   } else {
     return [
@@ -68,7 +68,7 @@ let addKYCRecordArray = function(args) {
   let returnData = [
     getRandomValue(),
     args.name,
-    args.aadhar_number,
+    args.PPS_number,
     JSON.stringify({ data: [args.phone_numbers] }),
     moment(args.dateOfBirth).format("DD/MM/YYYY"),
     args.birthMarks,
@@ -104,7 +104,7 @@ let updateKYCRecordArray = function(args) {
   let returnData = [
     args.id,
     args.name,
-    args.aadhar_number,
+    args.PPS_number,
     JSON.stringify({ data: args.phone_numbers })
   ];
   return returnData;
@@ -138,14 +138,14 @@ let updateVerificationRecordArray = function(args) {
   let returnData = [
     args.verification_record_id,
     args.kyc_id,
-    args.aadhar_number,
+    args.PPS_number,
     args.status_update
   ];
   return returnData;
 };
 
 let createRequestArray = function(args) {
-  let returnData = [args.aadhar_number];
+  let returnData = [args.PPS_number];
   return returnData;
 };
 

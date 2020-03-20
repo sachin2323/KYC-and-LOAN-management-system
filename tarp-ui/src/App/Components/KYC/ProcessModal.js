@@ -56,7 +56,7 @@ export default class InfoModal extends Component {
   fetchInfo = () => {
     getInfo({
       data: {
-        aadhar_number: this.props.record.aadharId
+        PPS_number: this.props.record.PPSId
       },
       onSuccess: data => {
         console.log("data", data.response);
@@ -123,8 +123,8 @@ export default class InfoModal extends Component {
               {this.state.info.name}
             </p>
             <p>
-              <strong>Aadhaar ID: </strong>
-              {this.state.info.aadharId}
+              <strong>PPS ID: </strong>
+              {this.state.info.PPSId}
             </p>
             <p>
               <strong>Phone Number: </strong>

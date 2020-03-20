@@ -10,7 +10,7 @@ FUNCTIONS
 func Add(APIstub shim.ChaincodeStubInterface, args []string, userID string, mspID string, OwnerID string, processed string) (sc.Response, sc.Response)
     Add is used to add a KYC record and store to the state - CouchDB
 
-    args : [id, name, aadharId, phoneNumbers(stringified array),
+    args : [id, name, PPSId, phoneNumbers(stringified array),
     dateOfBirth, birthMarks, mothersMaidenName, driversLicense, passport,
     cardInformation, nationality, emailAddress, loyaltyCards, preferences]
 
@@ -29,24 +29,24 @@ func AddVerificationRecord(APIstub shim.ChaincodeStubInterface, kycRecordAsBytes
 func UpdateRecord(APIstub shim.ChaincodeStubInterface, args []string, kycRecordAsBytes []byte, mspID string) sc.Response
     UpdateRecord will update an existing record
 
-    args : [id, name, aadharId, phoneNumbers(stringified array)]
+    args : [id, name, PPSId, phoneNumbers(stringified array)]
 
 func UpdateVerificationRecordStatus(APIstub shim.ChaincodeStubInterface, args []string, existingRecordAsBytes []byte, existingVerificationRecordAsBytes []byte, userID string, mspID string) sc.Response
     UpdateVerificationRecordStatus updates the KYC record status
 
-    args : [verificationRecordID, kycID, aadharId, statusUpdate]
+    args : [verificationRecordID, kycID, PPSId, statusUpdate]
 
 TYPES
 
-type AadharRecord struct {
-    AadharID   string      `json:"aadharId"`
+type PPSRecord struct {
+    PPSID   string      `json:"PPSId"`
     UserID     string      `json:"userId"`
     SubRecords []SubRecord `json:"subRecords"`
     CreatedAt  string      `json:"createdAt"`
     UpdatedAt  string      `json:"updatedAt"`
     Class      string      `json:"class"`
 }
-    AadharRecord is the model with aadhar card as the primary key
+    PPSRecord is the model with PPS card as the primary key
 
 type Address struct {
     ID                  string `json:"id"`
@@ -64,7 +64,7 @@ type Address struct {
     Address belongs to a KYC record
 
 type MasterRecord struct {
-    AadharSubrecord    SubRecord          `json:"aadhar_subrecord"`
+    PPSSubrecord    SubRecord          `json:"PPS_subrecord"`
     KycRecord          Record             `json:"kyc_record"`
     VerificationRecord VerificationRecord `json:"verification_record"`
 }
@@ -73,7 +73,7 @@ type MasterRecord struct {
 type Record struct {
     ID                string   `json:"id"`
     Name              string   `json:"name"`
-    AadharID          string   `json:"aadharId"`
+    PPSID          string   `json:"PPSId"`
     PhoneNumbers      []string `json:"phoneNumbers"`
     AddressIDs        []string `json:"addressIds"`
     Owner             string   `json:"owner"`
@@ -99,7 +99,7 @@ type SubRecord struct {
     KYCID string `json:"kycId"`
     MSPID string `json:"mspId"`
 }
-    SubRecord belongs to a single aadhar record
+    SubRecord belongs to a single PPS record
 
 type VerificationRecord struct {
     ID             string `json:"id"`

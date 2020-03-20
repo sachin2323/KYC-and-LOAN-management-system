@@ -16,9 +16,9 @@ export default class ListKYC extends Component {
       dataIndex: 'name',
       key: 'name',
     }, {
-      title: 'Aadhaar ID',
-      dataIndex: 'aadharId',
-      key: 'aadharId',
+      title: 'PPS ID',
+      dataIndex: 'PPSId',
+      key: 'PPSId',
     }, {
       title: 'Phone Number',
       dataIndex: 'phone_numbers',

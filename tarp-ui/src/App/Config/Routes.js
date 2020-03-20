@@ -13,14 +13,14 @@ const IDENTITY_ISSUE = BASE_URL + "/issue-identity";
 const LIST_KYCS = BASE_URL + "/list-kycs";
 const LIST_USERS = BASE_URL + "/list-users";
 const CURRENT_USER_INFO = BASE_URL + "/get-current-user";
-const KYC_INFO = BASE_URL + "/get-records-by-aadhar";
-const GET_KYC_BY_AADHAAR = BASE_URL + "/get-records-by-aadhar";
+const KYC_INFO = BASE_URL + "/get-records-by-PPS";
+const GET_KYC_BY_PPS = BASE_URL + "/get-records-by-PPS";
 const GET_CLIENT_KYC = BASE_URL + "/get-client-kyc";
 const ADD_KYC = BASE_URL + "/add-kyc-record";
 const PROCESS = BASE_URL + "/add-verification-record";
 //const ADD_KYC_PROOF = BASE_URL + "/add-kyc-proof";
 //const GET_KYC_PROOF = BASE_URL + "/get-kyc-proof";
-const SEARCH_AADHAAR = BASE_URL + "/search-aadhaar";
+const SEARCH_PPS = BASE_URL + "/search-PPS";
 const CREATE_REQUEST = BASE_URL + "/create-request";
 const LIST_ORG_KYC = BASE_URL + "/list-org-requests";
 const LIST_REQUEST = BASE_URL + "/list-user-requests";
@@ -63,14 +63,14 @@ export {
   LIST_USERS,
   CURRENT_USER_INFO,
   KYC_INFO,
-  GET_KYC_BY_AADHAAR,
+  GET_KYC_BY_PPS,
   APPROVE,
   GET_CLIENT_KYC,
   ADD_KYC,
  // ADD_KYC_PROOF,
  // GET_KYC_PROOF,
   PROCESS,
-  SEARCH_AADHAAR,
+  SEARCH_PPS,
   CREATE_REQUEST,
   LIST_ORG_KYC,
   LIST_REQUEST,

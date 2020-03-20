@@ -79,22 +79,22 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, organizationID stri
 	userAsBytes, _ := json.Marshal(user)
 
 	err := APIstub.PutState(userID, userAsBytes)
-	// Add UserID to aadhar record
+	// Add UserID to PPS record
 	if args[5] != "" {
-		aadharAsHash := fc.GetMD5Hash(args[5])
-		existingAadharRecordAsBytes, err := APIstub.GetState(aadharAsHash)
+		PPSAsHash := fc.GetMD5Hash(args[5])
+		existingPPSRecordAsBytes, err := APIstub.GetState(PPSAsHash)
 		// if err != nil {
 		// 	return shim.Error(err.Error())
 		// }
-		if existingAadharRecordAsBytes != nil {
-			aadharRecord := kyc.AadharRecord{}
-			err = json.Unmarshal(existingAadharRecordAsBytes, &aadharRecord)
+		if existingPPSRecordAsBytes != nil {
+			PPSRecord := kyc.PPSRecord{}
+			err = json.Unmarshal(existingPPSRecordAsBytes, &PPSRecord)
 			if err == nil {
-				aadharRecord.UserID = userID
+				PPSRecord.UserID = userID
 			}
-			aadharRecordAsBytes, _ := json.Marshal(aadharRecord)
-			err = APIstub.PutState(aadharAsHash, aadharRecordAsBytes)
-			eh.SystemError(err, aadharRecordAsBytes)
+			PPSRecordAsBytes, _ := json.Marshal(PPSRecord)
+			err = APIstub.PutState(PPSAsHash, PPSRecordAsBytes)
+			eh.SystemError(err, PPSRecordAsBytes)
 		}
 	}
 

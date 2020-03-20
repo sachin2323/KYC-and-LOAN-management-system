@@ -20,15 +20,15 @@ func getFunctionsByOrgAndRole(orgType string, role string) []string {
 	case "Bank":
 		switch role {
 		case "Admin":
-			return []string{"getAddressDetails", "getVerificationRecordByKYCID", "getRecordIDsByAadharNumber", "addVerificationRecord", "updateVerificationRecord", "getKYCRecordDetails", "addUser", "revokeUser", "revokeIdentityRecord", "addRoleToOrganization", "getUserDetails", "getUserEnrollments"}
+			return []string{"getAddressDetails", "getVerificationRecordByKYCID", "getRecordIDsByPPSNumber", "addVerificationRecord", "updateVerificationRecord", "getKYCRecordDetails", "addUser", "revokeUser", "revokeIdentityRecord", "addRoleToOrganization", "getUserDetails", "getUserEnrollments"}
 		case "Manager":
-			return []string{"getAddressDetails", "getVerificationRecordByKYCID", "getRecordIDsByAadharNumber", "addVerificationRecord", "updateVerificationRecord", "getKYCRecordDetails", "getUserDetails"}
+			return []string{"getAddressDetails", "getVerificationRecordByKYCID", "getRecordIDsByPPSNumber", "addVerificationRecord", "updateVerificationRecord", "getKYCRecordDetails", "getUserDetails"}
 		}
 
 	case "CentralBank":
 		switch role {
 		case "Admin":
-			return []string{"getAddressDetails", "getRecordIDsByAadharNumber", "getRecordIDsByAadharNumber", "addVerificationRecord", "updateVerificationRecord", "getKYCRecordDetails", "addUser", "revokeUser", "revokeIdentityRecord", "addRoleToOrganization", "getUserDetails", "getUserEnrollments"}
+			return []string{"getAddressDetails", "getRecordIDsByPPSNumber", "getRecordIDsByPPSNumber", "addVerificationRecord", "updateVerificationRecord", "getKYCRecordDetails", "addUser", "revokeUser", "revokeIdentityRecord", "addRoleToOrganization", "getUserDetails", "getUserEnrollments"}
 		case "Client":
 			return []string{"addKYCRecord", "addAddressToKYC", "getKYCRecordDetails", "updateKYCRecord"}
 		}
@@ -36,7 +36,7 @@ func getFunctionsByOrgAndRole(orgType string, role string) []string {
 	case "Buyer":
 		switch role {
 		case "Admin":
-			return []string{"getVerificationRecordByKYCID","getRecordIDsByAadharNumber","getKYCRecordDetails", "addUser", "revokeUser", "revokeIdentityRecord", "addRoleToOrganization", "getUserDetails", "getUserEnrollments"}
+			return []string{"getVerificationRecordByKYCID","getRecordIDsByPPSNumber","getKYCRecordDetails", "addUser", "revokeUser", "revokeIdentityRecord", "addRoleToOrganization", "getUserDetails", "getUserEnrollments"}
 		case "Client":
 			return []string{"addKYCRecord", "addAddressToKYC", "getKYCRecordDetails", "updateKYCRecord"}
 		}
@@ -44,7 +44,7 @@ func getFunctionsByOrgAndRole(orgType string, role string) []string {
 	case "Seller":
 		switch role {
 		case "Admin":
-			return []string{"getVerificationRecordByKYCID", "getRecordIDsByAadharNumber", "getKYCRecordDetails", "addUser", "revokeUser", "revokeIdentityRecord", "addRoleToOrganization", "getUserDetails", "getUserEnrollments"}
+			return []string{"getVerificationRecordByKYCID", "getRecordIDsByPPSNumber", "getKYCRecordDetails", "addUser", "revokeUser", "revokeIdentityRecord", "addRoleToOrganization", "getUserDetails", "getUserEnrollments"}
 		case "Client":
 			return []string{"addKYCRecord", "addAddressToKYC", "getKYCRecordDetails", "updateKYCRecord"}
 		}

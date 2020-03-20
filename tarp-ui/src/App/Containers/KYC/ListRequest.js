@@ -17,7 +17,7 @@ class ListRequest extends Component {
       confirmLoading : false,
       options : [
         { label: 'Name', value: 'Name' },
-        { label: 'Aadhaar ID', value: 'AadharID' },
+        { label: 'PPS ID', value: 'PPSID' },
         { label: 'Phone Number', value: 'PhoneNumbers' },
         { label: 'Date Of Birth', value: 'DateOfBirth' },
         { label: 'Birth Marks', value: 'BirthMarks' },

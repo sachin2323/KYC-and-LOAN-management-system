@@ -12,9 +12,9 @@ class ClientApprovedRequest extends Component {
       confirmLoading: false,
     }
     this.columns = [{
-      title: 'Aadhaar ID',
-      dataIndex: 'aadharId',
-      key: 'aadharId',
+      title: 'PPS ID',
+      dataIndex: 'PPSId',
+      key: 'PPSId',
     }, {
       title: 'Bank Name',
       dataIndex: 'bankName',
@@ -114,7 +114,7 @@ class ClientApprovedRequest extends Component {
         // if (users[i].banks[k].bank_status === "Request" && users[i].banks[k].user_status === "Approved") {
           returnData.push({
             key : Math.random(),
-            aadharId: users[i].aadharRaw,
+            PPSId: users[i].PPSRaw,
             bankName: users[i].banks[k].name,
             bankID: users[i].banks[k].bankID,
             userId: users[i].userId,

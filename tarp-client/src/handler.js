@@ -270,7 +270,7 @@ class Handler {
 
   addKYCRecord(args) {
     let tx_id = this.connection.newTransactionID();
-    // let remoteResponse = await remote.fetch(args.aadhar_number)
+    // let remoteResponse = await remote.fetch(args.PPS_number)
     // console.log("response " , remoteResponse)
     if (!args.status) {
       args["status"] = "Processed";
@@ -302,7 +302,7 @@ class Handler {
     kyc.map(async (current, index) => {
       let requestData = {
         name: current.name.trim(),
-        aadhar_number: current.aadharId.trim(),
+        PPS_number: current.PPSId.trim(),
         phone_numbers: current.phoneNumbers.trim(),
         dateOfBirth: current.dateOfBirth.trim(),
         birthMarks: current.birthMarks.trim(),
@@ -427,21 +427,21 @@ class Handler {
     return this.connection.query(requestData);
   }
 
-  getRecordIDsByAadharNumber(args) {
+  getRecordIDsByPPSNumber(args) {
     let requestData = {
       chaincodeId: config.chaincodeId,
-      fcn: "getRecordIDsByAadharNumber",
-      args: [args.aadhar_number]
+      fcn: "getRecordIDsByPPSNumber",
+      args: [args.PPS_number]
     };
     console.log(args);
     return this.connection.query(requestData);
   }
 
-  getNameFromAadhar(args) {
+  getNameFromPPS(args) {
     let requestData = {
       chaincodeId: config.chaincodeId,
-      fcn: "getNameFromAadhar",
-      args: [args.aadhar_number]
+      fcn: "getNameFromPPS",
+      args: [args.PPS_number]
     };
     console.log(requestData);
     return this.connection.query(requestData);
@@ -451,7 +451,7 @@ class Handler {
     let requestData = {
       chaincodeId: config.chaincodeId,
       fcn: "getCurrentUserKYC",
-      args: [args.aadhaarId]
+      args: [args.PPSId]
     };
     return this.connection.query(requestData);
   }

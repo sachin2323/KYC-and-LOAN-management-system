@@ -101,35 +101,35 @@ func GetPrerequisites(APIstub shim.ChaincodeStubInterface) (Prereqs, sc.Response
 
 }
 
-// GetNameFromAadhar fetches the aadhar record that is stored in state and returns all kyc
+// GetNameFromPPS fetches the PPS record that is stored in state and returns all kyc
 // ids ever created
 //
-// args : [aadharNumber, aadharHash]
-func GetNameFromAadhar(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+// args : [PPSNumber, PPSHash]
+func GetNameFromPPS(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
 	fmt.Println("getRecordsCalled")
-	var aadharRecordID string
+	var PPSRecordID string
 	if len(args) != 2 {
-		aadharRecordID = fc.GetMD5Hash(args[0])
+		PPSRecordID = fc.GetMD5Hash(args[0])
 	} else {
-		aadharRecordID = args[1]
+		PPSRecordID = args[1]
 	}
 
-	aadharAsResponse := eh.AbsentError(APIstub, aadharRecordID)
-	if aadharAsResponse.GetMessage() != "" {
+	PPSAsResponse := eh.AbsentError(APIstub, PPSRecordID)
+	if PPSAsResponse.GetMessage() != "" {
 		return shim.Success([]byte("[]"))
 	}
 	fmt.Println("adhar found")
-	aadhar := kyc.AadharRecord{}
-	err := json.Unmarshal(aadharAsResponse.GetPayload(), &aadhar)
+	PPS := kyc.PPSRecord{}
+	err := json.Unmarshal(PPSAsResponse.GetPayload(), &PPS)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
-	if len(aadhar.SubRecords) == 0 {
+	if len(PPS.SubRecords) == 0 {
 		return shim.Success([]byte("{}"))
 	}
 	// first kyc id is enough
-	kycID := aadhar.SubRecords[0].KYCID
+	kycID := PPS.SubRecords[0].KYCID
 	kycAsResponse := GetKYCRecordDetails(APIstub, []string{kycID})
 	if kycAsResponse.GetMessage() != "" {
 		return kycAsResponse
@@ -141,41 +141,41 @@ func GetNameFromAadhar(APIstub shim.ChaincodeStubInterface, args []string) sc.Re
 		return shim.Error(err.Error())
 	}
 	fmt.Println(kycRecord)
-	fmt.Println("{\"aadharNumber\":\"" + args[0] + "\",\"name\":\"" + kycRecord.Name + "\"}")
-	return shim.Success([]byte("{\"aadharNumber\":\"" + args[0] + "\",\"name\":\"" + kycRecord.Name + "\"}"))
+	fmt.Println("{\"PPSNumber\":\"" + args[0] + "\",\"name\":\"" + kycRecord.Name + "\"}")
+	return shim.Success([]byte("{\"PPSNumber\":\"" + args[0] + "\",\"name\":\"" + kycRecord.Name + "\"}"))
 }
 
-// GetRecordIDsByAadharNumber fetches the aadhar record that is stored in state and returns all kyc
+// GetRecordIDsByPPSNumber fetches the PPS record that is stored in state and returns all kyc
 // ids ever created
 //
-// args : [aadharNumber, aadharHash]
-func GetRecordIDsByAadharNumber(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+// args : [PPSNumber, PPSHash]
+func GetRecordIDsByPPSNumber(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
 	fmt.Println("getRecordsCalled")
 	fmt.Println(args)
-	var aadharRecordID string
+	var PPSRecordID string
 	if len(args) != 2 {
-		aadharRecordID = fc.GetMD5Hash(args[0])
+		PPSRecordID = fc.GetMD5Hash(args[0])
 	} else {
-		aadharRecordID = args[1]
+		PPSRecordID = args[1]
 	}
-	aadharAsResponse := eh.AbsentError(APIstub, aadharRecordID)
-	if aadharAsResponse.GetMessage() != "" {
-		return aadharAsResponse
+	PPSAsResponse := eh.AbsentError(APIstub, PPSRecordID)
+	if PPSAsResponse.GetMessage() != "" {
+		return PPSAsResponse
 	}
 	fmt.Println("adhar found")
-	aadhar := kyc.AadharRecord{}
-	err := json.Unmarshal(aadharAsResponse.GetPayload(), &aadhar)
+	PPS := kyc.PPSRecord{}
+	err := json.Unmarshal(PPSAsResponse.GetPayload(), &PPS)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 	var buffer bytes.Buffer
 	buffer.WriteString("[")
 	bArrayMemberAlreadyWritten := false
-	for i := 0; i < len(aadhar.SubRecords); i++ {
+	for i := 0; i < len(PPS.SubRecords); i++ {
 		fmt.Println(i)
 		fmt.Println("LOOP BEGEN")
-		subRecord := aadhar.SubRecords[i]
+		subRecord := PPS.SubRecords[i]
 		subRecordBytes, err := json.Marshal(subRecord)
 		if err != nil {
 			return shim.Error(err.Error())
@@ -208,7 +208,7 @@ func GetRecordIDsByAadharNumber(APIstub shim.ChaincodeStubInterface, args []stri
 
 func join(args ...[]byte) []byte {
 	var buffer bytes.Buffer
-	buffer.WriteString("{\"aadhar_subrecord\":")
+	buffer.WriteString("{\"PPS_subrecord\":")
 	if args[0] == nil {
 		args[0] = []byte("{}")
 	}
@@ -503,7 +503,7 @@ func GetOrgRequests(APIstub shim.ChaincodeStubInterface, args []string, currentO
 				fmt.Println("================")
 
 				if currentBank.BankStatus == "Approved" {
-					approvedResponse := GetRecordIDsByAadharNumber(APIstub, []string{"", bankApproval.AadharID})
+					approvedResponse := GetRecordIDsByPPSNumber(APIstub, []string{"", bankApproval.PPSID})
 					if approvedResponse.GetMessage() != "" {
 						fmt.Println("Exiting through line 498.")
 						return approvedResponse
@@ -539,7 +539,7 @@ func GetOrgRequests(APIstub shim.ChaincodeStubInterface, args []string, currentO
 					approvedinfosBArrayMemberAlreadyWritten = true
 
 				} else if currentBank.UserStatus == "Rejected" {
-					rejectedResponse := GetRecordIDsByAadharNumber(APIstub, []string{"", bankApproval.AadharID})
+					rejectedResponse := GetRecordIDsByPPSNumber(APIstub, []string{"", bankApproval.PPSID})
 					if rejectedResponse.GetMessage() != "" {
 						return rejectedResponse
 					}
@@ -654,7 +654,7 @@ func joinApprovalBytes(args ...[]byte) []byte {
 func GetCurrentUserKYC(APIstub shim.ChaincodeStubInterface, args []string, currentUser user.User) sc.Response {
 	var recordIDs []string
 	fmt.Println(args)
-	recordsResponse := GetRecordIDsByAadharNumber(APIstub, []string{args[0]})
+	recordsResponse := GetRecordIDsByPPSNumber(APIstub, []string{args[0]})
 	recordsResponseBytes := recordsResponse.GetPayload()
 	fmt.Println(string(recordsResponseBytes))
 	json.Unmarshal(recordsResponseBytes, &recordIDs)

@@ -19,11 +19,11 @@ class GbKYC extends Component {
         )
       }
     }, {
-      title: 'Aadhaar ID',
-      dataIndex: 'aadharId',
+      title: 'PPS ID',
+      dataIndex: 'PPSId',
         render: (text, record) => {
           return (
-            <span>{record.aadharId ? record.aadharId : "*Hidden*"}</span>
+            <span>{record.PPSId ? record.PPSId : "*Hidden*"}</span>
           )
         }
     }, {
