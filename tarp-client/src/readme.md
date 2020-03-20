@@ -1,4 +1,4 @@
-#  Insurance Client
+# Client
 A Fabric Client for the `KYC and Loan` chaincode.
 
 ###  Initial scripts (Run in the root of the project)
