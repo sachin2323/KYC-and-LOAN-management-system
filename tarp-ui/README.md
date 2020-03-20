@@ -1,1 +1,1 @@
-# Supply Chain UI
+# KYC and Loan UI
