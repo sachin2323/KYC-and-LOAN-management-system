@@ -1,6 +1,6 @@
 var atrmapping = {
   name: "Name",
-  aadharId: "AadharID",
+  PPSId: "PPSID",
   phoneNumbers: "PhoneNumbers",
   date_of_birth: "DateOfBirth",
   birth_marks: "BirthMarks",

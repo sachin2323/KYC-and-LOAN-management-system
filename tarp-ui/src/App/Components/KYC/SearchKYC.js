@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal, Input, message, Spin, Row, Col, Alert, Form } from 'antd';
-import { searchAadhaar, createRequest } from '../../Models/KYCRecords';
+import { searchPPS, createRequest } from '../../Models/KYCRecords';
 const Search = Input.Search;
 const FormItem = Form.Item;
 
@@ -37,9 +37,9 @@ class SearchKYC extends Component {
           loading : true,
           info : null
         })
-        searchAadhaar({
+        searchPPS({
           data: {
-            aadhar_number: value
+            PPS_number: value
           },
           onSuccess: (data) => {
             if (!data.response.length) {
@@ -68,7 +68,7 @@ class SearchKYC extends Component {
     this.setState({requestLoader : true})
     createRequest({
       data: {
-        "aadhar_number": this.state.info.aadharNumber
+        "PPS_number": this.state.info.PPSNumber
       },
       onSuccess: (data) => {
         this.setState({
@@ -113,7 +113,7 @@ class SearchKYC extends Component {
                 <p><strong>Name: </strong>{this.state.info.name}</p>
               </Col>
               <Col span={12}>
-                <p><strong>Aadhaar ID: </strong>{this.state.info.aadharNumber}</p>
+                <p><strong>PPS ID: </strong>{this.state.info.PPSNumber}</p>
               </Col>
             </Row>
           </div>
@@ -142,10 +142,10 @@ class SearchKYC extends Component {
         <Form >
           <FormItem>
             {getFieldDecorator('search', {
-              rules: [{ required: true, message: 'Please Input Aadhaar ID!' }],
+              rules: [{ required: true, message: 'Please Input PPS ID!' }],
             })(
               <Search
-                placeholder="Search KYC with Aadhaar ID"
+                placeholder="Search KYC with PPS ID"
                 onSearch={value => this.handleSearch(value)}
                 enterButton
               />

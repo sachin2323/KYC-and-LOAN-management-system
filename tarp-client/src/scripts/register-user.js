@@ -42,7 +42,7 @@ let registerUser = () => {
         name: "Sachin Singh",
         email: "sachinsingh328@gmai.com",
         role: "Client",
-        aadhaarId: "123123123"
+        PPSId: "123123123"
       },
       json: true
     };

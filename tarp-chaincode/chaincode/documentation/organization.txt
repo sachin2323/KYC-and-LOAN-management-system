@@ -17,7 +17,7 @@ func AddRecordID(APIstub shim.ChaincodeStubInterface, recordAsBytes []byte, user
 func AddRequest(APIstub shim.ChaincodeStubInterface, args []string, currentOrg Organization) sc.Response
     AddRequest will add a request to the user ledger
 
-    args : [aadharID]
+    args : [PPSID]
 
 func AddRole(APIstub shim.ChaincodeStubInterface, args []string, organizationID string) sc.Response
     AddRole adds a new role to an organization

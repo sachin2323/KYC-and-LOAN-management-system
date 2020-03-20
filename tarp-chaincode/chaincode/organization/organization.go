@@ -90,16 +90,16 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, mspid string) sc.Re
 
 // AddRequest will add a request to the user ledger
 //
-// args : [aadharID]
+// args : [PPSID]
 func AddRequest(APIstub shim.ChaincodeStubInterface, args []string, currentOrg Organization) sc.Response {
-	aadharRecordID := fc.GetMD5Hash(args[0])
-	aadharAsResponse := eh.AbsentError(APIstub, aadharRecordID)
-	if aadharAsResponse.GetMessage() != "" {
-		return aadharAsResponse
+	PPSRecordID := fc.GetMD5Hash(args[0])
+	PPSAsResponse := eh.AbsentError(APIstub, PPSRecordID)
+	if PPSAsResponse.GetMessage() != "" {
+		return PPSAsResponse
 	}
-	aadharRecord := kyc.AadharRecord{}
-	err := json.Unmarshal(aadharAsResponse.GetPayload(), &aadharRecord)
-	userID := aadharRecord.UserID
+	PPSRecord := kyc.PPSRecord{}
+	err := json.Unmarshal(PPSAsResponse.GetPayload(), &PPSRecord)
+	userID := PPSRecord.UserID
 
 	bankApproval := common.BankApproval{}
 	bankApproval.CreatedAt = utils.GetTimestampAsISO(APIstub)
@@ -113,8 +113,8 @@ func AddRequest(APIstub shim.ChaincodeStubInterface, args []string, currentOrg O
 
 	if existingBankApprovalAsBytes == nil {
 		bankApproval.ID = bankApprovalID
-		bankApproval.AadharID = aadharRecordID
-		bankApproval.AadharRaw = args[0]
+		bankApproval.PPSID = PPSRecordID
+		bankApproval.PPSRaw = args[0]
 		bankApproval.UserID = userID
 		bankApproval.Banks = append(bankApproval.Banks, common.BankRequest{BankID: currentOrg.ID, Name: currentOrg.Name, UserStatus: "Request", BankStatus: "Request"})
 		bankApprovalAsBytes, err = json.Marshal(bankApproval)

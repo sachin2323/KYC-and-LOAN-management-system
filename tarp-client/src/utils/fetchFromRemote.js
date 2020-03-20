@@ -1,7 +1,7 @@
 const axios = require('axios')
 
-async function fetch(aadhaarID) {
-  return axios.get(`http://192.168.31.236:9000/aadhaarInfo/${aadhaarID}`)
+async function fetch(PPSID) {
+  return axios.get(`http://192.168.31.236:9000/PPSInfo/${PPSID}`)
     .then(function (response) {
       return response.data;
     })

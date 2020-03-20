@@ -163,10 +163,10 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.updateVerificationRecord(APIstub, args, currentUser, userMSPID)
 	} else if function == "getKYCRecordDetails" {
 		return GetKYCRecordDetails(APIstub, args)
-	} else if function == "getRecordIDsByAadharNumber" {
-		return GetRecordIDsByAadharNumber(APIstub, args)
-	} else if function == "getNameFromAadhar" {
-		return GetNameFromAadhar(APIstub, args)
+	} else if function == "getRecordIDsByPPSNumber" {
+		return GetRecordIDsByPPSNumber(APIstub, args)
+	} else if function == "getNameFromPPS" {
+		return GetNameFromPPS(APIstub, args)
 	} else if function == "getVerificationRecordByKYCID" {
 		return GetVerificationRecordByKYCID(APIstub, args)
 	} else if function == "getAddressDetails" {
@@ -405,7 +405,7 @@ func (s *SmartContract) addAddressToKYC(APIstub shim.ChaincodeStubInterface, arg
 	return kyc.AddAddress(APIstub, kycAsResponse.GetPayload(), args, currentUser.ID)
 }
 
-// args : aadharId
+// args : PPSId
 func (s *SmartContract) addRequestForRecord(APIstub shim.ChaincodeStubInterface, args []string, currentUserOrg org.Organization) sc.Response {
 
 	argAsResponse := eh.ArgumentError(1, args)

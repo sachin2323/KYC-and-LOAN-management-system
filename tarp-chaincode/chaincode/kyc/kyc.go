@@ -16,7 +16,7 @@ import (
 
 // MasterRecord definition
 type MasterRecord struct {
-	AadharSubrecord    SubRecord          `json:"aadhar_subrecord"`
+	PPSSubrecord    SubRecord          `json:"PPS_subrecord"`
 	KycRecord          Record             `json:"kyc_record"`
 	VerificationRecord VerificationRecord `json:"verification_record"`
 }
@@ -40,7 +40,7 @@ type Address struct {
 type Record struct {
 	ID                string   `json:"id"`
 	Name              string   `json:"name"`
-	AadharID          string   `json:"aadharId"`
+	PPSID          string   `json:"PPSId"`
 	PhoneNumbers      []string `json:"phoneNumbers"`
 	AddressIDs        []string `json:"addressIds"`
 	Owner             string   `json:"owner"`
@@ -61,15 +61,15 @@ type Record struct {
 	Preferences       string   `json:"preferences"`
 }
 
-// SubRecord belongs to a single aadhar record
+// SubRecord belongs to a single PPS record
 type SubRecord struct {
 	KYCID string `json:"kycId"`
 	MSPID string `json:"mspId"`
 }
 
-// AadharRecord is the model with aadhar card as the primary key
-type AadharRecord struct {
-	AadharID   string      `json:"aadharId"`
+// PPSRecord is the model with PPS card as the primary key
+type PPSRecord struct {
+	PPSID   string      `json:"PPSId"`
 	UserID     string      `json:"userId"`
 	SubRecords []SubRecord `json:"subRecords"`
 	CreatedAt  string      `json:"createdAt"`
@@ -92,7 +92,7 @@ type VerificationRecord struct {
 
 // Add is used to add a KYC record and store to the state - CouchDB
 //
-// args : [id, name, aadharId, phoneNumbers(stringified array), dateOfBirth, birthMarks, mothersMaidenName, driversLicense, passport, cardInformation, nationality, emailAddress, loyaltyCards, preferences]
+// args : [id, name, PPSId, phoneNumbers(stringified array), dateOfBirth, birthMarks, mothersMaidenName, driversLicense, passport, cardInformation, nationality, emailAddress, loyaltyCards, preferences]
 func Add(APIstub shim.ChaincodeStubInterface, args []string, userID string, mspID string, OwnerID string, processed string) (sc.Response, sc.Response) {
 
 	phoneNumbers, err := utils.SliceFromString(args[3])
@@ -105,7 +105,7 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, userID string, mspI
 	record := Record{
 		ID:                args[0],
 		Name:              args[1],
-		AadharID:          args[2],
+		PPSID:          args[2],
 		PhoneNumbers:      phoneNumbers,
 		Owner:             OwnerID,
 		CreatedBy:         userID,
@@ -126,9 +126,9 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, userID string, mspI
 	fmt.Println(record)
 	recordAsBytes, _ := json.Marshal(record)
 
-	aadharRecordAsSCResponse := addAadharRecord(APIstub, []string{args[2], args[0]}, mspID, OwnerID)
-	if aadharRecordAsSCResponse.GetMessage() != "" {
-		return aadharRecordAsSCResponse, shim.Success(recordAsBytes)
+	PPSRecordAsSCResponse := addPPSRecord(APIstub, []string{args[2], args[0]}, mspID, OwnerID)
+	if PPSRecordAsSCResponse.GetMessage() != "" {
+		return PPSRecordAsSCResponse, shim.Success(recordAsBytes)
 	}
 
 	err = APIstub.PutState(args[0], recordAsBytes)
@@ -136,59 +136,59 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, userID string, mspI
 		return shim.Error(err.Error()), shim.Success(recordAsBytes)
 	}
 
-	aadharRecordAsBytes := aadharRecordAsSCResponse.GetPayload()
-	completePayloadAsBytes := utils.JoinResponseBytes([]string{string(recordAsBytes[:]), string(aadharRecordAsBytes[:])})
+	PPSRecordAsBytes := PPSRecordAsSCResponse.GetPayload()
+	completePayloadAsBytes := utils.JoinResponseBytes([]string{string(recordAsBytes[:]), string(PPSRecordAsBytes[:])})
 
 	return shim.Success(completePayloadAsBytes), shim.Success(recordAsBytes)
 
 }
 
-// args : [aadharID, KYCID]
-func addAadharRecord(APIstub shim.ChaincodeStubInterface, args []string, mspID string, userID string) sc.Response {
+// args : [PPSID, KYCID]
+func addPPSRecord(APIstub shim.ChaincodeStubInterface, args []string, mspID string, userID string) sc.Response {
 
-	aadharRecord := AadharRecord{}
-	aadharRecord.CreatedAt = utils.GetTimestampAsISO(APIstub)
+	PPSRecord := PPSRecord{}
+	PPSRecord.CreatedAt = utils.GetTimestampAsISO(APIstub)
 	subRecord := SubRecord{args[1], mspID}
 
-	aadharAsHash := fc.GetMD5Hash(args[0])
-	existingAadharRecordAsBytes, err := APIstub.GetState(aadharAsHash)
+	PPSAsHash := fc.GetMD5Hash(args[0])
+	existingPPSRecordAsBytes, err := APIstub.GetState(PPSAsHash)
 	// if err != nil {
 	// 	return shim.Error(err.Error())
 	// }
-	if existingAadharRecordAsBytes != nil {
-		err = json.Unmarshal(existingAadharRecordAsBytes, &aadharRecord)
+	if existingPPSRecordAsBytes != nil {
+		err = json.Unmarshal(existingPPSRecordAsBytes, &PPSRecord)
 		if err != nil {
 			return shim.Error(err.Error())
 		}
-		// if !verifyAadharMSP(aadharRecord, mspID) {
-		// 	return shim.Error("KYC record for given aadhar number already exists for this organization.")
+		// if !verifyPPSMSP(PPSRecord, mspID) {
+		// 	return shim.Error("KYC record for given PPS number already exists for this organization.")
 		// }
-		aadharRecord.SubRecords = append(aadharRecord.SubRecords, subRecord)
-		aadharRecordAsBytes, _ := json.Marshal(aadharRecord)
-		err = APIstub.PutState(aadharAsHash, aadharRecordAsBytes)
-		return eh.SystemError(err, aadharRecordAsBytes)
+		PPSRecord.SubRecords = append(PPSRecord.SubRecords, subRecord)
+		PPSRecordAsBytes, _ := json.Marshal(PPSRecord)
+		err = APIstub.PutState(PPSAsHash, PPSRecordAsBytes)
+		return eh.SystemError(err, PPSRecordAsBytes)
 	}
 
-	aadharRecord.AadharID = aadharAsHash
-	aadharRecord.UserID = userID
-	aadharRecord.Class = "AadharRecord"
-	aadharRecord.SubRecords = append(aadharRecord.SubRecords, subRecord)
+	PPSRecord.PPSID = PPSAsHash
+	PPSRecord.UserID = userID
+	PPSRecord.Class = "PPSRecord"
+	PPSRecord.SubRecords = append(PPSRecord.SubRecords, subRecord)
 
-	aadharRecordAsBytes, _ := json.Marshal(aadharRecord)
-	err = APIstub.PutState(aadharAsHash, aadharRecordAsBytes)
-	return eh.SystemError(err, aadharRecordAsBytes)
+	PPSRecordAsBytes, _ := json.Marshal(PPSRecord)
+	err = APIstub.PutState(PPSAsHash, PPSRecordAsBytes)
+	return eh.SystemError(err, PPSRecordAsBytes)
 
 }
 
-func deleteAadharRecord(APIstub shim.ChaincodeStubInterface, oldAadharNumber string) error {
-	aadharID := fc.GetMD5Hash(oldAadharNumber)
-	err := APIstub.DelState(aadharID)
+func deletePPSRecord(APIstub shim.ChaincodeStubInterface, oldPPSNumber string) error {
+	PPSID := fc.GetMD5Hash(oldPPSNumber)
+	err := APIstub.DelState(PPSID)
 	return err
 }
 
 // UpdateRecord will update an existing record
 //
-// args : [id, name, aadharId, phoneNumbers(stringified array)]
+// args : [id, name, PPSId, phoneNumbers(stringified array)]
 func UpdateRecord(APIstub shim.ChaincodeStubInterface, args []string, kycRecordAsBytes []byte, mspID string) sc.Response {
 
 	record := Record{}
@@ -202,21 +202,21 @@ func UpdateRecord(APIstub shim.ChaincodeStubInterface, args []string, kycRecordA
 	}
 
 	record.Name = args[1]
-	fmt.Println(record.AadharID, args[2])
-	if record.AadharID != args[2] {
-		err := deleteAadharRecord(APIstub, record.AadharID)
+	fmt.Println(record.PPSID, args[2])
+	if record.PPSID != args[2] {
+		err := deletePPSRecord(APIstub, record.PPSID)
 		if err != nil {
 			return shim.Error(err.Error())
 		}
-		fmt.Println("deleted aadhar redcord")
-		response := addAadharRecord(APIstub, []string{args[2], record.ID}, mspID, record.Owner)
+		fmt.Println("deleted PPS redcord")
+		response := addPPSRecord(APIstub, []string{args[2], record.ID}, mspID, record.Owner)
 		if response.GetMessage() != "" {
 			return response
 		}
-		fmt.Println("aadhar record added")
+		fmt.Println("PPS record added")
 	}
 
-	record.AadharID = args[2]
+	record.PPSID = args[2]
 
 	phoneNumbers, err := utils.SliceFromString(args[3])
 	if err != nil {
@@ -230,9 +230,9 @@ func UpdateRecord(APIstub shim.ChaincodeStubInterface, args []string, kycRecordA
 	return eh.SystemError(err, updatedRecordAsBytes)
 }
 
-func verifyAadharMSP(aadharRecord AadharRecord, mspID string) bool {
-	for i := 0; i < len(aadharRecord.SubRecords); i++ {
-		if aadharRecord.SubRecords[i].MSPID == mspID {
+func verifyPPSMSP(PPSRecord PPSRecord, mspID string) bool {
+	for i := 0; i < len(PPSRecord.SubRecords); i++ {
+		if PPSRecord.SubRecords[i].MSPID == mspID {
 			return false
 		}
 	}
@@ -309,7 +309,7 @@ func AddVerificationRecord(APIstub shim.ChaincodeStubInterface, kycRecordAsBytes
 
 // UpdateVerificationRecordStatus updates the KYC record status
 //
-// args : [verificationRecordID, kycID, aadharId, statusUpdate]
+// args : [verificationRecordID, kycID, PPSId, statusUpdate]
 func UpdateVerificationRecordStatus(APIstub shim.ChaincodeStubInterface, args []string, existingRecordAsBytes []byte, existingVerificationRecordAsBytes []byte, userID string, mspID string) sc.Response {
 
 	verificationRecord := VerificationRecord{}
@@ -325,8 +325,8 @@ func UpdateVerificationRecordStatus(APIstub shim.ChaincodeStubInterface, args []
 	}
 	fmt.Println(record)
 
-	if record.AadharID != args[2] {
-		return shim.Error("Aadhar ID don't match")
+	if record.PPSID != args[2] {
+		return shim.Error("PPS ID don't match")
 	}
 	if record.MSPID != mspID {
 		return shim.Error("MSP IDs don't match")

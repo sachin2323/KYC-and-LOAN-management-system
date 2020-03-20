@@ -46,7 +46,7 @@ class AddUser extends Component {
         name: values.name,
         email: values.email,
         role: this.state.userRole,
-        aadhaarId: values.aadhaarId ? values.aadhaarId : "",
+        PPSId: values.PPSId ? values.PPSId : "",
         timestamp: new Date()
       },
       onSuccess: (data) => {
@@ -70,16 +70,16 @@ class AddUser extends Component {
     })
   }
 
-  renderAadharIDInput = () => {
+  renderPPSIDInput = () => {
     const { getFieldDecorator } = this.props.form;
     if (this.state.userRole === "Client") {
       return (
         <div>
-          <FormItem label="Aadhaar ID">
-            {getFieldDecorator('aadhaarId', {
-              rules: [{ required: true, message: 'Please input Aadhaar ID!' }],
+          <FormItem label="PPS ID">
+            {getFieldDecorator('PPSId', {
+              rules: [{ required: true, message: 'Please input PPS ID!' }],
             })(
-              <Input placeholder="Aadhaar ID" />
+              <Input placeholder="PPS ID" />
             )}
           </FormItem>
         </div>
@@ -130,7 +130,7 @@ class AddUser extends Component {
                 </Select>
               )}
             </FormItem>
-            {this.renderAadharIDInput()}
+            {this.renderPPSIDInput()}
           </Form>
         </Modal>
       </div>

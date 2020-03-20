@@ -32,9 +32,9 @@ var getInfo = (options) => {
   })
 }
 
-var searchAadhaar = (options) => {
+var searchPPS = (options) => {
   let { data, onSuccess, onError } = options;
-  var url = Routes.SEARCH_AADHAAR;
+  var url = Routes.SEARCH_PPS;
   API.get(url, data).then(function (data) {
     onSuccess(data);
   }).catch(function (error) {
@@ -114,8 +114,8 @@ var listRequest = (options) => {
 
 var getOtherRecords = (options) => {
   let { data, onSuccess, onError } = options;
-  var url = Routes.GET_KYC_BY_AADHAAR;
-  API.get(url, { aadhar_number: data.aadhar_number}).then(function (data) {
+  var url = Routes.GET_KYC_BY_PPS;
+  API.get(url, { PPS_number: data.PPS_number}).then(function (data) {
     onSuccess(data);
   }).catch(function (error) {
     onError(error);
@@ -165,7 +165,7 @@ export {
   getClientKYC,
   addKYC,
   processKYC,
-  searchAadhaar,
+  searchPPS,
   createRequest,
   listApprovedKYCs,
   listRequest,

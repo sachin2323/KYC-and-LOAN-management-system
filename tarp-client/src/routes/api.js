@@ -306,13 +306,13 @@ router.get("/get-user-details", function (req, res) {
     });
 });
 
-router.get("/get-records-by-aadhar", function (req, res) {
+router.get("/get-records-by-PPS", function (req, res) {
   console.log("came");
   let handler = new Handler(req.user);
   handler
     .init()
     .then(function () {
-      return handler.getRecordIDsByAadharNumber(
+      return handler.getRecordIDsByPPSNumber(
         query.parse(req.url, true).query
       );
     })
@@ -325,13 +325,13 @@ router.get("/get-records-by-aadhar", function (req, res) {
     });
 });
 
-router.get("/search-aadhaar", function (req, res) {
+router.get("/search-PPS", function (req, res) {
   console.log("came");
   let handler = new Handler(req.user);
   handler
     .init()
     .then(function () {
-      return handler.getNameFromAadhar(query.parse(req.url, true).query);
+      return handler.getNameFromPPS(query.parse(req.url, true).query);
     })
     .then(function (data) {
       res.status(200).json({ response: data });

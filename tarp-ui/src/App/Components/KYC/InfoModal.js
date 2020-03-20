@@ -10,7 +10,7 @@ const keyMaping = {
   preferences: 'Preferences',
   nationality: 'Nationality',
   mothers_maiden_name : 'Mother\'s maiden name',
-  aadharId: 'Aadhaar ID',
+  PPSId: 'PPS ID',
   phoneNumbers: 'Phone Number',
   drivers_license: 'Driver\'s License',
   email_address: 'E-mail',
@@ -46,7 +46,7 @@ export default class InfoModal extends Component {
     this.setState({spinner : true})
     getInfo({
       data: {
-        aadhar_number: this.props.record.aadharId
+        PPS_number: this.props.record.PPSId
       },
       onSuccess: (data) => {
         console.log(data.response[0].kyc_record)
@@ -114,7 +114,7 @@ export default class InfoModal extends Component {
   //         <Col span={12}>
   //       {/* <h2>User Info</h2> */}
   //       <p><strong>Name: </strong>{this.state.info.name}</p>
-  //       <p><strong>Aadhaar ID: </strong>{this.state.info.aadharId}</p>
+  //       <p><strong>PPS ID: </strong>{this.state.info.PPSId}</p>
   //       <p><strong>Phone Number: </strong>{this.state.info.phoneNumbers[0]}</p>
   //       </Col>
   //         <Col span={12}>

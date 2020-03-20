@@ -26,7 +26,7 @@ class AddKYC extends Component {
       if (!err) {
         const user = getCurrentUser();
         values.name = user.name;
-        values.aadhar_number = user.national_id;
+        values.PPS_number = user.national_id;
         values.emailAddress = user.email;
         console.log("TCL: AddKYC -> values", values);
         this.addKYC(values);
@@ -114,7 +114,7 @@ class AddKYC extends Component {
                   style={{ color: "blue" }}
                   readOnly
                   // disabled={true}
-                  name="aadhar_number"
+                  name="PPS_number"
                 />
               </FormItem>
               <FormItem>

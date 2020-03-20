@@ -23,7 +23,7 @@ class ClientKYC extends Component {
     console.log(getCurrentUser().national_id)
     getClientKYC({
       data : {
-        aadhaarId: getCurrentUser().national_id
+        PPSId: getCurrentUser().national_id
       },
       onSuccess: (data) => {
         console.log(data)
@@ -72,8 +72,8 @@ class ClientKYC extends Component {
             </Col>
             <Col span={6}>
               <li>
-                <b>Aadhaar ID</b>
-                <p>{this.state.KYC.aadharId}</p>
+                <b>PPS ID</b>
+                <p>{this.state.KYC.PPSId}</p>
               </li>
             </Col>
             {console.log(this.state.KYC.phoneNumbers)}

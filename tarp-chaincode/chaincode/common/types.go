@@ -14,8 +14,8 @@ type BankRequest struct {
 type BankApproval struct {
 	ID        string        `json:"id"`
 	UserID    string        `json:"userId"`
-	AadharID  string        `json:"aadharId"`
-	AadharRaw string        `json:"aadharRaw"`
+	PPSID  string        `json:"PPSId"`
+	PPSRaw string        `json:"PPSRaw"`
 	Banks     []BankRequest `json:"banks"`
 	CreatedAt string        `json:"createdAt"`
 	UpdatedAt string        `json:"updatedAt"`
