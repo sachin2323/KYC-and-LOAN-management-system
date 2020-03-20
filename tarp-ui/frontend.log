@@ -1,0 +1,207 @@
+
+> tarp-ui@0.1.0 start /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> npm-run-all -p watch-css start-js
+
+
+> tarp-ui@0.1.0 start-js /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> PORT=3001 react-scripts start
+
+
+> tarp-ui@0.1.0 watch-css /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive
+
+
+> tarp-ui@0.1.0 build-css /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> node-sass-chokidar src/ -o src/
+
+/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/lib/binding.js:15
+      throw new Error(errors.missingBinary());
+      ^
+
+Error: Missing binding /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/vendor/linux-x64-64/binding.node
+Node Sass could not find a binding for your current environment: Linux 64-bit with Node.js 10.x
+
+Found bindings for the following environments:
+  - Linux 64-bit with Node.js 8.x
+
+This usually happens because your environment has changed since running `npm install`.
+Run `npm rebuild node-sass --force` to build the binding for your current environment.
+    at module.exports (/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/lib/binding.js:15:13)
+    at Object.<anonymous> (/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/lib/index.js:14:35)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass-chokidar/bin/node-sass-chokidar:18:9)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! tarp-ui@0.1.0 build-css: `node-sass-chokidar src/ -o src/`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the tarp-ui@0.1.0 build-css script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/priyansh/.npm/_logs/2019-11-14T06_38_23_440Z-debug.log
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! tarp-ui@0.1.0 watch-css: `npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the tarp-ui@0.1.0 watch-css script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/priyansh/.npm/_logs/2019-11-14T06_38_23_641Z-debug.log
+ERROR: "watch-css" exited with 1.
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! tarp-ui@0.1.0 start: `npm-run-all -p watch-css start-js`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the tarp-ui@0.1.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/priyansh/.npm/_logs/2019-11-14T06_38_23_846Z-debug.log
+
+> tarp-ui@0.1.0 start /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> npm-run-all -p watch-css start-js
+
+
+> tarp-ui@0.1.0 start-js /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> PORT=3001 react-scripts start
+
+
+> tarp-ui@0.1.0 watch-css /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive
+
+
+> tarp-ui@0.1.0 build-css /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> node-sass-chokidar src/ -o src/
+
+/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/lib/binding.js:15
+      throw new Error(errors.missingBinary());
+      ^
+
+Error: Missing binding /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/vendor/linux-x64-64/binding.node
+Node Sass could not find a binding for your current environment: Linux 64-bit with Node.js 10.x
+
+Found bindings for the following environments:
+  - Linux 64-bit with Node.js 8.x
+
+This usually happens because your environment has changed since running `npm install`.
+Run `npm rebuild node-sass --force` to build the binding for your current environment.
+    at module.exports (/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/lib/binding.js:15:13)
+    at Object.<anonymous> (/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/lib/index.js:14:35)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass-chokidar/bin/node-sass-chokidar:18:9)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! tarp-ui@0.1.0 build-css: `node-sass-chokidar src/ -o src/`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the tarp-ui@0.1.0 build-css script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/priyansh/.npm/_logs/2019-11-14T08_41_12_340Z-debug.log
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! tarp-ui@0.1.0 watch-css: `npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the tarp-ui@0.1.0 watch-css script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/priyansh/.npm/_logs/2019-11-14T08_41_12_602Z-debug.log
+ERROR: "watch-css" exited with 1.
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! tarp-ui@0.1.0 start: `npm-run-all -p watch-css start-js`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the tarp-ui@0.1.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/priyansh/.npm/_logs/2019-11-14T08_41_12_761Z-debug.log
+
+> tarp-ui@0.1.0 start /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> npm-run-all -p watch-css start-js
+
+
+> tarp-ui@0.1.0 start-js /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> PORT=3001 react-scripts start
+
+
+> tarp-ui@0.1.0 watch-css /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive
+
+
+> tarp-ui@0.1.0 build-css /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui
+> node-sass-chokidar src/ -o src/
+
+/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/lib/binding.js:15
+      throw new Error(errors.missingBinary());
+      ^
+
+Error: Missing binding /home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/vendor/linux-x64-64/binding.node
+Node Sass could not find a binding for your current environment: Linux 64-bit with Node.js 10.x
+
+Found bindings for the following environments:
+  - Linux 64-bit with Node.js 8.x
+
+This usually happens because your environment has changed since running `npm install`.
+Run `npm rebuild node-sass --force` to build the binding for your current environment.
+    at module.exports (/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/lib/binding.js:15:13)
+    at Object.<anonymous> (/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass/lib/index.js:14:35)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/home/priyansh/Projects/PersonalProjects/HyperledgerFabric/SkcriptProjects/tarp/tarp-ui/node_modules/node-sass-chokidar/bin/node-sass-chokidar:18:9)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! tarp-ui@0.1.0 build-css: `node-sass-chokidar src/ -o src/`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the tarp-ui@0.1.0 build-css script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/priyansh/.npm/_logs/2019-11-14T08_44_29_606Z-debug.log
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! tarp-ui@0.1.0 watch-css: `npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the tarp-ui@0.1.0 watch-css script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/priyansh/.npm/_logs/2019-11-14T08_44_29_701Z-debug.log
+ERROR: "watch-css" exited with 1.
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! tarp-ui@0.1.0 start: `npm-run-all -p watch-css start-js`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the tarp-ui@0.1.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/priyansh/.npm/_logs/2019-11-14T08_44_29_892Z-debug.log

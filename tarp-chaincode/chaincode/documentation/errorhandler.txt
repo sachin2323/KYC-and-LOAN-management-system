@@ -1,0 +1,22 @@
+PACKAGE DOCUMENTATION
+
+package errorhandler
+    import "."
+
+
+FUNCTIONS
+
+func AbsentError(APIstub shim.ChaincodeStubInterface, id string) sc.Response
+    AbsentError queries the state and sends an error if the queried id
+    doesn't exist
+
+func ArgumentError(expectedLength int, args []string) sc.Response
+    ArgumentError is used to handle errors of incorrect argument length
+
+func ExistError(APIstub shim.ChaincodeStubInterface, id string) sc.Response
+    ExistError queries the state and sends an error if the queried id exists
+
+func SystemError(err error, itemAsBytes []byte) sc.Response
+    SystemError is used to handle for any side errors from system functions
+
+

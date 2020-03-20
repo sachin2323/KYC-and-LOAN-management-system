@@ -1,0 +1,61 @@
+PACKAGE DOCUMENTATION
+
+package claim
+    import "."
+
+
+FUNCTIONS
+
+func Add(APIstub shim.ChaincodeStubInterface, args []string, txnID string, userID string, currentOrgID string) sc.Response
+    Add is used to register a claim and store to the state - CouchDB
+
+    args : [claimId, description, cost, organizationId]
+
+func AddProof(APIstub shim.ChaincodeStubInterface, args []string, txnID string) sc.Response
+    AddProof is used to add a proof to a certain claim, by an external
+    entity.
+
+    args : [id, claimId, certificateId]
+
+func AddUser(APIstub shim.ChaincodeStubInterface, args []string, txnID string, userID string) sc.Response
+    AddUser is used to add a user to a claim, so they can have access based
+    on the organization they belong to.
+
+    args: [claimId]
+
+func GetDetails(APIstub shim.ChaincodeStubInterface, args []string, txnID string) sc.Response
+    GetDetails is used to fetch details of a claim.
+
+    args[0] = ID -> the claim ID
+
+func UpdateStatus(APIstub shim.ChaincodeStubInterface, args []string, txnID string) sc.Response
+    UpdateStatus is used to update the status of a claim, access is limited
+    to organization
+
+    args : claimId, statusUpdate
+
+TYPES
+
+type Claim struct {
+    ID             string   `json:"id"`
+    Description    string   `json:"description"`
+    Status         string   `json:"status"`
+    Cost           string   `json:"cost"`
+    InsureeID      string   `json:"insureeId"`
+    UserIDs        []string `json:"userIds"`
+    OrganizationID string   `json:"organizationId"`
+    InsurerOrgID   string   `json:"insurerOrgId"`
+    CreatedAt      string   `json:"createdAt"`
+    Class          string   `json:"class"`
+}
+    Claim definition
+
+type Proof struct {
+    ID            string `json:"id"`
+    ClaimID       string `json:"claimId"`
+    CertificateID string `json:"certificateId"`
+    Class         string `json:"class"`
+}
+    Proof definition
+
+

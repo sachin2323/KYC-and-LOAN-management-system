@@ -1,0 +1,173 @@
+.ant-layout {
+  background: #f4f7f9 !important;
+}
+
+.empty-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+.demo-key-container {
+  padding: 10px;
+  flex-wrap: wrap;
+  .ant-btn {
+    margin: 10px 4px;
+  }
+}
+
+.loader-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  p {
+    font-size: 20px;
+  }
+  h3 {
+    margin-top: 10px;
+  }
+}
+
+.Page-Wrapper {
+  padding: 5px 20px;
+  margin: -20px;
+  margin-top: 15px;
+  @include breakpoint(tablet) {
+    margin-top: 60px;
+  }
+}
+
+.Main-Layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .ant-layout-content {
+    width: 80%;
+    @include breakpoint(tablet) {
+      width: 95%;
+    }
+  }
+  .Page-Head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .Page-Title {
+    h3 {
+      font-weight: 500;
+      font-size: 25px;
+      margin-bottom: 0px;
+    }
+    p {
+      margin-bottom: 0px;
+    }
+  }
+  .Page-Head-Buttons {
+    display: flex;
+    .Head-right-buttons {
+      display: flex;
+    }
+    button {
+      margin-left: 10px;
+      height: 33px;
+      span {
+        margin-right: 5px;
+      }
+    }
+    .button-primary {
+      span {
+        margin-right: 5px;
+      }
+      i,
+      span {
+        color: $brand_color;
+      }
+    }
+  }
+  .Page-Table {
+    .ant-table-body {
+      background: white;
+      .ant-input-number {
+        margin-right: 10px;
+      }
+    }
+    td {
+      font-size: 13px;
+    }
+    .ant-table-thead {
+      th {
+        font-weight: 700;
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+.quantityColoumn {
+  text-align: right !important;
+}
+
+.create-user {
+  width: 500px;
+  margin: 0 auto;
+  padding: 10px 30px;
+  background: white;
+  border-radius: 4px;
+  @include breakpoint(tablet) {
+    width: 100%;
+    padding: 10px;
+  }
+  .ant-btn {
+    width: 100%;
+    margin-top: 15px;
+  }
+}
+
+.Page-not-found {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h3 {
+    font-size: 30px;
+    font-weight: 300;
+    color: #bbc1c8;
+    padding-top: 0px;
+  }
+  h1 {
+    font-size: 150px;
+    line-height: 130px;
+    font-weight: 300;
+    color: #bbc1c8;
+    margin-bottom: 30px;
+    margin-top: -80px;
+  }
+}
+
+.add-kyc-form {
+  // width: 800px;
+  margin: 0 auto;
+  @include breakpoint(tablet) {
+    width: 100%;
+  }
+}
+
+.center-form {
+  margin: auto;
+  width: 70%;
+  // border: 3px solid green;
+  padding: 10px;
+}

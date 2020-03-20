@@ -1,0 +1,117 @@
+PACKAGE DOCUMENTATION
+
+package kyc
+    import "."
+
+    Package kyc deals with all kyc record related operations
+
+FUNCTIONS
+
+func Add(APIstub shim.ChaincodeStubInterface, args []string, userID string, mspID string, OwnerID string, processed string) (sc.Response, sc.Response)
+    Add is used to add a KYC record and store to the state - CouchDB
+
+    args : [id, name, aadharId, phoneNumbers(stringified array),
+    dateOfBirth, birthMarks, mothersMaidenName, driversLicense, passport,
+    cardInformation, nationality, emailAddress, loyaltyCards, preferences]
+
+func AddAddress(APIstub shim.ChaincodeStubInterface, recordAsBytes []byte, args []string, userID string) sc.Response
+    AddAddress will add an address to an existing KYC record. Since a user
+    can have multiple addresses, this is used.
+
+    args : [kycID, ID, AddressType, AddressLine1, AddressLine2,
+    AddressLine3, CityOrTownOrVillage, PostalCode, StateOrUT ]
+
+func AddVerificationRecord(APIstub shim.ChaincodeStubInterface, kycRecordAsBytes []byte, args []string, userID string, mspID string, organizationID string) sc.Response
+    AddVerificationRecord will verify a KYCID and update the status
+
+    args : [kycId, Status, referenceVerificationRecordID]
+
+func UpdateRecord(APIstub shim.ChaincodeStubInterface, args []string, kycRecordAsBytes []byte, mspID string) sc.Response
+    UpdateRecord will update an existing record
+
+    args : [id, name, aadharId, phoneNumbers(stringified array)]
+
+func UpdateVerificationRecordStatus(APIstub shim.ChaincodeStubInterface, args []string, existingRecordAsBytes []byte, existingVerificationRecordAsBytes []byte, userID string, mspID string) sc.Response
+    UpdateVerificationRecordStatus updates the KYC record status
+
+    args : [verificationRecordID, kycID, aadharId, statusUpdate]
+
+TYPES
+
+type AadharRecord struct {
+    AadharID   string      `json:"aadharId"`
+    UserID     string      `json:"userId"`
+    SubRecords []SubRecord `json:"subRecords"`
+    CreatedAt  string      `json:"createdAt"`
+    UpdatedAt  string      `json:"updatedAt"`
+    Class      string      `json:"class"`
+}
+    AadharRecord is the model with aadhar card as the primary key
+
+type Address struct {
+    ID                  string `json:"id"`
+    AddressType         string `json:"addressType"`
+    AddressLine1        string `json:"addressLine1"`
+    AddressLine2        string `json:"addressLine2"`
+    AddressLine3        string `json:"addressLine3"`
+    CityOrTownOrVillage string `json:"cityOrTownOrVillage"`
+    PostalCode          string `json:"postalCode"`
+    StateOrUT           string `json:"stateOrUT"`
+    CreatedAt           string `json:"createdAt"`
+    UpdatedAt           string `json:"updatedAt"`
+    Class               string `json:"class"`
+}
+    Address belongs to a KYC record
+
+type MasterRecord struct {
+    AadharSubrecord    SubRecord          `json:"aadhar_subrecord"`
+    KycRecord          Record             `json:"kyc_record"`
+    VerificationRecord VerificationRecord `json:"verification_record"`
+}
+    MasterRecord definition
+
+type Record struct {
+    ID                string   `json:"id"`
+    Name              string   `json:"name"`
+    AadharID          string   `json:"aadharId"`
+    PhoneNumbers      []string `json:"phoneNumbers"`
+    AddressIDs        []string `json:"addressIds"`
+    Owner             string   `json:"owner"`
+    CreatedBy         string   `json:"created_by"`
+    MSPID             string   `json:"mspId"`
+    CreatedAt         string   `json:"createdAt"`
+    UpdatedAt         string   `json:"updatedAt"`
+    Class             string   `json:"class"`
+    DateOfBirth       string   `json:"date_of_birth"`
+    BirthMarks        string   `json:"birth_marks"`
+    MothersMaidenName string   `json:"mothers_maiden_name"`
+    DriversLicense    string   `json:"drivers_license"`
+    Passport          string   `json:"passport"`
+    CardInformation   string   `json:"card_information"`
+    Nationality       string   `json:"nationality"`
+    EmailAddress      string   `json:"email_address"`
+    LoyaltyCards      string   `json:"loyalty_cards"`
+    Preferences       string   `json:"preferences"`
+}
+    Record is the model for a sample KYC Record
+
+type SubRecord struct {
+    KYCID string `json:"kycId"`
+    MSPID string `json:"mspId"`
+}
+    SubRecord belongs to a single aadhar record
+
+type VerificationRecord struct {
+    ID             string `json:"id"`
+    KYCID          string `json:"kycId"`
+    Status         string `json:"status"`
+    VerifiedBy     string `json:"verifiedBy"`
+    ReferencedFrom string `json:"referencedFrom"`
+    OrganizationID string `json:"organizationId"`
+    CreatedAt      string `json:"createdAt"`
+    UpdatedAt      string `json:"updatedAt"`
+    Class          string `json:"class"`
+}
+    VerificationRecord belongs to a single KYC Record
+
+

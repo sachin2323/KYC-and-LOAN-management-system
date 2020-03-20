@@ -1,0 +1,159 @@
+body {
+  font-weight: 500;
+}
+
+.table-dropdown {
+  cursor: pointer;
+}
+
+form .ant-input-number {
+  width: 100%;
+}
+
+.mt1 {
+  margin-top: 1px;
+}
+
+.mb0 {
+  margin-bottom: 0px;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+
+.mb50 {
+  margin-bottom: 50px;
+}
+
+.pt0 {
+  padding-top: 0px !important;
+}
+
+.mtn20 {
+  margin-top: -20px !important;
+}
+
+.align-center {
+  display: flex;
+  justify-content: center;
+}
+
+.ant-table table{
+  padding: 0px !important;
+}
+
+table {
+  a {
+    color: $link_color;
+  }
+  .ant-btn-background-ghost {
+    color: $link_color !important;
+    border: 0px !important;
+    padding: 0px !important;
+  }
+  .ant-btn {
+    p {
+      width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0px;
+      @include breakpoint(tablet) {
+        width: 100px;
+      }
+    }
+  }
+}
+
+.ant-table-thead>tr.ant-table-row-hover>td,
+.ant-table-tbody>tr.ant-table-row-hover>td,
+.ant-table-thead>tr:hover>td,
+.ant-table-tbody>tr:hover>td {
+  background: #e3e6ec !important;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+  padding: 8px 10px;
+}
+
+.ant-table-thead>tr>th {
+  color: #8899a6;
+  background: #F4F7F9;
+  border: none!important;
+}
+
+.ant-progress-bg {
+  background-color: $link_color !important;
+}
+
+.ant-alert-description {
+  text-overflow: ellipsis;
+  overflow-x: auto;
+}
+
+.ant-form-item {
+  margin-bottom: 15px;
+}
+
+.ant-form-item-label {
+  line-height: 27px !important;
+}
+
+.ant-form-vertical .ant-form-item-label {
+  padding: 0px;
+}
+
+.spin-wrapper {
+  text-align: center;
+  padding: 30px 0px;
+}
+
+.ant-tooltip-inner {
+  background: #333 !important;
+}
+
+.ant-table-tbody>tr>td {
+  max-width: 350px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ant-upload {
+  img {
+    width: 100%;
+  }
+}
+
+.zoom-enter,
+.zoom-leave,
+.fade-enter,
+.fade-appear,
+.fade-leave {
+  animation-duration: 0.1s !important;
+}
+
+.profile-hover-wrapper {
+  position: relative;
+  cursor: pointer;
+  &:hover {
+    img {
+      opacity: 0.4;
+    }
+    .profile-hover {
+      display: block;
+    }
+  }
+  .profile-hover {
+    display: none;
+    position: absolute;
+    top: 43%;
+    left: 10%;
+  }
+}
+
+.certificate-preview{
+  margin: 10px 0px;
+}

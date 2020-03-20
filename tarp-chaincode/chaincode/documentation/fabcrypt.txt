@@ -1,0 +1,26 @@
+PACKAGE DOCUMENTATION
+
+package fabcrypt
+    import "."
+
+
+FUNCTIONS
+
+func Decrypter(stub shim.ChaincodeStubInterface, key string) ([]byte, error)
+    Decrypter decrypts the data and writes to the ledger
+
+func Encrypter(stub shim.ChaincodeStubInterface, key string, valueAsBytes []byte) error
+    Encrypter encrypts the data and writes to the ledger
+
+func GetMD5Hash(text string) string
+    GetMD5Hash will return md5-hashed string
+
+TYPES
+
+type EncCC struct {
+    // contains filtered or unexported fields
+}
+    EncCC example simple Chaincode implementation of a chaincode that uses
+    encryption/signatures
+
+

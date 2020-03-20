@@ -1,0 +1,36 @@
+PACKAGE DOCUMENTATION
+
+package utils
+    import "."
+
+
+FUNCTIONS
+
+func GetQueryResultForQueryString(stub shim.ChaincodeStubInterface, queryString string) ([]byte, error)
+    GetQueryResultForQueryString is the utility function for getting a query
+    result from the state.
+
+func GetTimestampAsISO(APIstub shim.ChaincodeStubInterface) string
+    GetTimestampAsISO will return the current transactions timestamp as an
+    ISO formatted string
+
+func JoinResponseBytes(byteArgs []string) []byte
+    JoinResponseBytes joins byte responses and sends as an array
+
+func SliceFromString(stringifiedSlice string) ([]string, error)
+    SliceFromString will return a slice from a stringified array
+
+func StringInSlice(stringToCheck string, sliceToCheck []string) bool
+    StringInSlice checks if a string is present in an array
+
+func UniqueSlicer(input []string) []string
+    UniqueSlicer will unique the slicer
+
+TYPES
+
+type Slice struct {
+    Data []string `json:"data"`
+}
+    Slice is a prototype for string array
+
+

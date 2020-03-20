@@ -1,0 +1,381 @@
+
+              <h3>Personal Info</h3>
+
+              <FormItem>
+                {getFieldDecorator("surname", {
+                  rules: [
+                    {
+                      required: false ,
+                      message: "Please input your surname!"
+                    }
+                  ]
+                })(<Input placeholder="Surname" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("first_name", {
+                  rules: [
+                    {
+                      required: false,
+                      message: "Please input your first name!"
+                    }
+                  ]
+                })(<Input placeholder="First name" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("gender", {
+                  rules: [
+                    {
+                      required: false,
+                      message: "Please input your gender!"
+                    }
+                  ]
+                })(<Input placeholder="Gender" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("address", {
+                  rules: [
+                    {
+                      required: false,
+                      message: "Please input your address!"
+                    }
+                  ]
+                })(<Input placeholder="Address" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("country", {
+                  rules: [
+                    {
+                      required: false,
+                      message: "Please input your country!"
+                    }
+                  ]
+                })(<Input placeholder="Country" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("eir_code", {
+                  rules: [
+                    {
+                      required: false,
+                      message: "Please input your Eir Code!"
+                    }
+                  ]
+                })(<Input placeholder="EIR Code" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("phone_number", {
+                  rules: [
+                    {
+                      required: false,
+                      message: "Please input your phone number!"
+                    }
+                  ]
+                })(<Input placeholder="Phone Number" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("email", {
+                  rules: [
+                    {
+                      required: false,
+                      message: "Please input your Email!"
+                    }
+                  ]
+                })(<Input placeholder="Email" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("pps_number", {
+                  rules: [
+                    {
+                      required: false,
+                      message: "Please input your pps number!"
+                    }
+                  ]
+                })(<Input placeholder="PPS Number" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("date_of_birth", {
+                  rules: [
+                    {
+                      required: false,
+                      message: "Please input your Date of Birth!"
+                    }
+                  ]
+                })(<Input placeholder="Date OF Birth" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("martial_status", {
+                  rules: [
+                    {
+                      required: false,
+                      message: "Please input your martial status!"
+                    }
+                  ]
+                })(<Input placeholder="Martial Status" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("no_of_dependents", {
+                  rules: [
+                    {
+                      required: false,
+                      message: "Please input the number of dependents!"
+                    }
+                  ]
+                })(<Input placeholder="Number of Dependents" />)}
+              </FormItem>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package claim
+
+import (
+	"encoding/json"
+	"fmt"
+
+	org "github.com/chaincode/organization"
+	txn "github.com/chaincode/transaction"
+	"github.com/chaincode/utils"
+	"github.com/hyperledger/fabric/core/chaincode/shim"
+	sc "github.com/hyperledger/fabric/protos/peer"
+
+	"time"
+)
+
+// Claim definition
+type Claim struct {
+	ID             string   `json:"id"`
+	Description    string   `json:"description"`
+	Status         string   `json:"status"`
+	Cost           string   `json:"cost"`
+	//Surname        string   `json:"surname"`
+	//FirstName      string   `json:"first_name"`
+	//Gender         string   `json:"gender"`
+	//Address        string   `json:"address"`
+	//Country        string   `json:"country"`
+	//EirCode        string   `json:"eir_code"`
+	//PhoneNumber    string   `json:"phone_number"`
+	//Email          string   `json:"email"`
+	//PPSNumber      string   `json:"pps_number"`
+	//DateOfBirth    string   `json:"date_of_birth"`
+	//MartialStatus  string   `json:"martial_status"`
+	//NoOfDependents string   `json:"no_of_dependents"`
+	InsureeID      string   `json:"insureeId"`
+	UserIDs        []string `json:"userIds"`
+	OrganizationID string   `json:"organizationId"`
+	InsurerOrgID   string   `json:"insurerOrgId"`
+	CreatedAt      string   `json:"createdAt"`
+	Class          string   `json:"class"`
+}
+
+// Proof definition
+type Proof struct {
+	ID            string `json:"id"`
+	ClaimID       string `json:"claimId"`
+	CertificateID string `json:"certificateId"`
+	URL           string `json:"url"`
+	Class         string `json:"class"`
+
+	// more can be accomodated according to the use case
+}
+
+// GetDetails is used to fetch details of a claim.
+//
+// args[0] = ID -> the claim ID
+func GetDetails(APIstub shim.ChaincodeStubInterface, args []string, txnID string) sc.Response {
+
+	existingClaimAsBytes, _ := APIstub.GetState(args[0])
+
+	fmt.Println(existingClaimAsBytes)
+
+	return shim.Success(existingClaimAsBytes)
+
+}
+
+// Add is used to register a claim and store to the state - CouchDB
+//
+// args : [claimId, description, cost, organizationId]
+func Add(APIstub shim.ChaincodeStubInterface, args []string, txnID string, userID string, currentOrgID string) sc.Response {
+
+	timestamp, _ := APIstub.GetTxTimestamp()
+	timestampAsInt := timestamp.GetSeconds()
+	isotimestamp := time.Unix(timestampAsInt, 0).Format(time.RFC3339)
+	txnDetails := []string{txnID, "CA - Claim Addition", isotimestamp, "", args[0]}
+	type SearchResult struct {
+		Key    string           `json:"key"`
+		Record org.Organization `json:"record"`
+	}
+	searchResultsBytes, err := utils.GetQueryResultForQueryString(APIstub, "{\"selector\": {\"$and\": [{\"name\":\""+args[3]+"\"},{\"class\": \"Organization\"}]}}")
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	searchResults := []SearchResult{}
+	json.Unmarshal([]byte(searchResultsBytes), &searchResults)
+	if len(searchResults) < 1 {
+		return shim.Error("No org found with given name")
+	}
+	fmt.Println("Organization-Insurer ID is", searchResults[0].Record)
+	claim := Claim{
+		ID:             args[0],
+		Description:    args[1],
+		Status:         "Pending",
+		Cost:           args[2],
+		/*Surname:		args[3],
+		FirstName:		args[4],
+		Gender:			args[5],
+		Address:		args[6],
+		Country:		args[7],
+		EirCode:		args[8],
+		PhoneNumber:	args[9],
+		Email:			args[10],
+		PPSNumber:		args[11],
+		DateOfBirth: 	args[12],
+		MartialStatus:	args[13],
+		NoOfDependents:	args[14],  */
+		InsureeID:      userID,
+		InsurerOrgID:   searchResults[0].Record.ID,
+		OrganizationID: currentOrgID,
+		CreatedAt:      isotimestamp,
+		Class:          "Claim",
+	}
+	claimAsBytes, _ := json.Marshal(claim)
+	APIstub.PutState(args[0], claimAsBytes)
+	txn.Add(APIstub, txnDetails)
+
+	return shim.Success(claimAsBytes)
+}
+
+// AddUser is used to add a user to a claim, so they can have access based on
+// the organization they belong to.
+//
+// args: [claimId]
+func AddUser(APIstub shim.ChaincodeStubInterface, args []string, txnID string, userID string) sc.Response {
+
+	existingClaimAsBytes, _ := APIstub.GetState(args[0])
+
+	claim := Claim{}
+	json.Unmarshal(existingClaimAsBytes, &claim)
+
+	if utils.StringInSlice(userID, claim.UserIDs) {
+		return shim.Error("User already in Claim")
+	}
+
+	claim.UserIDs = append(claim.UserIDs, userID)
+
+	claimAsBytes, _ := json.Marshal(claim)
+
+	APIstub.PutState(args[0], claimAsBytes)
+
+	timestamp, _ := APIstub.GetTxTimestamp()
+	timestampAsInt := timestamp.GetSeconds()
+	isotimestamp := time.Unix(timestampAsInt, 0).Format(time.RFC3339)
+	txnDetails := []string{txnID, "CEA - Claim User Addition", isotimestamp, "", claim.ID}
+	txn.Add(APIstub, txnDetails)
+
+	return shim.Success(claimAsBytes)
+
+}
+
+// AddProof is used to add a proof to a certain claim, by
+// an external entity.
+//
+// args : [id, claimId, certificateId]
+func AddProof(APIstub shim.ChaincodeStubInterface, args []string, txnID string) sc.Response {
+
+	proof := Proof{
+		ID:            args[0],
+		ClaimID:       args[1],
+		CertificateID: args[2],
+		URL:           args[3],
+		Class:         "Proof",
+	}
+	proofAsBytes, _ := json.Marshal(proof)
+
+	APIstub.PutState(args[0], proofAsBytes)
+	payloadAsResponse := UpdateStatus(APIstub, []string{args[1], "Processed"}, txnID)
+	if payloadAsResponse.GetMessage() != "" {
+		return payloadAsResponse
+	}
+
+	return shim.Success(proofAsBytes)
+
+}
+
+// UpdateStatus is used to update the status of a claim, access is limited to organization
+//
+// args : claimId, statusUpdate
+func UpdateStatus(APIstub shim.ChaincodeStubInterface, args []string, txnID string) sc.Response {
+	fmt.Println("UpdateStatus Initial")
+	fmt.Println(args)
+	existingClaimAsBytes, _ := APIstub.GetState(args[0])
+
+	claim := Claim{}
+	json.Unmarshal(existingClaimAsBytes, &claim)
+
+	claim.Status = args[1]
+
+	claimAsBytes, _ := json.Marshal(claim)
+	APIstub.PutState(args[0], claimAsBytes)
+
+	timestamp, _ := APIstub.GetTxTimestamp()
+	timestampAsInt := timestamp.GetSeconds()
+	isotimestamp := time.Unix(timestampAsInt, 0).Format(time.RFC3339)
+	txnDetails := []string{txnID, "CSU - Claim Status Update", isotimestamp, args[1], claim.ID}
+	fmt.Println(txnDetails)
+	fmt.Println(txn.Add(APIstub, txnDetails))
+	txn.Add(APIstub, txnDetails)
+	return shim.Success(claimAsBytes)
+
+}
+
+
+
+<FormItem name="gender2" label="Gender">
+                <Radio.Group>
+                <Radio value="Male">Male</Radio>
+                <Radio value="Female">Female</Radio>
+                <Radio value="Others">Others</Radio>
+                </Radio.Group>
+                </FormItem>
+
+
+
+				 <FormItem
+                  name="martial_status2"
+                  label="Martial Status"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: false,
+                      message: 'Please select your martial status!',
+                    },
+                  ]}
+                >
+                  <Select placeholder="Please select your martial status">
+                    <Option value="Single">Single</Option>
+                    <Option value="Married">Married</Option>
+                    <Option value="Divorced">Divorced</Option>
+                    <Option value="Seperated">Seperated</Option>
+                    <Option value="Widower">Widower</Option>
+                  </Select>
+                </FormItem>

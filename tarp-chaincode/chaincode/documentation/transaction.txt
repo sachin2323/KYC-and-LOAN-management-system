@@ -1,0 +1,32 @@
+PACKAGE DOCUMENTATION
+
+package transaction
+    import "."
+
+
+FUNCTIONS
+
+func Add(APIstub shim.ChaincodeStubInterface, args []string) bool
+    Add is used to add a transaction record to state.
+
+    args : [txnId, action, timestamp, description, claimId]
+
+func GetTxnByMonth(APIstub shim.ChaincodeStubInterface, args []string) sc.Response
+    GetTxnByMonth is used to fetch all the transaction records for the
+    current month
+
+    args: [year(XXXX), month(XX)]
+
+TYPES
+
+type Transaction struct {
+    TxnID       string `json:"txnId"`
+    Action      string `json:"action"`
+    Timestamp   string `json:"timestamp"`
+    Description string `json:"description"`
+    ClaimID     string `json:"claimId"`
+    Class       string `json:"class"`
+}
+    Transaction definition
+
+

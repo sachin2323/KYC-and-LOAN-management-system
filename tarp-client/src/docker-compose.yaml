@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  ins-client:
+    image: presto412/hlf-client
+    container_name: ins-client
+    ports:
+      - "80:3000"
+    volumes:
+      - /tmp/cards/:/usr/src/app/cards/
+    command: ./scripts/set-up-client-start-server.sh
