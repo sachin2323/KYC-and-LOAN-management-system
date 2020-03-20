@@ -1,5 +1,5 @@
 #  Insurance Client
-A Fabric Client for the `Insurance` chaincode.
+A Fabric Client for the `KYC and Loan` chaincode.
 
 ###  Initial scripts (Run in the root of the project)
 1.  `npm install` - To install the required packages
