@@ -23,24 +23,26 @@ export default class ListClaim extends Component {
         key: "description"
       },
       {
-        title: "Cost",
-        dataIndex: "cost",
-        key: "cost"
+        title: "Buyer PPS ID",
+        dataIndex: "pps_number",
+        key: "pps_number"
+        //dataIndex: "insureeDetails.name",
+        //key: "insureeDetails.name"
+      },
+      {
+        title: "Seller PPS ID",
+        dataIndex: "seller_PPS",
+        key: "seller_PPS"
+      },
+      {
+        title: "Bank Name",
+        dataIndex: "insurerDetails.name",
+        key: "insurerDetails.name"
       },
       {
         title: "Created At",
         dataIndex: "createdAt",
         key: "createdAt"
-      },
-      {
-        title: "Insuree Name",
-        dataIndex: "insureeDetails.name",
-        key: "insureeDetails.name"
-      },
-      {
-        title: "Insurer Name",
-        dataIndex: "insurerDetails.name",
-        key: "insurerDetails.name"
       },
       {
         title: "Status",

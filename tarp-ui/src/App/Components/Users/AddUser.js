@@ -77,7 +77,19 @@ class AddUser extends Component {
         <div>
           <FormItem label="PPS ID">
             {getFieldDecorator('PPSId', {
-              rules: [{ required: true, message: 'Please input PPS ID!' }],
+              rules: [
+                  {   
+                      type:"string",
+                      pattern:/^(\d{7})([A-Z]{1,2})$/i, 
+                      message: "PPS ID is Invalid. Please Input the correct PPS ID!" 
+                  },
+                  {
+                    
+                      required: true,
+                      message: "Please input the PPS ID!"
+                  
+                  }
+              ],
             })(
               <Input placeholder="PPS ID" />
             )}

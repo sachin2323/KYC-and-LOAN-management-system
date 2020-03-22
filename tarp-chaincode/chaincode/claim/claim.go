@@ -18,9 +18,11 @@ type Claim struct {
 	ID             string   `json:"id"`
 	Description    string   `json:"description"`
 	Status         string   `json:"status"`
-	Cost           string   `json:"cost"`
+	SellerPPS      string   `json:"seller_PPS"`
+	SellerName	   string   `json:"seller_name"`	
 	InsureeID      string   `json:"insureeId"`
 	UserIDs        []string `json:"userIds"`
+	SellerID       string 	`json:"sellerID"`
 	OrganizationID string   `json:"organizationId"`
 	InsurerOrgID   string   `json:"insurerOrgId"`
 	CreatedAt      string   `json:"createdAt"`
@@ -92,7 +94,7 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, txnID string, userI
 	timestamp, _ := APIstub.GetTxTimestamp()
 	timestampAsInt := timestamp.GetSeconds()
 	isotimestamp := time.Unix(timestampAsInt, 0).Format(time.RFC3339)
-	txnDetails := []string{txnID, "CA - Claim Addition", isotimestamp, "", args[0]}
+	txnDetails := []string{txnID, "LA - Loan Application Addition", isotimestamp, "", args[0]}
 	type SearchResult struct {
 		Key    string           `json:"key"`
 		Record org.Organization `json:"record"`
@@ -104,15 +106,44 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, txnID string, userI
 	searchResults := []SearchResult{}
 	json.Unmarshal([]byte(searchResultsBytes), &searchResults)
 	if len(searchResults) < 1 {
-		return shim.Error("No org found with given name")
+		return shim.Error("No Bank found with given name")
 	}
 	fmt.Println("Organization-Insurer ID is", searchResults[0].Record)
+
+	searchSellerBytes, err := utils.GetQueryResultForQueryString(APIstub, "{\"selector\": {\"$and\": [{\"name\":\""+args[16]+"\"},{\"class\": \"User\"}]}}")
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	searchSellers := []SearchResult{}
+	json.Unmarshal([]byte(searchSellerBytes), &searchSellers)
+	
+	if len(searchSellers) < 1 {
+		return shim.Error("No seller found with given name")
+	}
+	fmt.Println("Seller ID is", searchSellers[0].Record)
+
+
+	searchPPSBytes, err := utils.GetQueryResultForQueryString(APIstub, "{\"selector\": {\"$and\": [{\"national_id\":\""+args[2]+"\"},{\"class\": \"User\"}]}}")
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	searchPPS := []SearchResult{}
+	json.Unmarshal([]byte(searchPPSBytes), &searchPPS)
+
+	if searchSellers[0].Record.ID != searchPPS[0].Record.ID {
+		return shim.Error("Seller not matched with given PPS ID")
+	}
+
+	fmt.Println("PPS ID is", searchPPS[0].Record)
+
 	claim := Claim{
 		ID:             args[0],
 		Description:    args[1],
 		Status:         "Pending",
-		Cost:      		args[2],
+		SellerPPS:      args[2],
 		InsureeID:      userID,
+		SellerName:		args[16],
+		SellerID:		searchSellers[0].Record.ID,
 		InsurerOrgID:   searchResults[0].Record.ID,
 		OrganizationID: currentOrgID,
 		CreatedAt:      isotimestamp,
@@ -182,7 +213,7 @@ func AddUser(APIstub shim.ChaincodeStubInterface, args []string, txnID string, u
 	timestamp, _ := APIstub.GetTxTimestamp()
 	timestampAsInt := timestamp.GetSeconds()
 	isotimestamp := time.Unix(timestampAsInt, 0).Format(time.RFC3339)
-	txnDetails := []string{txnID, "CEA - Claim User Addition", isotimestamp, "", claim.ID}
+	txnDetails := []string{txnID, "LEA - Loan Application User Addition", isotimestamp, "", claim.ID}
 	txn.Add(APIstub, txnDetails)
 
 	return shim.Success(claimAsBytes)
@@ -233,7 +264,7 @@ func UpdateStatus(APIstub shim.ChaincodeStubInterface, args []string, txnID stri
 	timestamp, _ := APIstub.GetTxTimestamp()
 	timestampAsInt := timestamp.GetSeconds()
 	isotimestamp := time.Unix(timestampAsInt, 0).Format(time.RFC3339)
-	txnDetails := []string{txnID, "CSU - Claim Status Update", isotimestamp, args[1], claim.ID}
+	txnDetails := []string{txnID, "ASU - Application Status Update", isotimestamp, args[1], claim.ID}
 	fmt.Println(txnDetails)
 	fmt.Println(txn.Add(APIstub, txnDetails))
 	txn.Add(APIstub, txnDetails)

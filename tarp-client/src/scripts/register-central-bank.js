@@ -3,7 +3,7 @@ const Handler = require("../handler");
 let registerCentralBank = () => {
   let requestData = {
     name: "Central Bank",
-    email: "sachinsingh328@gmail.com",
+    email: "centralbank@gmail.com",
     organization_type: "CentralBank",
     created_at: new Date().toISOString()
   };

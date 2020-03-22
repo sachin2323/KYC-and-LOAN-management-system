@@ -38,19 +38,19 @@ export default class ListClaim extends Component {
         key: "description"
       },
       {
-        title: "Cost",
-        dataIndex: "cost",
-        key: "cost"
+        title: "Seller PPS ID",
+        dataIndex: "seller_PPS",
+        key: "seller_PPS"
+      },
+      {
+        title: "Bank Name",
+        dataIndex: "insurerDetails.name",
+        key: "insurerDetails.name"
       },
       {
         title: "Created At",
         dataIndex: "createdAt",
         key: "createdAt"
-      },
-      {
-        title: "Insurer Name",
-        dataIndex: "insurerDetails.name",
-        key: "insurerDetails.name"
       },
       {
         title: "Status",
@@ -182,7 +182,7 @@ export default class ListClaim extends Component {
     return (
       <div>
         <Card
-          title="List Of Claims"
+          title="List Of Applications"
           extra={
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Link to="/client/claim/add-claim">

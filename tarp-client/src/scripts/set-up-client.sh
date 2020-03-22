@@ -12,6 +12,14 @@ echo "================Registering Central Bank================"
 node ./scripts/register-central-bank.js
 echo "-------------------------------------------------"
 
-echo "================Registering Insurer Org================"
-node ./scripts/register-insurer.js
+echo "================Registering Bank Org================"
+node ./scripts/register-bank.js
+echo "-------------------------------------------------"
+
+echo "================Registering Bank Org================"
+node ./scripts/register-buyer.js
+echo "-------------------------------------------------"
+
+echo "================Registering Bank Org================"
+node ./scripts/register-seller.js
 echo "-------------------------------------------------"

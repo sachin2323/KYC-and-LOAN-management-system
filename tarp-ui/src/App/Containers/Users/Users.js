@@ -4,23 +4,6 @@ import { list } from '../../Models/Users';
 import { timeParser } from '../../Lib/Utils';
 import AddUser from '../../Components/Users/AddUser';
 
-const dataSource = [{
-  key: '1',
-  name: 'Mike',
-  email: "admin@skcript.com",
-  role: 'Admin'
-}, {
-  key: '2',
-  name: 'John',
-  email: "manager@skcript.com",
-  role: 'Manager'
-}, {
-  key: '3',
-  name: 'varun',
-  email: "client@skcript.com",
-  role: 'Client'
-}];
-
 export default class Users extends Component {
   constructor(props) {
     super(props);
