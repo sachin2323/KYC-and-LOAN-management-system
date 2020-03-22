@@ -1,4 +1,4 @@
-# Blockchain KYC + Insurance (Hyperledger Fabric)
+# Blockchain KYC + Loan (Hyperledger Fabric)
 
 ## Steps to set-up
 

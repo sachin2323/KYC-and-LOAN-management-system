@@ -119,7 +119,7 @@ func GetNameFromPPS(APIstub shim.ChaincodeStubInterface, args []string) sc.Respo
 	if PPSAsResponse.GetMessage() != "" {
 		return shim.Success([]byte("[]"))
 	}
-	fmt.Println("adhar found")
+	fmt.Println("PPS found")
 	PPS := kyc.PPSRecord{}
 	err := json.Unmarshal(PPSAsResponse.GetPayload(), &PPS)
 	if err != nil {
@@ -163,7 +163,7 @@ func GetRecordIDsByPPSNumber(APIstub shim.ChaincodeStubInterface, args []string)
 	if PPSAsResponse.GetMessage() != "" {
 		return PPSAsResponse
 	}
-	fmt.Println("adhar found")
+	fmt.Println("PPS found")
 	PPS := kyc.PPSRecord{}
 	err := json.Unmarshal(PPSAsResponse.GetPayload(), &PPS)
 	if err != nil {

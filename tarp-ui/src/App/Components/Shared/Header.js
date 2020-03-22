@@ -17,7 +17,8 @@ import { logout, getCurrentUser } from "../../Models/Auth";
 import {
   CB_ADMIN_LINKS,
   CLIENT_LINKS,
-  GB_ADMIN_LINKS
+  GB_ADMIN_LINKS,
+  ADMIN_LINKS
 } from "../../Config/Navbar";
 
 export default class MainHeader extends Component {
@@ -67,7 +68,7 @@ export default class MainHeader extends Component {
     if (
       (getCurrentUser().role === "Admin" ||
         getCurrentUser().role === "Manager") &&
-      getCurrentUser().organizationType === "CentralBank"
+      getCurrentUser().organizationType === "CentralBank" 
     ) {
       return CB_ADMIN_LINKS;
     } else if (
@@ -76,6 +77,16 @@ export default class MainHeader extends Component {
       getCurrentUser().organizationType === "Bank"
     ) {
       return GB_ADMIN_LINKS;
+    }else if (
+      (getCurrentUser().role === "Admin") &&
+      getCurrentUser().organizationType === "Buyer" 
+    ) {
+      return ADMIN_LINKS;
+    } else if (
+      (getCurrentUser().role === "Admin") &&
+      getCurrentUser().organizationType === "Seller"
+    ) {
+      return ADMIN_LINKS;
     } else {
       return CLIENT_LINKS;
     }
@@ -94,7 +105,17 @@ export default class MainHeader extends Component {
       getCurrentUser().organizationType === "Bank"
     ) {
       return "/kyc";
-    } else {
+    } else if (
+      (getCurrentUser().role === "Admin") &&
+      getCurrentUser().organizationType === "Buyer" 
+    ) {
+      return "/users";
+    } else if (
+      (getCurrentUser().role === "Admin") &&
+      getCurrentUser().organizationType === "Seller"
+    ) {
+      return "/users";
+    }else {
       return "/client/kyc";
     }
   };

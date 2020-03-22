@@ -85,34 +85,61 @@ class AddClaim extends Component {
                   ]
                 })(<Input placeholder="Description" />)}
               </FormItem>
+             
               <FormItem>
-                {getFieldDecorator("cost", {
+                {getFieldDecorator("seller_name", {
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please input the seller name!"
+                    }
+                  ]
+                })(<Input placeholder="Seller name" />)}
+               
+                </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("seller_PPS", {
                   rules: [
                     {
                       type: "string",
-                      pattern: /^[1-9]{1}[0-9]{0,}$/g,
-                      message: "The input is not valid numerics!"
+                      //pattern: /^[1-9]{1}[0-9]{0,}$/g,
+                      //message: "The input is not valid numerics!"
                     },
                     {
                       required: true,
-                      message: "Please input the cost!"
+                      message: "Please input the Seller PPS Number!"
                     }
                   ]
-                })(<Input placeholder="Cost" />)}
+                })(<Input placeholder="Seller PPS Number" />)}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("organization_name", {
                   rules: [
                     {
                       required: true,
-                      message: "Please input the organization name!"
+                      message: "Please input the Bank Name!"
                     }
                   ]
-                })(<Input placeholder="Organization name" />)}
+                })(<Input placeholder="Bank Name" />)}
                
                 </FormItem>
 
+               
+
                 <h3>Personal Info</h3>
+
+                <FormItem>
+                  {getFieldDecorator("pps_number", {
+                    rules: [
+                      {
+                        type: "string",
+                        required: false,
+                        message: "Please input your pps number!"
+                      }
+                    ]
+                  })(<Input placeholder="PPS Number" />)}
+                </FormItem>
 
                 <FormItem>
                   {getFieldDecorator("surname", {
@@ -208,17 +235,7 @@ class AddClaim extends Component {
                   })(<Input placeholder="Email" />)}
                 </FormItem>
 
-                <FormItem>
-                  {getFieldDecorator("pps_number", {
-                    rules: [
-                      {
-                        type: "string",
-                        required: false,
-                        message: "Please input your pps number!"
-                      }
-                    ]
-                  })(<Input placeholder="PPS Number" />)}
-                </FormItem>
+               
 
                 <FormItem>
                   {getFieldDecorator("date_of_birth", {

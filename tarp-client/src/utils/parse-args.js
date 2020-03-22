@@ -163,7 +163,7 @@ let addClaimArray = function(args) {
   return [
     getRandomValue(),
     args.description,
-    args.cost,
+    args.seller_PPS,
     args.organization_name,
     args.surname,
     args.first_name,
@@ -177,6 +177,7 @@ let addClaimArray = function(args) {
     args.date_of_birth,
     args.martial_status,
     args.no_of_dependents,
+    args.seller_name
     /*
     args.owner_rent_living,
     args.outstanding_balance,
@@ -204,11 +205,11 @@ let addClaimArray = function(args) {
 let updateClaimStatusArray = function(args) {
   return [args.claim_id, args.status_update];
 };
-/*
+
 let addProofToClaimArray = function(args) {
   return [getRandomValue(), args.claim_id, getRandomValue(), args.proofUrl];
 };
-
+/*
 let addProofToKYCArray = function(args) {
   return [getRandomValue(), args.kyc_id, getRandomValue(), args.proofUrl];
 };*/
@@ -228,7 +229,7 @@ module.exports = {
   createRequestArray,
   approveRequestArray,
   addClaimArray,
-  updateClaimStatusArray
- // addProofToClaimArray,
+  updateClaimStatusArray,
+  addProofToClaimArray,
   //addProofToKYCArray
 };

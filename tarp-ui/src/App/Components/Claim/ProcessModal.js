@@ -72,8 +72,16 @@ export default class AcceptModal extends Component {
               {this.state.info.id}
             </p>
             <p>
-              <strong>Cost Reimbursement: </strong>
-              {this.state.info.cost}
+              <strong>Seller Name: </strong>
+              {this.state.info.seller_name}
+            </p>
+            <p>
+              <strong>Seller PPS Number: </strong>
+              {this.state.info.seller_PPS}
+            </p>
+            <p>
+              <strong>Buyer PPS Number: </strong>
+              {this.state.info.pps_number}
             </p>
             <p>
               <strong>Surname: </strong>
@@ -104,10 +112,6 @@ export default class AcceptModal extends Component {
               {this.state.info.email}
             </p>
             <p>
-              <strong>PPS Number: </strong>
-              {this.state.info.pps_number}
-            </p>
-            <p>
               <strong>Date Of Birth: </strong>
               {this.state.info.date_of_birth}
             </p>
@@ -119,6 +123,7 @@ export default class AcceptModal extends Component {
               <strong>Number of Dependents: </strong>
               {this.state.info.no_of_dependents}
             </p>
+           
           </Col>
         </Row>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
