@@ -16,7 +16,8 @@ import { loginPath } from "../../Config/LinkGenerator";
 import { logout, getCurrentUser } from "../../Models/Auth";
 import {
   CB_ADMIN_LINKS,
-  CLIENT_LINKS,
+  BUYER_CLIENT_LINKS,
+  SELLER_CLIENT_LINKS,
   GB_ADMIN_LINKS,
   ADMIN_LINKS
 } from "../../Config/Navbar";
@@ -87,8 +88,13 @@ export default class MainHeader extends Component {
       getCurrentUser().organizationType === "Seller"
     ) {
       return ADMIN_LINKS;
-    } else {
-      return CLIENT_LINKS;
+    } else if (
+      (getCurrentUser().role === "Client") &&
+      getCurrentUser().organizationType === "Seller"
+    ) {
+      return SELLER_CLIENT_LINKS;
+    }else {
+      return BUYER_CLIENT_LINKS;
     }
   };
 
@@ -104,7 +110,7 @@ export default class MainHeader extends Component {
         getCurrentUser().role === "Manager") &&
       getCurrentUser().organizationType === "Bank"
     ) {
-      return "/kyc";
+      return "/list-org-claims";
     } else if (
       (getCurrentUser().role === "Admin") &&
       getCurrentUser().organizationType === "Buyer" 
@@ -160,7 +166,6 @@ export default class MainHeader extends Component {
                 <h2 style={{ color: "white" }}>
                   KYC and Loan Management System
                 </h2>
-                {/* <img src="https://www.skcript.com/images/brand/skcript_white.svg" alt="" /> */}
               </NavLink>
             </Col>
             <div className="Main-Header-Navigation">

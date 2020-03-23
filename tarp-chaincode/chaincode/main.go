@@ -361,12 +361,40 @@ func (s *SmartContract) addKYCRecord(APIstub shim.ChaincodeStubInterface, args [
 		return orgResponse
 	}
 
+	type SearchResult struct {
+		Key    string           `json:"key"`
+		Record org.Organization `json:"record"`
+	}
+	searchResultsBytes, err := utils.GetQueryResultForQueryString(APIstub, "{\"selector\": {\"$and\": [{\"type\":\""+"CentralBank"+"\"},{\"class\": \"Organization\"}]}}")
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	searchResults := []SearchResult{}
+	json.Unmarshal([]byte(searchResultsBytes), &searchResults)
+	
+	if len(searchResults) < 1 {
+		return shim.Error("No Oransization found with given type")
+	}
+	
+	orgResponseCB := org.AddRecordID(APIstub, recordAsResponse.GetPayload(), searchResults[0].Record)
+	if orgResponseCB.GetMessage() != "" {
+		return orgResponseCB
+	}
+
 	if currentUser.Role == "Client" {
 		userResponse := user.AddRecordID(APIstub, recordAsResponse.GetPayload(), currentUser)
 		if userResponse.GetMessage() != "" {
 			return userResponse
 		}
 	}
+/*
+	if currentUser.Role == "Client" {
+		userResponseCB := user.AddRecordID(APIstub, recordAsResponse.GetPayload(), searchResults[0].Record)
+		if userResponseCB.GetMessage() != "" {
+			return userResponseCB
+		}
+	}
+*/
 
 	return shim.Success(recordAsResponse.GetPayload())
 }
