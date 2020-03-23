@@ -40,7 +40,7 @@ type Address struct {
 type Record struct {
 	ID                string   `json:"id"`
 	Name              string   `json:"name"`
-	PPSID          string   `json:"PPSId"`
+	PPSID          	  string   `json:"PPSId"`
 	PhoneNumbers      []string `json:"phoneNumbers"`
 	AddressIDs        []string `json:"addressIds"`
 	Owner             string   `json:"owner"`
@@ -69,7 +69,7 @@ type SubRecord struct {
 
 // PPSRecord is the model with PPS card as the primary key
 type PPSRecord struct {
-	PPSID   string      `json:"PPSId"`
+	PPSID   string         `json:"PPSId"`
 	UserID     string      `json:"userId"`
 	SubRecords []SubRecord `json:"subRecords"`
 	CreatedAt  string      `json:"createdAt"`
@@ -105,7 +105,7 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, userID string, mspI
 	record := Record{
 		ID:                args[0],
 		Name:              args[1],
-		PPSID:          args[2],
+		PPSID:             args[2],
 		PhoneNumbers:      phoneNumbers,
 		Owner:             OwnerID,
 		CreatedBy:         userID,

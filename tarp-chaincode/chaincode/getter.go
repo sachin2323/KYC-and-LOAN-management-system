@@ -899,3 +899,5 @@ func populateClaims(APIstub shim.ChaincodeStubInterface, searchResultsBytes []by
 	return shim.Success(populatedClaimsAsBytes)
 
 }
+
+
