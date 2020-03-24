@@ -10,8 +10,18 @@ var atrmapping = {
   card_information: "CardInformation",
   nationality: "Nationality",
   email_address: "EmailAddress",
-  loyalty_cards: "LoyaltyCards",
-  preferences: "Preferences"
+  //loyalty_cards: "LoyaltyCards",
+  //preferences: "Preferences",
+  national_age_card:"NationalAgeCard",
+  identification_form:"IdentificationForm",
+  utility_bills:"UtilityBills",
+  home_insurance:"HomeInsurance",
+  car_insurance:"CarInsurance",
+  tax_credit_certificate:"TaxCreditCertificate",
+  salary_certificate:"SalaryCertificate",
+  employee_pay_slip:"EmployeePayslip",
+  bank_statement:"BankStatement",
+  other:"Other",
 };
 
 let parseOrgReq = data => {

@@ -334,9 +334,9 @@ func (s *SmartContract) addKYCRecord(APIstub shim.ChaincodeStubInterface, args [
 	if currentUser.Role == "Client" {
 		payloadAsResponse, recordAsResponse = kyc.Add(APIstub, args, currentUser.ID, mspID, currentUser.ID, "Unprocessed")
 	} else {
-		payloadAsResponse, recordAsResponse = kyc.Add(APIstub, args, currentUser.ID, mspID, "", args[15])
-		if args[15] == "Processed" {
-			kyc.AddVerificationRecord(APIstub, payloadAsResponse.GetPayload(), []string{args[0], args[15], ""}, currentUser.ID, mspID, currentUser.OrganizationID)
+		payloadAsResponse, recordAsResponse = kyc.Add(APIstub, args, currentUser.ID, mspID, "", args[22])
+		if args[22] == "Processed" {
+			kyc.AddVerificationRecord(APIstub, payloadAsResponse.GetPayload(), []string{args[0], args[22], ""}, currentUser.ID, mspID, currentUser.OrganizationID)
 		}
 	}
 
@@ -345,7 +345,7 @@ func (s *SmartContract) addKYCRecord(APIstub shim.ChaincodeStubInterface, args [
 	}
 	fmt.Println("added kyc record")
 
-	addresses, err := utils.SliceFromString(args[14])
+	addresses, err := utils.SliceFromString(args[21])
 	if err != nil {
 		return shim.Error(err.Error())
 	}
@@ -373,7 +373,7 @@ func (s *SmartContract) addKYCRecord(APIstub shim.ChaincodeStubInterface, args [
 	json.Unmarshal([]byte(searchResultsBytes), &searchResults)
 	
 	if len(searchResults) < 1 {
-		return shim.Error("No Oransization found with given type")
+		return shim.Error("No Organization found with given type")
 	}
 	
 	orgResponseCB := org.AddRecordID(APIstub, recordAsResponse.GetPayload(), searchResults[0].Record)
