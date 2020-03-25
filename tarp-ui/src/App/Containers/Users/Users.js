@@ -3,7 +3,6 @@ import { Card, Table, Button, message } from 'antd';
 import { list } from '../../Models/Users';
 import { timeParser } from '../../Lib/Utils';
 import AddUser from '../../Components/Users/AddUser';
-
 export default class Users extends Component {
   constructor(props) {
     super(props);

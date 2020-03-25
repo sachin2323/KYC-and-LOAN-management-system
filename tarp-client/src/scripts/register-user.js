@@ -14,11 +14,11 @@ let registerUser = () => {
     formData: {
       card: {
         value: fs.createReadStream(
-          " /d/Blockchain-new/HLF-Insurance-KYC/tarp-client/src/cards/Central Bank-AdminUser.card"
+          " ../src/cards/Central Bank-AdminUser.card"
         ),
         options: {
           filename:
-            "/d/Blockchain-new/HLF-Insurance-KYC/tarp-client/src/cards/Central Bank-AdminUser.card",
+            "../src/cards/Central Bank-AdminUser.card",
           contentType: null
         }
       }
@@ -42,7 +42,7 @@ let registerUser = () => {
         name: "Sachin Singh",
         email: "sachinsingh328@gmai.com",
         role: "Client",
-        PPSId: "123123123"
+        PPSId: "1234567F"
       },
       json: true
     };

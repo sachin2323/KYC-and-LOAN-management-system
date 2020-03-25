@@ -121,8 +121,10 @@ export default class MainHeader extends Component {
       getCurrentUser().organizationType === "Seller"
     ) {
       return "/users";
-    }else {
+    }else if (getCurrentUser().role === "Client") {
       return "/client/kyc";
+    }else{
+      return "/users";
     }
   };
 

@@ -14,12 +14,32 @@ class KYCHome extends Component {
   }
 
   getHomeLink = () => {
-    if ((getCurrentUser().role === "Admin" || getCurrentUser().role === "Manager") && getCurrentUser().organizationType === "CentralBank") {
-      return "/list-kycs"
-    } else if ((getCurrentUser().role === "Admin" || getCurrentUser().role === "Manager") && getCurrentUser().organizationType === "Bank") {
-      return "/kyc"
-    } else {
-      return "/client/kyc"
+    if (
+      (getCurrentUser().role === "Admin" ||
+        getCurrentUser().role === "Manager") &&
+      getCurrentUser().organizationType === "CentralBank"
+    ) {
+      return "/list-kycs";
+    } else if (
+      (getCurrentUser().role === "Admin" ||
+        getCurrentUser().role === "Manager") &&
+      getCurrentUser().organizationType === "Bank"
+    ) {
+      return "/list-org-claims";
+    } else if (
+      (getCurrentUser().role === "Admin") &&
+      getCurrentUser().organizationType === "Buyer" 
+    ) {
+      return "/users";
+    } else if (
+      (getCurrentUser().role === "Admin") &&
+      getCurrentUser().organizationType === "Seller"
+    ) {
+      return "/users";
+    }else if (getCurrentUser().role === "Client") {
+      return "/client/kyc";
+    }else{
+      return "/users";
     }
   }
 

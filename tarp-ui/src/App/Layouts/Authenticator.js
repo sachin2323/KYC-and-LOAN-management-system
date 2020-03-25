@@ -65,9 +65,21 @@ export default class Authenticator extends React.Component {
         getCurrentUser().role === "Manager") &&
       getCurrentUser().organizationType === "Bank"
     ) {
-      return "/kyc";
-    } else {
+      return "/list-org-claims";
+    } else if (
+      (getCurrentUser().role === "Admin") &&
+      getCurrentUser().organizationType === "Buyer" 
+    ) {
+      return "/users";
+    } else if (
+      (getCurrentUser().role === "Admin") &&
+      getCurrentUser().organizationType === "Seller"
+    ) {
+      return "/users";
+    }else if (getCurrentUser().role === "Client") {
       return "/client/kyc";
+    }else{
+      return "/users";
     }
   };
 

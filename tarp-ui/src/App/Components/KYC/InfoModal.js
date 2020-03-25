@@ -5,9 +5,7 @@ import { getCurrentUser } from '../../Models/Auth';
 const keyMaping = {
   name : 'Name',
   birth_marks: 'Birth Marks',
-  card_information: 'Card Information',
   date_of_birth : 'Date of Birth',
-  preferences: 'Preferences',
   nationality: 'Nationality',
   mothers_maiden_name : 'Mother\'s maiden name',
   PPSId: 'PPS ID',
@@ -16,7 +14,16 @@ const keyMaping = {
   email_address: 'E-mail',
   dateOfBirth: "Date Of Birth",
   passport: 'Passport',
-  loyalty_cards: 'Loyalty Cards'
+  national_age_card:"National Age Card",
+  identificationForm:"Identification Form",
+  utilityBills:"Utility Bills",
+  homeInsurance:"Home Insurance",
+  carInsurance:"Car Insurance",
+  taxCreditCertificate:"Tax Credit Certificate",
+  salaryCertificate:"Salary Certificate",
+  employeePayslip:"Employee Pay slip",
+  bankStatement:"Bank Statement",
+  other:"Other",
 };
 export default class InfoModal extends Component {
   constructor(props) {

@@ -7,11 +7,21 @@ var atrmapping = {
   mothers_maiden_name: "MothersMaidenName",
   drivers_license: "DriversLicense",
   passport: "Passport",
-  card_information: "CardInformation",
+  //card_information: "CardInformation",
   nationality: "Nationality",
   email_address: "EmailAddress",
-  loyalty_cards: "LoyaltyCards",
-  preferences: "Preferences"
+  //loyalty_cards: "LoyaltyCards",
+  //preferences: "Preferences",
+  national_age_card:"NationalAgeCard",
+  identificationForm:"IdentificationForm",
+  utilityBills:"UtilityBills",
+  homeInsurance:"HomeInsurance",
+  carInsurance:"CarInsurance",
+  taxCreditCertificate:"TaxCreditCertificate",
+  salaryCertificate:"SalaryCertificate",
+  employeePayslip:"EmployeePayslip",
+  bankStatement:"BankStatement",
+  other:"Other",
 };
 
 let parseOrgReq = data => {

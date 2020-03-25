@@ -59,16 +59,28 @@ class AddKYC extends Component {
   newLink = () => {
     const user = getCurrentUser();
     if (
-      (user.role === "Admin" || user.role === "Manager") &&
-      user.organizationType === "CentralBank"
+      (user.role === "Admin" ||
+        user.role === "Manager") &&
+      (user.organizationType === "CentralBank")
     ) {
       return "/list-kycs";
     } else if (
-      (user.role === "Admin" || user.role === "Manager") &&
-      user.organizationType === "Bank"
+      (user.role === "Admin" ||
+        user.role === "Manager") &&
+      (user.organizationType === "Bank")
     ) {
-      return "/kyc";
-    } else {
+      return "/list-org-claims";
+    } else if (
+      (user.role === "Admin") &&
+      (user.organizationType === "Buyer") 
+    ) {
+      return "/users";
+    } else if (
+      (user.role === "Admin") &&
+      (user.organizationType === "Seller")
+    ) {
+      return "/users";
+    }else{
       return "/client/kyc";
     }
   };
@@ -171,8 +183,6 @@ class AddKYC extends Component {
                   ]
                 })(<Input placeholder="Driver License" />)}
               </FormItem>
-            </Col>
-            <Col style={{ marginLeft: "15px" }} span={8}>
               <FormItem>
                 {getFieldDecorator("passport", {
                   rules: [
@@ -181,14 +191,15 @@ class AddKYC extends Component {
                 })(<Input placeholder="Passport" initialValue="hete" />)}
               </FormItem>
               <FormItem>
-                {getFieldDecorator("cardInformation", {
+                {getFieldDecorator("identification_form", {
                   rules: [
                     {
+                      type: "string",
                       required: true,
-                      message: "Please input your Card Information!"
+                      message: "Please input your Identification Form details!"
                     }
                   ]
-                })(<Input placeholder="Card Information" />)}
+                })(<Input placeholder="Identification Form" />)}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("nationality", {
@@ -202,24 +213,107 @@ class AddKYC extends Component {
               </FormItem>
 
               <FormItem>
-                {getFieldDecorator("loyaltyCards", {
+                {getFieldDecorator("national_age_card", {
                   rules: [
                     {
                       required: true,
-                      message: "Please input your Loyalty card!"
+                      message: "Please input your National Age Card details!"
                     }
                   ]
-                })(<Input placeholder="Loyalty Card" />)}
+                })(<Input placeholder="National Age Card" />)}
               </FormItem>
               <FormItem>
-                {getFieldDecorator("preferences", {
+                {getFieldDecorator("utility_bills", {
                   rules: [
                     {
+                      type: "string",
                       required: true,
-                      message: "Please input your Preferences!"
+                      message: "Please input your Utility Bills Details!"
                     }
                   ]
-                })(<Input placeholder="preferences" />)}
+                })(<Input placeholder="Utility Bills" />)}
+              </FormItem> 
+              
+              <FormItem>
+                {getFieldDecorator("home_insurance", {
+                  rules: [
+                    {
+                      type: "string",
+                      required: true,
+                      message: "Please input your Home Insurance Details!"
+                    }
+                  ]
+                })(<Input placeholder="Home Insurance" />)}
+              </FormItem>
+               <FormItem>
+                {getFieldDecorator("car_insurance", {
+                  rules: [
+                    {
+                      type: "string",
+                      required: true,
+                      message: "Please input your Car Insurance Details!"
+                    }
+                  ]
+                })(<Input placeholder="Car Insurance" />)}
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator("tax_credit_certificate", {
+                  rules: [
+                    {
+                      type: "string",
+                      required: true,
+                      message: "Please input your tax credit certificate details!"
+                    }
+                  ]
+                })(<Input placeholder="Tax Credit Certificate Details" />)}
+              </FormItem> 
+
+              <FormItem>
+                {getFieldDecorator("salary_certificate", {
+                  rules: [
+                    {
+                      type: "string",
+                      required: true,
+                      message: "Please input your Salary Certificate Details!"
+                    }
+                  ]
+                })(<Input placeholder="Salary Certificate" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("employee_pay_slip", {
+                  rules: [
+                    {
+                      type: "string",
+                      required: true,
+                      message: "Please input your Employee Pay Slip!"
+                    }
+                  ]
+                })(<Input placeholder="Employee Pay Slip" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("bank_statement", {
+                  rules: [
+                    {
+                      type: "string",
+                      required: true,
+                      message: "Please input your Bank Statement details!"
+                    }
+                  ]
+                })(<Input placeholder="Bank Statement" />)}
+              </FormItem>
+
+              <FormItem>
+                {getFieldDecorator("other", {
+                  rules: [
+                    {
+                      type: "string",
+                      required: true,
+                      message: "Please input other details!"
+                    }
+                  ]
+                })(<Input placeholder="Others" />)}
               </FormItem>
             </Col>
           </Row>
