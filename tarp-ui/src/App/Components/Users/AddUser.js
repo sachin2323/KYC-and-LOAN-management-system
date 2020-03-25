@@ -139,6 +139,7 @@ class AddUser extends Component {
                 <Select onChange={this.handleChange.bind(this)}>
                   <Option value="Admin">Admin</Option>
                   <Option value="Client">Client</Option>
+                 
                 </Select>
               )}
             </FormItem>

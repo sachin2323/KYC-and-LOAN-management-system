@@ -80,7 +80,7 @@ class AddKYC extends Component {
       (user.organizationType === "Seller")
     ) {
       return "/users";
-    }else {
+    }else{
       return "/client/kyc";
     }
   };
@@ -135,7 +135,7 @@ class AddKYC extends Component {
                     { required: true, message: "Please input mobile number!" },
                     {
                       type: "string",
-                      pattern: /[0-9]{10-13}/g,
+                      pattern: /[0-9]{10}/g,
                       // len: 10,
                       message: "Incorrect phone number"
                     }
@@ -183,8 +183,6 @@ class AddKYC extends Component {
                   ]
                 })(<Input placeholder="Driver License" />)}
               </FormItem>
-            </Col>
-            <Col style={{ marginLeft: "15px" }} span={8}>
               <FormItem>
                 {getFieldDecorator("passport", {
                   rules: [
