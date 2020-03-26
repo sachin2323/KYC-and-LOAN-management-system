@@ -2,11 +2,11 @@
 
 set -ev
 
-cd tarp-chaincode
+cd chaincode
 ./start.sh && ./install.sh
 sleep 3
 cd ..
-cd tarp-client/src
+cd client/src
 npm install
 rm -rf ./node_modules/fabric-client
 cp -rf ../fabric-client ./node_modules

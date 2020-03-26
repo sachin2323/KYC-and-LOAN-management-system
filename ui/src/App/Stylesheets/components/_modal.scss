@@ -1,0 +1,254 @@
+.Custom-Modal {
+  .ant-modal-header {
+    text-align: center;
+    .ant-modal-title {
+      font-weight: 600;
+      font-size: 15px;
+      color: $brand_color;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+  .ant-modal-footer {
+    display: flex;
+    justify-content: center;
+    button {
+      width: 150px;
+    }
+  }
+}
+
+.modal-footer-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.Transaction-Confirm-Modal-Content {
+  background-color: #F3F5F7;
+  padding: 20px 35px;
+  margin: 20px;
+  margin-bottom: -20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  border-radius: 3px 3px 0px 0px;
+  @include breakpoint(tablet) {
+    margin: 0px;
+  }
+  h3 {
+    color: $brand_color;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  b {
+    color: #021123;
+  }
+  p {
+    color: #637284;
+    font-weight: 700;
+    font-size: 15px;
+  }
+}
+
+.Alternate-Spacing {
+  padding: 0px 30px !important;
+  margin: 0px !important;
+}
+
+.Alternate-Radius {
+  border-radius: 0px 0px 3px 3px !important;
+}
+
+.MidSection {
+  margin: 17px;
+  margin-top: 20px;
+  margin-bottom: -25px;
+  @include breakpoint(tablet) {
+    margin: -3px;
+    margin-top: 0px;
+    margin-bottom: -5px;
+  }
+  img {
+    width: 100%;
+  }
+}
+
+.Transaction-Confirm-Modal-Card {
+  background-color: #F3F5F7;
+  padding: 20px 35px;
+  padding-bottom: 10px;
+  margin: 20px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  @include breakpoint(tablet) {
+    margin: 0px;
+  }
+  .Modal-List-Wrapper {
+    width: 45%;
+  }
+  .Modal-List-Alternate {
+    text-align: right;
+  }
+  .Transaction-Confirm-Modal-List {
+    margin-bottom: 15px;
+  }
+  b {
+    color: #021123;
+    font-size: 13px;
+  }
+  .org-with-photo {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    .ant-avatar {
+      margin-right: 5px;
+      width: 30px;
+      height: 30px;
+      img {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+      }
+    }
+  }
+  .org-with-photo-alt {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 5px;
+    .ant-avatar {
+      margin-left: 5px;
+      width: 30px;
+      height: 30px;
+      img {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+      }
+    }
+  }
+  p {
+    color: #637284;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    img {
+      width: 25px;
+      height: 25px;
+      margin-top: 5px;
+      margin-bottom: -7px;
+    }
+  }
+}
+
+.after-verification {
+  text-align: center;
+  h4,
+  p,
+  h3 {
+    color: $brand_color;
+  }
+  h4 {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  p {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+}
+
+.Create-Asset-Modal {
+  background-color: #F3F5F7;
+  padding: 20px;
+  border-radius: 3px;
+  position: relative;
+  h4,
+  h3,
+  .Modal-Button {
+    text-align: center;
+  }
+  h4,
+  h3 {
+    color: $brand_color;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 17px;
+  }
+  h4 {
+    font-size: 15px;
+  }
+}
+
+.Modal-Tick {
+  margin-top: 20px;
+  padding-top: 40px;
+  &:before {
+    content: ' ';
+    display: inline-block;
+    position: absolute;
+    background: url("../Resources/Images/tick.png") no-repeat;
+    background-size: contain;
+    height: 45px;
+    width: 45px;
+    border: 4px solid #F3F5F7;
+    border-radius: 50px;
+    background-color: white;
+    position: absolute;
+    top: -20px;
+    left: 45%;
+  }
+}
+
+.Modal-Transaction {
+  margin-top: 20px;
+  padding-top: 40px;
+  position: relative;
+  &:before {
+    content: ' ';
+    display: inline-block;
+    position: absolute;
+    background: url("../Resources/Images/transaction.png") no-repeat;
+    background-size: contain;
+    height: 45px;
+    width: 45px;
+    border: 4px solid #F3F5F7;
+    border-radius: 50px;
+    background-color: white;
+    position: absolute;
+    top: -20px;
+    left: 45%;
+  }
+}
+
+.info-modal-btns {
+  .ant-confirm-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .anticon-info-circle {
+      display: none;
+    }
+    .ant-confirm-content {
+      margin-left: -8px;
+      margin-top: 20px;
+    }
+  }
+  .ant-confirm-btns {
+    display: none;
+    visibility: hidden;
+  }
+}

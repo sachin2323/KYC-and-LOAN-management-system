@@ -1,0 +1,360 @@
+CertificatePreview.Sell-Assets-Card {
+  margin-bottom: 15px;
+  margin-top: -10px;
+  .ant-card-body {
+    padding: 12px 32px;
+  }
+  .Sell-Assets-Card-Content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    @include breakpoint(tablet) {
+      flex-direction: column;
+    }
+  }
+  .Sell-Assets-Card-Form {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    @include breakpoint(laptop) {
+      width: 100%;
+    }
+    @include breakpoint(tablet) {
+      flex-direction: column;
+    }
+    .ant-form-item {
+      margin-bottom: 0px;
+      width: 100%;
+      padding: 0px 20px;
+      @include breakpoint(tablet) {
+        margin-bottom: 15px;
+      }
+    }
+    .ant-input-number,
+    button {
+      width: 100%;
+    }
+    .ant-form-item-label {
+      line-height: 25px;
+      label {
+        font-size: 13px;
+      }
+    }
+  }
+  .Sell-Assets-Card-Icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 30px;
+    border-right: 1px solid #C7CCD3;
+    @include breakpoint(tablet) {
+      border-right: 0px;
+      margin-bottom: 15px;
+    }
+    i {
+      color: #637284;
+      font-size: 39px;
+      margin-right: 20px;
+    }
+    h3 {
+      color: $brand_color;
+      font-weight: 800;
+      font-size: 21px;
+    }
+    p {
+      color: #637284;
+    }
+  }
+}
+
+.Asset-Cards {
+  .Card-Title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 15px;
+    h3 {
+      color: $brand_color;
+      font-weight: 600;
+      font-size: 18px;
+      span {
+        color: #637284;
+        font-size: 13px;
+        font-weight: 300;
+      }
+    }
+  }
+  .Asset-Details-Card {
+    margin-bottom: 15px !important;
+  }
+  .Assets-Card-Content {
+    color: #637284;
+    a {
+      color: $link_color;
+    }
+    ul {
+      list-style: none;
+      margin-left: 0px;
+      padding-left: 0px;
+    }
+    li {
+      margin-top: 15px;
+      b {
+        color: #021123;
+        font-size: 14px;
+      }
+      p {
+        font-size: 15px;
+        font-weight: 300;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        button {
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+  .card-action-button {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .ant-upload-select {
+    border: 0.5px solid gainsboro;
+    padding: 10px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .logo-wrapper {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    img {
+      height: 125px;
+      width: 125px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.progress-bars {
+  color: #021123;
+  margin-bottom: 21px;
+  .progress-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    b {
+      font-weight: 700;
+    }
+    p {
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.bulk-sell-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e9e9e9;
+  padding: 10px 0px;
+  &:only-of-type {
+    border-bottom: 0px;
+    padding-bottom: 0px;
+  }
+  &:last-child {
+    border-bottom: 0px;
+    padding-bottom: 0px;
+  }
+  .bulk-sell-quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      margin-right: 5px;
+    }
+  }
+}
+
+.Transaction-Alternate {
+  .Transaction-dotted-line:after {
+    right: -229px !important;
+    @include breakpoint(laptop) {
+      right: -165px !important;
+    }
+  }
+  .Transaction-solid-line:after {
+    width: 100px !important;
+    right: -115px !important;
+    @include breakpoint(laptop) {
+      width: 50px !important;
+      right: -81px !important;
+    }
+  }
+}
+
+.Transaction--Chain {
+  background-color: #F3F5F7;
+  padding: 20px 5px;
+  padding-bottom: 10px;
+  margin: 20px;
+  margin-top: 10px;
+  border-radius: 3px;
+  @include breakpoint(tablet) {
+    margin-bottom: 20px;
+  }
+  .Transaction-Single {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      margin-bottom: 0px;
+    }
+    h5 {
+      color: $brand_color;
+    }
+  }
+  .Transaction-dotted-line:after {
+    border-bottom: 1.5px dotted #cccccc;
+    content: '';
+    width: 100%;
+    display: flex;
+    position: relative;
+    top: -33px;
+    right: -110px;
+    @include breakpoint(mobileonly) {
+      right: -80px;
+    }
+  }
+  .Transaction-solid-line:after {
+    border-bottom: 1.5px solid #cccccc;
+    content: '';
+    width: 50px;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    top: -33px;
+    right: -55px;
+    @include breakpoint(mobileonly) {
+      width: 32px;
+      right: -40px;
+    }
+  }
+}
+
+.asset-search-wrapper {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  p {
+    margin-bottom: 0px;
+  }
+}
+
+.sell-assets-alert-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .ant-alert.ant-alert-no-icon {
+    padding: 5px 15px !important;
+  }
+  .ant-alert-info {
+    border: 1px solid $brand_color !important;
+    background-color: #F4F7F9 !important;
+  }
+  .alert-button {
+    p {
+      margin-bottom: 0px;
+      color: $brand_color;
+    }
+  }
+}
+
+.chain-of-custody {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  position: relative;
+  h4 {
+    color: #4F5A65;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font-weight: 600;
+  }
+  p {
+    color: #637284;
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .chain-start,
+  .chain-middle,
+  .chain-end {
+    max-width: 100px;
+  }
+  .line {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #B4BFD9;
+    top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .chain-start {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .chain-middle {
+    position: relative;
+    h4 {
+      margin-top: 9px;
+    }
+  }
+  .chain-end {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+  }
+  .ant-avatar {
+    background: #FBB26D;
+    z-index: 10;
+    cursor: pointer;
+  }
+  .avatar-middle-circle {
+    margin-top: 5px;
+  }
+}
+
+.Certificate-Block {
+  background: #ccc;
+}
+
+.Asset-batch-import{
+  list-style: none;
+  text-align: center;
+  padding-left: 0px;
+  p{
+    margin-bottom: 0px;
+    font-size: 50px;
+  }
+}

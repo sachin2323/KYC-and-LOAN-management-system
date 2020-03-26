@@ -1,0 +1,76 @@
+svg {
+  .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 4px;
+    pointer-events: all;
+  }
+
+  .node .owner-dot {
+    stroke: #f00;
+  }
+
+  .node {
+    font: 10px sans-serif;
+    .label {
+      fill: #000;
+      font-size: 16px;
+    }
+    .transaction-label {
+      fill: #000;
+      font-size: 14px;
+    }
+    .transaction-id {
+      fill: #000;
+      font-size: 12px;
+    }
+  }
+
+  .link {
+    fill: none;
+    // stroke: #ccc;
+    // stroke-width: 3px;
+  }
+}
+
+
+.graph-toolTip, .certificate-toolTip, .product-toolTip {
+  position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #6F257F;
+  padding: 14px;
+  text-align: center;
+  // pointer-events: none;         
+}
+
+.graph-toolTip {
+  pointer-events: none;         
+}
+
+canvas{
+
+  // width: 300px !important;
+  // height: 150px !important;
+
+}
+
+.products-container {
+  width: 200px;
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.certficate-image {
+  height: 150px;
+  width: auto;
+}
+
+.readings-container { 
+  width: 500px;
+  height: 200px;
+}

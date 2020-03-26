@@ -1,0 +1,99 @@
+body .ant-layout-header {
+  height: 50px;
+  margin-bottom: 50px;
+  line-height: 50px;
+  position: relative;
+  background: #004d96;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
+  @include breakpoint(tablet) {
+    padding: 0px 10px;
+  }
+}
+
+.Header-Content {
+  align-items: center;
+  @include breakpoint(tablet) {
+    justify-content: space-between;
+  }
+}
+
+.Main-Header-Logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  img {
+    height: 35px;
+  }
+}
+
+.Main-Header-Avatar {
+  .ant-avatar {
+    margin-right: 5px;
+    margin-left: 5px;
+    height: 25px;
+    width: 25px;
+  }
+  .ant-dropdown-link {
+    color: #FFFFFF;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .anticon-down {
+      margin-top: 3px;
+      margin-left: 2px;
+      margin-right: 2px;
+    }
+  }
+}
+
+.Main-Header-Navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include breakpoint(tablet) {
+    width: 100%;
+    justify-content: space-between;
+    position: absolute;
+    bottom: -47px;
+    background: $brand_color;
+    height: 47px;
+    left: 0px;
+  }
+  a {
+    padding: 0px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #abb8d6;
+    position: relative;
+    height: 50px;
+    margin: -20px 0px;
+    line-height: 52px;
+    @include breakpoint(tablet) {
+      padding: 0px 10px;
+    }
+    &:hover{
+      color: #FFFFFF;
+    }
+    &:focus {
+      text-decoration: none;
+    }
+  }
+  .active {
+    color: #FFFFFF;
+    &:after {
+      content: '';
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      height: 2px;
+      background: white;
+      position: absolute;
+    }
+  }
+}
+
+.Header-Height {
+  margin-bottom: 20px;
+}
