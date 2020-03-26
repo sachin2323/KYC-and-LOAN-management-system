@@ -1,0 +1,98 @@
+.login-wrapper {
+  background-image: linear-gradient(to bottom, #0837a2, #1379e9);
+  height: 100%;
+  .login-box {
+    height: 100vh;
+    background: #FFFFFF;
+    padding: 20px;
+    .login-width {
+      width: 550px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      height: 100%;
+      @include breakpoint(laptop) {
+        width: 100%;
+      }
+    }
+    .ant-upload,
+    .ant-upload.ant-upload-select-picture-card,
+    .ant-upload img {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .ant-btn-lg {
+      width: 100%;
+      height: 45px;
+      font-size: 16px;
+    }
+    .register-final-wrapper {
+      margin-top: -20px;
+      margin-bottom: 25px;
+    }
+    .register-final-images {
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      h3 {
+        font-size: 15px;
+        font-weight: 300;
+        color: #021123;
+      }
+      img {
+        width: 80px;
+      }
+    }
+    .Page-Heading {
+      font-size: 35px;
+      color: #021123;
+      text-align: center;
+      margin-bottom: 40px;
+      margin-top: 40px;
+      font-weight: 300;
+    }
+  }
+  .register-wrapper {
+    border: 1.3px solid #D9D9D9;
+    border-radius: 4px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 25px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+      margin-bottom: 0px;
+      color: #021123;
+      font-size: 18px;
+    }
+    .ant-btn {
+      width: 240px;
+    }
+  }
+  .logo-wrapper {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 30px;
+    img {
+      width: 90px;
+    }
+    h1 {
+      font-weight: 500;
+      font-size: 35px;
+      margin-top: 15px;
+      color: #021123;
+    }
+    h2 {
+      color: #637284;
+      font-weight: 300;
+    }
+    .register-button {
+      margin-top: 40px;
+    }
+  }
+}

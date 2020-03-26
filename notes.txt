@@ -1,4 +1,74 @@
-
+    
+             
+             
+             <p>
+              <strong>E-mail: </strong>
+              {this.state.info.email_address}
+            </p>
+            <p>
+              <strong>Date of Birth: </strong>
+              {this.state.info.date_of_birth}
+            </p>
+            <p>
+              <strong>Mother's maiden name: </strong>
+              {this.state.info.mothers_maiden_name}
+            </p>
+            <p>
+              <strong>Birth Marks: </strong>
+              {this.state.info.birth_marks}
+            </p>
+            <p>
+              <strong>Passport: </strong>
+              {this.state.info.passport}
+            </p>
+            <p>
+              <strong>Driver's License: </strong>
+              {this.state.info.drivers_license}
+            </p>
+            <p>
+              <strong>National Age Card: </strong>
+              {this.state.info.national_age_card}
+            </p>
+            <p>
+              <strong>Identification Form: </strong>
+              {this.state.info.identificationForm}
+            </p>
+            <p>
+              <strong>Utility Bills: </strong>
+              {this.state.info.utilityBills}
+            </p>
+            <p>
+              <strong>Home Insurance: </strong>
+              {this.state.info.homeInsurance}
+            </p>
+            <p>
+              <strong>Car Insurance: </strong>
+              {this.state.info.carInsurance}
+            </p>
+            <p>
+              <strong>Tax Credit Certificate: </strong>
+              {this.state.info.taxCreditCertificate}
+            </p>
+            <p>
+              <strong>Salary Certificate: </strong>
+              {this.state.info.salaryCertificate}
+            </p>
+            <p>
+              <strong>Employee Pay slip: </strong>
+              {this.state.info.employeePayslip}
+            </p>
+            <p>
+              <strong>Bank Statement: </strong>
+              {this.state.info.bankStatement}
+            </p>
+            <p>
+              <strong>Other: </strong>
+              {this.state.info.other}
+            </p>
+             
+             
+             
+             
               <h3>Personal Info</h3>
 
               <FormItem>
