@@ -8,6 +8,7 @@ type BankRequest struct {
 	BankStatus    string   `json:"bank_status"`
 	ExpireTime    string   `json:"expire_time"`
 	ApprovedInfos []string `json:"approved_infos"`
+	RequiredDocuments string `json:"required_documents"`
 }
 
 // BankApproval definition

@@ -128,6 +128,30 @@ class Handler {
     return this.connection.query(requestData);
   }
 
+  getAllSellers() {
+    let tx_id = this.connection.newTransactionID();
+    let requestData = {
+      chaincodeId: config.chaincodeId,
+      fcn: "getAllSellers",
+      args: [],
+      txId: tx_id,
+      chainId: config.chainId
+    };
+    return this.connection.query(requestData);
+  }
+
+  getAllBanks() {
+    let tx_id = this.connection.newTransactionID();
+    let requestData = {
+      chaincodeId: config.chaincodeId,
+      fcn: "getAllBanks",
+      args: [],
+      txId: tx_id,
+      chainId: config.chainId
+    };
+    return this.connection.query(requestData);
+  }
+
   getUserRecords() {
     let tx_id = this.connection.newTransactionID();
     let requestData = {

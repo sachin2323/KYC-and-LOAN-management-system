@@ -10,6 +10,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
+let addBuyer = require("../scripts/register-userBuyer");
+let addSeller = require("../scripts/register-userSeller");
 let query = require("url");
 let Parser = require("../utils/Parser");
 const multer = require("multer");
@@ -17,6 +19,7 @@ const upload = multer({ dest: "uploads/" });
 
 const storage = multer.memoryStorage();
 const uploadBuffer = multer({ storage: storage });
+
 
 // Config
 const router = express.Router();
@@ -77,6 +80,14 @@ router.post("/add-user", function (req, res) {
     .catch(function (err) {
       res.status(500).json({ error: err.toString() });
     });
+});
+
+router.post("/add-buyer", function (req, res) {
+  res.send(addBuyer.addBuyer(req.body));
+});
+
+router.post("/add-seller", function (req, res) {
+  res.send(addSeller.addSeller(req.body));
 });
 
 // 6. Add Identity Record for a user x
@@ -648,6 +659,43 @@ router.get("/get-all-users", function (req, res) {
     });
 });
 
+// 16. Get Details of all sellers x
+router.get("/get-all-sellers", function (req, res) {
+  let handler = new Handler(req.user);
+  console.log(req.body);
+
+  handler
+    .init()
+    .then(function () {
+      return handler.getAllSellers(req.body);
+    })
+    .then(function (data) {
+      res.status(200).json({ response: data });
+    })
+    .catch(function (err) {
+      res.status(500).json({ error: err.toString() });
+    });
+});
+
+// 16. Get Details of all banks x
+router.get("/get-all-banks", function (req, res) {
+  let handler = new Handler(req.user);
+  console.log(req.body);
+
+  handler
+    .init()
+    .then(function () {
+      return handler.getAllBanks(req.body);
+    })
+    .then(function (data) {
+      res.status(200).json({ response: data });
+    })
+    .catch(function (err) {
+      res.status(500).json({ error: err.toString() });
+    });
+});
+
+
 // 17. Search organisation
 router.get("/search-organisation", function (req, res) {
   let handler = new Handler(req.user);
@@ -684,7 +732,7 @@ router.get("/list-identity", function (req, res) {
     });
 });
 
-// 19. Get claims of a Hospital x
+// 19. Get claims of a Organization x
 router.get("/get-org-claims", function (req, res) {
   let handler = new Handler(req.user);
   console.log(req.body);

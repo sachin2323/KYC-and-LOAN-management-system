@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Button, Modal, Input, message, Spin, Row, Col, Alert, Form } from 'antd';
+import axios from 'axios';
+import emailjs from 'emailjs-com';
+import { Button, Modal, Input, message, Spin, Row, Col, Alert, Form, Checkbox } from 'antd';
 import { searchPPS, createRequest } from '../../Models/KYCRecords';
 const Search = Input.Search;
 const FormItem = Form.Item;
+const { TextArea } = Input;
 
 class SearchKYC extends Component {
   constructor(props) {
@@ -11,9 +14,46 @@ class SearchKYC extends Component {
       visible : false,
       loading : false,
       info : null,
-      notFound : false
+      notFound : false,
+      value:null,
+      feedback: '', 
+      name: 'Bank', 
+      email: '',
     }
   }
+
+
+  handleSubmit = (event) =>{
+	const templateId = "template_6Zn9ZXpl";
+
+	this.sendFeedback(templateId, {message_html: this.state.feedback, from_name: this.state.name, reply_to: this.state.email})
+  }
+
+  sendFeedback = (templateId, variables) => {
+	window.emailjs.send(
+  	'gmail', templateId,
+  	variables
+  	).then(res => {
+      message.success("Email Sent!")
+      console.log('Email successfully sent!');
+      
+  	})
+  	// Handle errors here however you like, or use a React error boundary
+  	.catch(err =>message.error("Unable to raise request"))
+  }
+
+//console.error('Oh well, you failed. Here some thoughts on the error that occured:', err)  
+  handleChange = (e) =>{
+    this.setState({value : e.target.value })
+  } 
+
+  handleFeedbackChange = (e) =>{
+    this.setState({feedback : e.target.value })
+  } 
+
+  handleEmailChange = (e) =>{
+    this.setState({email : e.target.value })
+  } 
 
   handleOk = () => {
     this.setState({ visible: true })
@@ -29,6 +69,34 @@ class SearchKYC extends Component {
       requestLoader : false
     })
   }
+/*
+  ContactUs = () => {
+
+  sendEmail =(e) => {
+    e.preventDefault();
+
+    emailjs.sendForm("gmail", "template_6Zn9ZXpl", e.target, "user_EPcVsIpvwYB3du8KUTzKl")
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  }
+  }
+
+  return (
+    <form className="contact-form" onSubmit={sendEmail}>
+      <input type="hidden" name="contact_number" />
+      <label>Name</label>
+      <input type="text" name="user_name" />
+      <label>Email</label>
+      <input type="email" name="user_email" />
+      <label>Message</label>
+      <textarea name="message" />
+      <input type="submit" value="Send" />
+    </form>
+  );
+}*/
 
   handleSearch = (value) => {
     this.props.form.validateFields((err, values) => {
@@ -56,7 +124,7 @@ class SearchKYC extends Component {
             }
           },
           onError: (data) => {
-            console.log("rror")
+            console.log("error")
             this.setState({ loading: false })
           }
         })
@@ -68,7 +136,8 @@ class SearchKYC extends Component {
     this.setState({requestLoader : true})
     createRequest({
       data: {
-        "PPS_number": this.state.info.PPSNumber
+        "PPS_number": this.state.info.PPSNumber,
+        required_documents: this.state.value
       },
       onSuccess: (data) => {
         this.setState({
@@ -126,6 +195,29 @@ class SearchKYC extends Component {
               type="warning"
               closable
             />
+            <p>{this.state.info}</p>
+            <Form className="test-mailing">
+    	      <h1>Let's see if it works</h1>
+            <div>
+            <h1>Email</h1>
+            <Input type="email" 
+            name="user_email"
+            placeholder = "Email ID"
+            onChange={this.handleEmailChange} 
+            value = {this.state.email}
+            />
+              <TextArea
+                id="test-mailing"
+                name="test-mailing"
+                onChange={this.handleFeedbackChange}
+                placeholder="Post some lorem ipsum here"
+                required
+                value={this.state.feedback}
+                style={{width: '100%', height: '150px'}}
+              />
+            </div>
+            <Input type="button" value="Submit" className="btn btn--submit" onClick={this.handleSubmit} />
+          </Form>
           </div>
         )
       }
@@ -135,7 +227,7 @@ class SearchKYC extends Component {
     
   }
 
-  renderSearchContainer = () => {
+  renderSearchContainer = (record) => {
     const { getFieldDecorator } = this.props.form;
     return (
       <div>
@@ -150,6 +242,14 @@ class SearchKYC extends Component {
                 enterButton
               />
             )}
+            {
+             <TextArea autosize = {true}
+             placeholder="Enter the required documents needed"
+             id = "required_documents"
+             onChange = {this.handleChange}
+             value = {this.state.value} 
+             />
+          }
           </FormItem>
         </Form>
         {this.state.loading ? this.renderLoader() : this.renderInfo()}

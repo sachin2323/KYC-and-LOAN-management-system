@@ -1,5 +1,5 @@
 const jwt = require("../utils/jwt");
-const noAuthRoutes = ["/api/add-organization", "/api/login"];
+const noAuthRoutes = ["/api/add-organization", "/api/login","/api/add-buyer","/api/add-seller"];
 
 module.exports = {
   isAuthenticated: (req, res, next) => {

@@ -35,6 +35,14 @@ class GbKYC extends Component {
         )
       }
     }, {
+      title: 'Expire Time',
+      dataIndex: 'expire_time',
+      render: (text, record) => {
+        return (
+          <span>{record.expire_time}</span>
+        )
+      }
+    }, {
       title: 'Actions',
       dataIndex: 'actions',
       render: (text, record, index) => {

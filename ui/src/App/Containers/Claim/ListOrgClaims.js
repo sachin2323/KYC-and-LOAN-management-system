@@ -45,6 +45,11 @@ export default class ListClaim extends Component {
         key: "status"
       },
       {
+        title: "Suggestion",
+        dataIndex: "suggestion",
+        key: "suggestion"
+      },
+      {
         title: "Actions",
         dataIndex: "actions",
         render: (text, record, index) => {

@@ -19,7 +19,8 @@ type Claim struct {
 	Description    string   `json:"description"`
 	Status         string   `json:"status"`
 	SellerPPS      string   `json:"seller_PPS"`
-	SellerName	   string   `json:"seller_name"`	
+	SellerName	   string   `json:"seller_name"`
+	SellerEmail    string   `json:"seller_email"`	
 	InsureeID      string   `json:"insureeId"`
 	UserIDs        []string `json:"userIds"`
 	SellerID       string 	`json:"sellerID"`
@@ -59,6 +60,7 @@ type Claim struct {
 	AgreedPriceOfSale string 	`json:"agreed_price_of_sale"`
 	AmountOfLoanRequired string `json:"amount_of_loan_required"`
 	MortgageTerm	string		`json:"mortgage_term"`
+	Suggestion		string		`json:"suggestion"`
 
 }
 
@@ -143,6 +145,7 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, txnID string, userI
 		SellerPPS:      args[2],
 		InsureeID:      userID,
 		SellerName:		args[16],
+		SellerEmail:	args[17],
 		SellerID:		searchSellers[0].Record.ID,
 		InsurerOrgID:   searchResults[0].Record.ID,
 		OrganizationID: currentOrgID,
@@ -257,6 +260,7 @@ func UpdateStatus(APIstub shim.ChaincodeStubInterface, args []string, txnID stri
 	json.Unmarshal(existingClaimAsBytes, &claim)
 
 	claim.Status = args[1]
+	claim.Suggestion = args[2]
 
 	claimAsBytes, _ := json.Marshal(claim)
 	APIstub.PutState(args[0], claimAsBytes)

@@ -152,7 +152,7 @@ let updateVerificationRecordArray = function(args) {
 };
 
 let createRequestArray = function(args) {
-  let returnData = [args.PPS_number];
+  let returnData = [args.PPS_number, args.required_documents ? args.required_documents : "null"];
   return returnData;
 };
 
@@ -184,7 +184,8 @@ let addClaimArray = function(args) {
     args.date_of_birth,
     args.martial_status,
     args.no_of_dependents,
-    args.seller_name
+    args.seller_name,
+    args.seller_email
     /*
     args.owner_rent_living,
     args.outstanding_balance,
@@ -210,7 +211,7 @@ let addClaimArray = function(args) {
 };
 
 let updateClaimStatusArray = function(args) {
-  return [args.claim_id, args.status_update];
+  return [args.claim_id, args.status_update, args.suggestion ? args.suggestion : "null"];
 };
 
 let addProofToClaimArray = function(args) {

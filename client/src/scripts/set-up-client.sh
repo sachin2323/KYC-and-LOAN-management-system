@@ -12,14 +12,14 @@ echo "================Registering Central Bank================"
 node ./scripts/register-central-bank.js
 echo "-------------------------------------------------"
 
-echo "================Registering Bank Org================"
+echo "================Registering Bank================"
 node ./scripts/register-bank.js
 echo "-------------------------------------------------"
 
-echo "================Registering Bank Org================"
+echo "================Registering Buyer Admin================"
 node ./scripts/register-buyer.js
 echo "-------------------------------------------------"
 
-echo "================Registering Bank Org================"
+echo "================Registering Seller Admin================"
 node ./scripts/register-seller.js
 echo "-------------------------------------------------"

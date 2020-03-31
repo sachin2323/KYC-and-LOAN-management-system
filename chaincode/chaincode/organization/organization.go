@@ -116,7 +116,7 @@ func AddRequest(APIstub shim.ChaincodeStubInterface, args []string, currentOrg O
 		bankApproval.PPSID = PPSRecordID
 		bankApproval.PPSRaw = args[0]
 		bankApproval.UserID = userID
-		bankApproval.Banks = append(bankApproval.Banks, common.BankRequest{BankID: currentOrg.ID, Name: currentOrg.Name, UserStatus: "Request", BankStatus: "Request"})
+		bankApproval.Banks = append(bankApproval.Banks, common.BankRequest{BankID: currentOrg.ID, Name: currentOrg.Name, UserStatus: "Request", BankStatus: "Request", RequiredDocuments : args[1]})
 		bankApprovalAsBytes, err = json.Marshal(bankApproval)
 		if err != nil {
 			return shim.Error(err.Error())
