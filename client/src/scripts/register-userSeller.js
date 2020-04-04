@@ -14,12 +14,12 @@ let registerSellerUser = (data) => {
     formData: {
       card: {
         value: fs.createReadStream(
-          "/d/Blockchain-new/HLF-Insurance-KYC/client/src/cards/Seller-AdminUser.card"
+          "/client/src/cards/Seller-AdminUser.card"
           
         ),
         options: {
           filename:
-          "/d/Blockchain-new/HLF-Insurance-KYC/client/src/cards/Seller-AdminUser.card",
+          "/client/src/cards/Seller-AdminUser.card",
           contentType: null
         }
       }
