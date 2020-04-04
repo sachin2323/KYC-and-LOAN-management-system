@@ -106,7 +106,7 @@ services:
       - COUCHDB_USER=
       - COUCHDB_PASSWORD=
     ports:
-      - 5984
+      - 5984:5984
     networks:
       - basic
 

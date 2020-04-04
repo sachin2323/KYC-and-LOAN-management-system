@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Modal, Button, Table, message, Tag, Row, Col } from "antd";
+import { Input, Modal, Button, Table, message, Tag, Row, Col } from "antd";
 import { getClaimDetails, updateClaimStatus } from "../../Models/ClaimRecords";
 import { getCurrentUser } from "../../Models/Auth";
+const { TextArea } = Input;
 export default class AcceptModal extends Component {
   constructor(props) {
     super(props);
@@ -10,16 +11,22 @@ export default class AcceptModal extends Component {
       info: null,
       records: null,
       acceptButton: false,
-      rejectButton: false
+      rejectButton: false,
+      value:null
     };
   }
 
-  handleAcceptOrReject = status_update => {
+  handleChange = (e) =>{
+    this.setState({value : e.target.value })
+  } 
+  
+    handleAcceptOrReject = (status_update)=> {
     this.setState({ acceptButton: true });
     updateClaimStatus({
       data: {
         claim_id: this.props.record.id,
-        status_update
+        status_update,
+        suggestion: this.state.value
       },
       onSuccess: data => {
         this.setState({
@@ -76,6 +83,10 @@ export default class AcceptModal extends Component {
               {this.state.info.seller_name}
             </p>
             <p>
+              <strong>Seller Email-ID: </strong>
+              {this.state.info.seller_email}
+            </p>
+            <p>
               <strong>Seller PPS Number: </strong>
               {this.state.info.seller_PPS}
             </p>
@@ -127,6 +138,14 @@ export default class AcceptModal extends Component {
           </Col>
         </Row>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {
+             <TextArea autosize = {true}
+             placeholder="Enter any suggestions"
+             id = "suggestion"
+             onChange = {this.handleChange}
+             value = {this.state.value} 
+             />
+          }
           {!this.state.Accepted ? (
             <Button
               type="primary"
@@ -136,7 +155,10 @@ export default class AcceptModal extends Component {
               Accept
             </Button>
           ) : (
-            <b>Accepted!</b>
+            <div>
+            <b>Accepted</b>
+            <h1>Suggestions</h1>
+            {this.state.value}</div> 
           )}
           {!this.state.Accepted ? (
             <Button
@@ -147,7 +169,10 @@ export default class AcceptModal extends Component {
               Reject
             </Button>
           ) : (
+            <div>
             <b>Rejected!</b>
+            <h1>Suggestions</h1>
+            {this.state.value}</div> 
           )}
         </div>
       </div>

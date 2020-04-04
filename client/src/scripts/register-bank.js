@@ -5,7 +5,7 @@ let registerInsurer = () => {
     name: "Bank1",
     email: "bank1@gmail.com",
     created_at: new Date().toISOString(),
-    organization_type: "Bank" // @TODO: Change to insurance company
+    organization_type: "Bank"
   };
   let handler = new Handler("admin");
   handler

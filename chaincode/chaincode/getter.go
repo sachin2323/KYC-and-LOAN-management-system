@@ -411,6 +411,80 @@ func GetAllUsers(APIstub shim.ChaincodeStubInterface, args []string, currentUser
 	return eh.SystemError(err, usersAsBytes)
 }
 
+
+// GetAllSellers will get all sellers of seller org
+//
+// args: []
+func GetAllSellers(APIstub shim.ChaincodeStubInterface, args []string, currentUserOrg org.Organization, currentUserID string) sc.Response {
+	users := []user.User{}
+	type SearchResult struct {
+		Key    string           `json:"key"`
+		Record org.Organization `json:"record"`
+	}
+	searchResultsBytes, err := utils.GetQueryResultForQueryString(APIstub, "{\"selector\": {\"$and\": [{\"type\":\""+"Seller"+"\"}]}}") //,{\"class\": \"User\"}
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	searchResults := []SearchResult{}
+	json.Unmarshal([]byte(searchResultsBytes), &searchResults)
+	
+	if len(searchResults) < 1 {
+		return shim.Error("No Organization found with given type")
+	}
+	fmt.Println(searchResults)
+	for i := 0; i < len(searchResults); i++ {
+
+		userAsResponse := GetUserDetails(APIstub, []string{searchResults[i].Record.ID}, searchResults[i].Record)
+		user := user.User{}
+		err := json.Unmarshal(userAsResponse.GetPayload(), &user)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		if currentUserID != user.ID {
+			users = append(users, user)
+		}
+	}
+	usersAsBytes, err := json.Marshal(users)
+	return shim.Success(usersAsBytes)
+}
+
+
+// GetAllBanks will get all banks of Bank org
+//
+// args: []
+func GetAllBanks(APIstub shim.ChaincodeStubInterface, args []string, currentUserOrg org.Organization, currentUserID string) sc.Response {
+	users := []user.User{}
+	type SearchResult struct {
+		Key    string           `json:"key"`
+		Record org.Organization `json:"record"`
+	}
+	searchResultsBytes, err := utils.GetQueryResultForQueryString(APIstub, "{\"selector\": {\"$and\": [{\"type\":\""+"Bank"+"\"}]}}")  //,{\"class\": \"Organization\"}
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	searchResults := []SearchResult{}
+	json.Unmarshal([]byte(searchResultsBytes), &searchResults)
+	
+	if len(searchResults) < 1 {
+		return shim.Error("No Organization found with given type")
+	}
+	fmt.Println(searchResults)
+	for i := 0; i < len(searchResults); i++ {
+
+		userAsResponse := GetUserDetails(APIstub, []string{searchResults[i].Record.ID}, searchResults[i].Record)
+		user := user.User{}
+		err := json.Unmarshal(userAsResponse.GetPayload(), &user)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		if currentUserID != user.ID {
+			users = append(users, user)
+		}
+	}
+	usersAsBytes, err := json.Marshal(users)
+	return shim.Success(usersAsBytes)
+}
+
 // GetAllRecords will get all users of org
 //
 // args: []
@@ -742,7 +816,7 @@ func GetStatusTimeline(APIstub shim.ChaincodeStubInterface, args []string) sc.Re
 
 	// claimAsBytes := APIstub.GetState(args[0])
 	// claim, _ := json.Marshal(claimAsBytes)
-	searchResultsBytes, err := utils.GetQueryResultForQueryString(APIstub, "{\"selector\": {\"$and\": [{\"claimId\":\""+args[0]+"\"},{\"class\": \"Transaction\"},{\"action\":\"CSU - Claim Status Update\"}]}}")
+	searchResultsBytes, err := utils.GetQueryResultForQueryString(APIstub, "{\"selector\": {\"$and\": [{\"claimId\":\""+args[0]+"\"},{\"class\": \"Transaction\"},{\"action\":\"ASU - Application Status Update\"}]}}")
 	if err != nil {
 		return shim.Error(err.Error())
 	}
@@ -764,7 +838,7 @@ func SearchOrganizationsByDomainName(APIstub shim.ChaincodeStubInterface, name s
 	}
 	organizations := []org.Organization{}
 	length := 0
-	queryString := "{\"selector\": {\"$and\" : [{\"name\": {\"$regex\": \"(?i)" + name + "\"},\"class\": \"Organization\", \"type\":\"Hospital\"}]}}"
+	queryString := "{\"selector\": {\"$and\" : [{\"name\": {\"$regex\": \"(?i)" + name + "\"},\"class\": \"Organization\", \"type\":\"Users\"}]}}"
 	searchResultsBytes, err := utils.GetQueryResultForQueryString(APIstub, queryString)
 	if err != nil {
 		return organizations, length

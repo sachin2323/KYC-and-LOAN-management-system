@@ -14,11 +14,11 @@ let registerUser = () => {
     formData: {
       card: {
         value: fs.createReadStream(
-          " ../src/cards/Central Bank-AdminUser.card"
+          "../cards/Central Bank-AdminUser.card"
         ),
         options: {
           filename:
-            "../src/cards/Central Bank-AdminUser.card",
+            "../cards/Central Bank-AdminUser.card",
           contentType: null
         }
       }

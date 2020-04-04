@@ -106,7 +106,7 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 	// 	return authStatus
 	// }
 
-	// Insurance Functions
+	// Loan Functions
 	if function == "addClaim" {
 		return s.addClaim(APIstub, args, txnID, currentUser, currentUserOrg)
 	} else if function == "addProofToClaim" {
@@ -176,6 +176,10 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 	} else if function == "getUserEnrollments" {
 		return GetUserEnrollments(APIstub, args)
 	} else if function == "getAllUsers" {
+		return GetAllUsers(APIstub, args, currentUserOrg, currentUser.ID)
+	} else if function == "getAllSellers" {
+		return GetAllUsers(APIstub, args, currentUserOrg, currentUser.ID)
+	} else if function == "getAllBanks" {
 		return GetAllUsers(APIstub, args, currentUserOrg, currentUser.ID)
 	} else if function == "getAllRecords" {
 		return GetAllRecords(APIstub, args, currentUserOrg)
@@ -264,13 +268,24 @@ func (s *SmartContract) addUser(APIstub shim.ChaincodeStubInterface, args []stri
 	}
 
 	if args[2] == "Client" {
-		if len(args[4]) < 1 {
+		if len(args[5]) < 1 {
 			return shim.Error("National ID should be provided")
 		}
 	} else {
 		args = append(args, "")
 	}
-
+		fmt.Println(args[5])
+		existingIDAsBytes:= eh.ExistError(APIstub, args[5])
+		if existingIDAsBytes.GetMessage() != "" {
+			return existingIDAsBytes
+		}
+	/*	if existingIDAsBytes != nil {
+		return shim.Error("User with PPS-ID " + args[5] + " already exists")
+		}
+		if err != nil {
+		return shim.Error(err.Error())
+		}*/
+			
 	payloadAsResponse := user.Add(APIstub, args, userOrg.ID)
 	if payloadAsResponse.GetMessage() != "" {
 		return payloadAsResponse

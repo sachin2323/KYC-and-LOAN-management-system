@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { message, Row, Col, Form, Input, Button} from "antd";
+import { message, Row, Col, Form, Input, Button, Select} from "antd";
 import { addClaim } from "../../Models/ClaimRecords";
 import { getCurrentUser } from "../../Models/Auth";
+import {listSellers, listBanks} from "../../Models/Users";
 const FormItem = Form.Item;
+const Option = Select.Option;
 
 class AddClaim extends Component {
   constructor(props) {
@@ -13,7 +15,7 @@ class AddClaim extends Component {
       newLink: null
     };
   }
-
+  
   handleSubmit = e => {
     console.log("came");
     e.preventDefault();
@@ -96,6 +98,18 @@ class AddClaim extends Component {
                   ]
                 })(<Input placeholder="Seller name" />)}
                
+                </FormItem>
+
+                <FormItem>
+                  {getFieldDecorator("seller_email", {
+                    rules: [
+                      {
+                        type: "string",
+                        required: true,
+                        message: "Please input the  Seller Email-ID!"
+                      }
+                    ]
+                  })(<Input placeholder="Seller Email-ID" />)}
                 </FormItem>
 
               <FormItem>

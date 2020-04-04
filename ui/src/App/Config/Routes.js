@@ -8,10 +8,14 @@ const WALLET_IMPORT = BASE_URL + "/login";
 const KYC_IMPORT = BASE_URL + "/import-kyc";
 const LOGOUT = BASE_URL + "/logout";
 const CREATE_USER = BASE_URL + "/add-user";
+const CREATE_BUYER = BASE_URL + "/add-buyer";
+const CREATE_SELLER = BASE_URL + "/add-seller";
 
 const IDENTITY_ISSUE = BASE_URL + "/issue-identity";
 const LIST_KYCS = BASE_URL + "/list-kycs";
 const LIST_USERS = BASE_URL + "/list-users";
+const LIST_SELLERS = BASE_URL + "/get-all-sellers";
+const LIST_BANKS = BASE_URL + "/get-all-banks";
 const CURRENT_USER_INFO = BASE_URL + "/get-current-user";
 const KYC_INFO = BASE_URL + "/get-records-by-PPS";
 const GET_KYC_BY_PPS = BASE_URL + "/get-records-by-PPS";
@@ -58,6 +62,8 @@ export {
   KYC_IMPORT,
   LOGOUT,
   CREATE_USER,
+  CREATE_BUYER,
+  CREATE_SELLER,
   IDENTITY_ISSUE,
   LIST_KYCS,
   LIST_USERS,
@@ -88,5 +94,7 @@ export {
   GET_CLAIM_DETAILS,
   SEARCH_ORGANIZATION,
   LIST_IDENTITY,
-  GET_INSURER_CLAIMS
+  GET_INSURER_CLAIMS,
+  LIST_SELLERS,
+  LIST_BANKS
 };

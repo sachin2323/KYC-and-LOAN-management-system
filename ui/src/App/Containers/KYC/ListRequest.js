@@ -5,7 +5,7 @@ import { listRequest, approveRequest } from '../../Models/KYCRecords';
 import InfoModal from '../../Components/KYC/InfoModal';
 const CheckboxGroup = Checkbox.Group;
 const FormItem = Form.Item;
-
+const arr = ["Name","PPSID"]
 class ListRequest extends Component {
   constructor(props) {
     super(props);
@@ -48,6 +48,10 @@ class ListRequest extends Component {
       dataIndex: 'name',
       key: 'name',
     }, {
+      title: 'Required Documents',
+      dataIndex: 'required_documents',
+      key: 'required_documents',
+    },  {
       title: 'Actions',
       dataIndex: 'actions',
       render: (text, record, index) => {
@@ -114,7 +118,7 @@ class ListRequest extends Component {
         "organization_id": record.bankID,
         "status": status,
         timeLimit : timeLimit ? timeLimit : '',
-        allowed : this.state.allowed
+        allowed : arr.concat(this.state.allowed) 
       },
       onSuccess: (data) => {
         this.setState({ 
@@ -156,6 +160,9 @@ class ListRequest extends Component {
 
   renderCheckbox = () => {
     let options = this.state.options.map((option, i) => {
+      if (i < 2){
+        return <Col span={6}><Checkbox defaultChecked={true} disabled value={option.value} >{option.label}</Checkbox></Col> 
+      }
       return <Col span={6}><Checkbox value={option.value} >{option.label}</Checkbox></Col>
     })
     return (
