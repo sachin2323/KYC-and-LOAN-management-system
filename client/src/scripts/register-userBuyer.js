@@ -14,11 +14,11 @@ let registerBuyerUser = (data) => {
     formData: {
       card: {
         value: fs.createReadStream(
-        "/client/src/cards/Buyer-AdminUser.card"
+        "/Users/Lenovo/KYC-and-LOAN-management-system/client/src/cards/Buyer-AdminUser.card"
         ),
         options: {
           filename:
-          "/client/src/cards/Buyer-AdminUser.card",
+          "/Users/Lenovo/KYC-and-LOAN-management-system/client/src/cards/Buyer-AdminUser.card",
           contentType: null
         }
       }
