@@ -132,7 +132,7 @@ var addKYC = (options) => {
   })
 }
 
-/*
+
 var getKYCProof = options => {
   let { kyc_id, onSuccess, onError } = options;
   var url = Routes.GET_KYC_PROOF;
@@ -155,7 +155,7 @@ var addKYCProof = options => {
     .catch(function(error) {
       onError(error);
     });
-}; */
+}; 
 
 export {
   listKYCs,
@@ -170,8 +170,7 @@ export {
   listApprovedKYCs,
   listRequest,
   approveRequest,
-  releaseRequest
- // getKYCProof,
- // addKYCProof
-
+  releaseRequest,
+  getKYCProof,
+  addKYCProof,
 }

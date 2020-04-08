@@ -71,22 +71,35 @@ let addKYCRecordArray = function(args) {
     args.PPS_number,
     JSON.stringify({ data: [args.phone_numbers] }),
     moment(args.dateOfBirth).format("DD/MM/YYYY"),
-    args.birthMarks,
-    args.mothersMaidenName,
-    args.driversLicense,
-    args.passport,
-    args.other,
-    args.nationality,
+    args.birthMarks ? args.birthMarks:"null",
+    args.mothersMaidenName ? args.mothersMaidenName : "null",
+    args.driversLicense ? args.driversLicense : "null",
+    args.passport ? args.passport: "null",
+    args.other ? args.other:"null",
+    args.nationality ? args.nationality : "null",
     args.emailAddress,
-    args.national_age_card,
-    args.identification_form,
-    args.utility_bills,
-    args.home_insurance,
-    args.car_insurance,
-    args.tax_credit_certificate,
-    args.salary_certificate,
-    args.employee_pay_slip,
-    args.bank_statement,
+    args.national_age_card ? args.national_age_card : "null",
+    args.identification_form ? args.identification_form : "null",
+    args.utility_bills? args.utility_bills :"null",
+    args.home_insurance? args.home_insurance : "null",
+    args.car_insurance ? args.car_insurance : "null",
+    args.tax_credit_certificate ? args.tax_credit_certificate : "null",
+    args.salary_certificate ? args.salary_certificate : "null",
+    args.employee_pay_slip ? args.employee_pay_slip : "null", 
+    args.bank_statement ? args.bank_statement: "null",
+    args.PPS_number_url ? args.PPS_number_url : "null",
+    args.driversLicense_url ? args.driversLicense_url: "null",
+    args.passport_url ? args.passport_url : "null",
+    args.national_age_card_url ? args.national_age_card_url : "null",
+    args.identification_form_url?args.identification_form_url : "null",
+    args.utility_bills_url?  args.utility_bills_url : "null",
+    args.home_insurance_url ? args.home_insurance_url : "null",
+    args.car_insurance_url ? args.car_insurance_url : "null",
+    args.tax_credit_certificate_url ? args.tax_credit_certificate_url : "null",
+    args.salary_certificate_url ? args.salary_certificate_url : "null",
+    args.employee_pay_slip_url? args.employee_pay_slip_url : "null",
+    args.bank_statement_url ? args.bank_statement_url : "null",
+    args.other_url ? args.other_url : "null",
     JSON.stringify({
       data: [
         getRandomValue(),
@@ -103,7 +116,7 @@ let addKYCRecordArray = function(args) {
   if (args.status) {
     returnData.push(args.status);
   }
-  // console.log(returnData)
+  console.log(returnData);
   return returnData;
 };
 
@@ -132,11 +145,33 @@ let addAddressToKYCArray = function(args) {
   return returnData;
 };
 
+let addKYCProofToKYC = function(args) {
+  let returnData = [
+    args.kyc_id,
+    getRandomValue(),
+    args.PPS_number_url ? args.PPS_number_url : "null",
+    args.driversLicense_url ? args.driversLicense_url: "null",
+    args.passport_url ? args.passport_url : "null",
+    args.national_age_card_url ? args.national_age_card_url : "null",
+    args.identification_form_url?args.identification_form_url : "null",
+    args.utility_bills_url?  args.utility_bills_url : "null",
+    args.home_insurance_url ? args.home_insurance_url : "null",
+    args.car_insurance_url ? args.car_insurance_url : "null",
+    args.tax_credit_certificate_url ? args.tax_credit_certificate_url : "null",
+    args.salary_certificate_url ? args.salary_certificate_url : "null",
+    args.employee_pay_slip_url? args.employee_pay_slip_url : "null",
+    args.bank_statement_url ? args.bank_statement_url : "null",
+    args.other_url ? args.other_url : "null",
+  ];
+  return returnData;
+};
+
 let addVerificationRecordArray = function(args) {
   let returnData = [
     args.kyc_id,
     args.status,
-    args.reference_verification_id ? args.reference_verification_id : ""
+    args.reference_verification_id ? args.reference_verification_id : "",
+    args.suggestion ? args.suggestion : "null"
   ];
   return returnData;
 };
@@ -215,12 +250,13 @@ let updateClaimStatusArray = function(args) {
 };
 
 let addProofToClaimArray = function(args) {
-  return [getRandomValue(), args.claim_id, getRandomValue(), args.proofUrl];
+  return [getRandomValue(), args.claim_id, getRandomValue(), JSON.stringify({ data: [args.imageUrl] })];
 };
-/*
+
+
 let addProofToKYCArray = function(args) {
-  return [getRandomValue(), args.kyc_id, getRandomValue(), args.proofUrl];
-};*/
+  return [getRandomValue(), args.kyc_id, getRandomValue(), JSON.stringify({ data: [args.imageUrl] })];
+};
 
 module.exports = {
   getRandomValue,
@@ -232,6 +268,7 @@ module.exports = {
   addKYCRecordArray,
   updateKYCRecordArray,
   addAddressToKYCArray,
+  addKYCProofToKYC,
   addVerificationRecordArray,
   updateVerificationRecordArray,
   createRequestArray,
@@ -239,5 +276,5 @@ module.exports = {
   addClaimArray,
   updateClaimStatusArray,
   addProofToClaimArray,
-  //addProofToKYCArray
+  addProofToKYCArray
 };

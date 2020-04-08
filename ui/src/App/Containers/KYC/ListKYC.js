@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Card, Table, Button, message, Tag } from 'antd';
-import { listKYCs } from '../../Models/KYCRecords';
+import { Card, Table, Button, message, Tag, Divider } from 'antd';
+import { listKYCs, getKYCProof } from '../../Models/KYCRecords';
 import { Link } from 'react-router-dom'
 import ProcessModal from '../../Components/KYC/ProcessModal';
 import ImportKYC from '../../Components/KYC/ImportKYC';
@@ -27,23 +27,58 @@ export default class ListKYC extends Component {
           <span>{record.phoneNumbers[0]}</span>
         )
       }
-    }, {
+    },{
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+    },{
+      title: 'Suggestion',
+      dataIndex: 'suggestion',
+      key: 'suggestion',
+    },{
       title: 'Actions',
       dataIndex: 'actions',
       render: (text, record, index) => {
         return (
           <div style={{ display: "flex" }}>
-            {record.status === "Unprocessed" ? (
-              <ProcessModal record={record} list={this.listKYCs}/> ) : (
-                "Processed"
-              )}
+            {(<ProcessModal record={record} list={this.listKYCs}/>)}
+            <Divider type="vertical" />
+            <Button
+                type="primary"
+                onClick={() =>{} }//this.downloadProofs(record)}
+              >
+                View Proofs
+              </Button>
           </div>
         )
       }
     }
     ];
   }
+/*
+  downloadProofs = record => {
+    this.setState({ loading: true });
+          const link = document.createElement("a");
+          link.setAttribute("href", element.record.PPSIDUrl);
+          link.setAttribute("target", "_blank");
+          link.click();
+        };
+        //message.success("Successfully downloaded proof");
+        this.setState({
+          loading: false
+        });
+      },
+      onError: data => {
+        this.setState({
+          loading: false
+        });
+        console.log(data);
 
+        message.error("Unable to download proof");
+      }
+    });
+  };
+*/
   componentDidMount() {
     this.listKYCs()
   }

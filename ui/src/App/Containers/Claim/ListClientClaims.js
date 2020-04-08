@@ -16,6 +16,7 @@ import { getCurrentUser } from "../../Models/Auth";
 import { getClaimProof } from "../../Models/ClaimRecords";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "../../Config/Routes";
+const { Dragger } = Upload;
 
 export default class ListClaim extends Component {
   constructor(props) {
@@ -114,7 +115,8 @@ export default class ListClaim extends Component {
 
   renderContent = () => {
     const props = {
-      name: "proofimg",
+      name: "image",
+      multiple: true,
       action: BASE_URL + "/add-proof",
       headers: {
         token: getCurrentUser().token,
@@ -135,12 +137,17 @@ export default class ListClaim extends Component {
     };
     return (
       <div>
-        <Upload {...props}>
-          <Button>
-            <Icon type="upload" /> Click to Upload
-          </Button>
-        </Upload>
-      </div>
+      <Dragger {...props}>
+       <p className="ant-upload-drag-icon">
+       <Icon type="upload" />
+       </p>
+       <p className="ant-upload-text">Click or drag file to this area to upload</p>
+       <p className="ant-upload-hint">
+         Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+         band files
+       </p>
+     </Dragger>
+</div>
     );
   };
 

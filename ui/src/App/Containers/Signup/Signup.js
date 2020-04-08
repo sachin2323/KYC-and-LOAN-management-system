@@ -166,12 +166,12 @@ class Signup extends React.Component {
       onSuccess: (data) => {
         console.log(data)
         this.setState({
-          loading: false,
+          loading: true,
           visibleSeller: false,
           newLink: "/login"
         })
         this.props.form.resetFields();
-        message.success('Seller successfully registered! Card sent via mail')
+        message.success('Seller successfully registered! Card sent via mail',5)
       },
       onError: (data) => {
         this.setState({

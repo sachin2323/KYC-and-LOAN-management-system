@@ -147,11 +147,17 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.addRoleToOrganization(APIstub, args, currentUserOrg)
 	} else if function == "addKYCRecord" {
 		return s.addKYCRecord(APIstub, args, currentUser, userMSPID, currentUserOrg)
-	} else if function == "updateKYCRecord" {
+/*	} else if function == "addProofToKYC" {
+		return s.addProofToKYC(APIstub, args, txnID)
+	}else if function == "getKYCProofs" {
+		return s.GetKYCProofs(APIstub, args) */
+	}else if function == "updateKYCRecord" {
 		return s.updateKYCRecord(APIstub, args, userMSPID)
 	} else if function == "addAddressToKYC" {
 		return s.addAddressToKYC(APIstub, args, currentUser)
-	} else if function == "addRequestForRecord" {
+//	} else if function == "addKYCProofToKYC" {
+//		return s.addKYCProofToKYC(APIstub, args, currentUser)
+	}else if function == "addRequestForRecord" {
 		return s.addRequestForRecord(APIstub, args, currentUserOrg)
 	} else if function == "approveBankRequest" {
 		return s.approveBankRequest(APIstub, args, currentUser)
@@ -171,6 +177,8 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return GetVerificationRecordByKYCID(APIstub, args)
 	} else if function == "getAddressDetails" {
 		return GetAddressDetails(APIstub, args)
+//	}else if function == "GetKYCProofDetails" {
+//		return GetKYCProofDetails(APIstub, args)
 	} else if function == "getUserDetails" {
 		return GetUserDetails(APIstub, args, currentUserOrg)
 	} else if function == "getUserEnrollments" {
@@ -349,9 +357,9 @@ func (s *SmartContract) addKYCRecord(APIstub shim.ChaincodeStubInterface, args [
 	if currentUser.Role == "Client" {
 		payloadAsResponse, recordAsResponse = kyc.Add(APIstub, args, currentUser.ID, mspID, currentUser.ID, "Unprocessed")
 	} else {
-		payloadAsResponse, recordAsResponse = kyc.Add(APIstub, args, currentUser.ID, mspID, "", args[22])
-		if args[22] == "Processed" {
-			kyc.AddVerificationRecord(APIstub, payloadAsResponse.GetPayload(), []string{args[0], args[22], ""}, currentUser.ID, mspID, currentUser.OrganizationID)
+		payloadAsResponse, recordAsResponse = kyc.Add(APIstub, args, currentUser.ID, mspID, "", args[35])
+		if (args[35] == "Processed"||args[35] == "Rejected") {
+			kyc.AddVerificationRecord(APIstub, payloadAsResponse.GetPayload(), []string{args[0], args[35], ""}, currentUser.ID, mspID, currentUser.OrganizationID)
 		}
 	}
 
@@ -360,7 +368,7 @@ func (s *SmartContract) addKYCRecord(APIstub shim.ChaincodeStubInterface, args [
 	}
 	fmt.Println("added kyc record")
 
-	addresses, err := utils.SliceFromString(args[21])
+	addresses, err := utils.SliceFromString(args[34])
 	if err != nil {
 		return shim.Error(err.Error())
 	}
@@ -370,6 +378,21 @@ func (s *SmartContract) addKYCRecord(APIstub shim.ChaincodeStubInterface, args [
 	if addressAsResponse.GetMessage() != "" {
 		return addressAsResponse
 	}
+	/*
+	fmt.Println("trying kyc proofs")
+	kycProofs, err := utils.SliceFromString(args[22])
+	fmt.Println(args[22])
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	kycProofArgs := []string{args[0]}
+	kycProofArgs = append(kycProofArgs, kycProofs...)
+	kycProofAsResponse := kyc.AddKYCProof(APIstub, recordAsResponse.GetPayload(), kycProofArgs, currentUser.ID)
+	if kycProofAsResponse.GetMessage() != "" {
+		fmt.Println("returning kyc proofs")
+		fmt.Println(kycProofAsResponse)
+		return kycProofAsResponse
+	}*/
 
 	orgResponse := org.AddRecordID(APIstub, recordAsResponse.GetPayload(), userOrg)
 	if orgResponse.GetMessage() != "" {
@@ -447,6 +470,26 @@ func (s *SmartContract) addAddressToKYC(APIstub shim.ChaincodeStubInterface, arg
 	}
 	return kyc.AddAddress(APIstub, kycAsResponse.GetPayload(), args, currentUser.ID)
 }
+
+/*func (s *SmartContract) addKYCProofToKYC(APIstub shim.ChaincodeStubInterface, args []string, currentUser user.User) sc.Response {
+	fmt.Println("Entering addKYCProofToKYC")
+	argAsResponse := eh.ArgumentError(1, args)
+	if argAsResponse.GetMessage() != "" {
+		return argAsResponse
+	}
+
+	proofAsResponse := eh.ExistError(APIstub, args[1])
+	if proofAsResponse.GetMessage() != "" {
+		return proofAsResponse
+	}
+
+	kycAsResponse := eh.AbsentError(APIstub, args[0])
+	if kycAsResponse.GetMessage() != "" {
+		return kycAsResponse
+	}
+	return kyc.AddKYCProof(APIstub, kycAsResponse.GetPayload(), args, currentUser.ID)
+}*/
+
 
 // args : PPSId
 func (s *SmartContract) addRequestForRecord(APIstub shim.ChaincodeStubInterface, args []string, currentUserOrg org.Organization) sc.Response {
@@ -575,6 +618,41 @@ func (s *SmartContract) addProofToClaim(APIstub shim.ChaincodeStubInterface, arg
 
 	return claim.AddProof(APIstub, args, txnID)
 }
+/*
+func (s *SmartContract) addProofToKYC(APIstub shim.ChaincodeStubInterface, args []string, txnID string) sc.Response {
+
+	argAsResponse := eh.ArgumentError(4, args)
+	if argAsResponse.GetMessage() != "" {
+		return argAsResponse
+	}
+
+	existingProofAsBytes, err := APIstub.GetState(args[0])
+	if existingProofAsBytes != nil {
+		return shim.Error("Proof with id " + args[0] + " already exists")
+	}
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	existingKYCAsBytes, err := APIstub.GetState(args[1])
+	if existingKYCAsBytes == nil {
+		return shim.Error("KYC with id " + args[1] + " not found")
+	}
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	return kyc.AddKYCProof(APIstub, args, txnID)
+}
+
+func (s *SmartContract) GetKYCProofs(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+	searchResultsBytes, err := utils.GetQueryResultForQueryString(APIstub, "{\"selector\": {\"$and\": [{\"kycId\":\""+args[0]+"\"},{\"class\": \"KYCProof\"}]}}")
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	return shim.Success(searchResultsBytes)
+}
+*/
 
 func (s *SmartContract) addClaim(APIstub shim.ChaincodeStubInterface, args []string, txnID string, currentUser user.User, currentOrg org.Organization) sc.Response {
 

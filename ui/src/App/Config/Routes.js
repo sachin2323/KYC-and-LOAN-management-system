@@ -22,8 +22,8 @@ const GET_KYC_BY_PPS = BASE_URL + "/get-records-by-PPS";
 const GET_CLIENT_KYC = BASE_URL + "/get-client-kyc";
 const ADD_KYC = BASE_URL + "/add-kyc-record";
 const PROCESS = BASE_URL + "/add-verification-record";
-//const ADD_KYC_PROOF = BASE_URL + "/add-kyc-proof";
-//const GET_KYC_PROOF = BASE_URL + "/get-kyc-proof";
+const ADD_KYC_PROOF = BASE_URL + "/add-kyc-proof";
+const GET_KYC_PROOF = BASE_URL + "/get-kyc-proof";
 const SEARCH_PPS = BASE_URL + "/search-PPS";
 const CREATE_REQUEST = BASE_URL + "/create-request";
 const LIST_ORG_KYC = BASE_URL + "/list-org-requests";
@@ -73,8 +73,8 @@ export {
   APPROVE,
   GET_CLIENT_KYC,
   ADD_KYC,
- // ADD_KYC_PROOF,
- // GET_KYC_PROOF,
+  ADD_KYC_PROOF,
+  GET_KYC_PROOF,
   PROCESS,
   SEARCH_PPS,
   CREATE_REQUEST,

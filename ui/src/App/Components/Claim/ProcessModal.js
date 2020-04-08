@@ -155,10 +155,7 @@ export default class AcceptModal extends Component {
               Accept
             </Button>
           ) : (
-            <div>
             <b>Accepted</b>
-            <h1>Suggestions</h1>
-            {this.state.value}</div> 
           )}
           {!this.state.Accepted ? (
             <Button
@@ -169,10 +166,7 @@ export default class AcceptModal extends Component {
               Reject
             </Button>
           ) : (
-            <div>
             <b>Rejected!</b>
-            <h1>Suggestions</h1>
-            {this.state.value}</div> 
           )}
         </div>
       </div>
