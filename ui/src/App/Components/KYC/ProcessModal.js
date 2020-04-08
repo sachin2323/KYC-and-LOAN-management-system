@@ -217,83 +217,96 @@ export default class InfoModal extends Component {
             <p>
             <Button
                 type="primary"
-                href={this.state.info.PPSIDUrl}	
+                href={this.state.info.PPSIDUrl}
+                target="_blank"	
               >
                 View PPS ID Proofs
               </Button></p>
               <p>
             <Button
                 type="primary"
-                href={this.state.info.driversLicenseUrl}	
+                href={this.state.info.driversLicenseUrl}
+                target="_blank"	
               >
                 View Driver License Proofs
               </Button></p>
               <p>
             <Button
                 type="primary"
-                href={this.state.info.passportUrl}	
+                href={this.state.info.passportUrl}
+                target="_blank"	
               >
                 View Passport Proofs
               </Button></p>
               <p>
             <Button
                 type="primary"
-                href={this.state.info.nationalAgeCardUrl}	
+                href={this.state.info.nationalAgeCardUrl}
+                target="_blank"	
               >
                 View National Age Card Proofs
               </Button></p>
               <p>
             <Button
                 type="primary"
-                href={this.state.info.identificationFormUrl}	
+                href={this.state.info.identificationFormUrl}
+                target="_blank"	
               >
                 View Identification Form Proofs
               </Button></p>
            <p>   <Button
                 type="primary"
-                href={this.state.info.utilityBillsUrl}	
+                href={this.state.info.utilityBillsUrl}
+                target="_blank"	
               >
                 View Utility Bills Proofs
               </Button></p>
            <p>   <Button
                 type="primary"
-                href={this.state.info.homeInsuranceUrl}	
+                href={this.state.info.homeInsuranceUrl}
+                target="_blank"	
               >
                 View Home Insurance Proofs
               </Button></p>
           <p>    <Button
                 type="primary"
-                href={this.state.info.carInsuranceUrl}	
+                href={this.state.info.carInsuranceUrl}
+                target="_blank"	
               >
                 View Car Insurance Proofs
               </Button></p>
           <p>     <Button
                type="primary"
-               href={this.state.info.taxCreditCertificateUrl}	
+               href={this.state.info.taxCreditCertificateUrl}
+               target="_blank"	
              >
                View  Tax Credit Certificate Proofs
              </Button></p>
        <p>       <Button
               type="primary"
-              href={this.state.info.salaryCertificateUrl}	
+              href={this.state.info.salaryCertificateUrl}
+              target="_blank"	
             >
               View Salary Certificate Proofs
             </Button></p>
       <p>       <Button
              type="primary"
-             href={this.state.info.employeePayslipUrl}	
+             href={this.state.info.employeePayslipUrl}
+             target="_blank"	
            >
              View Employee Pay Slip Proofs
            </Button></p>
       <p>      <Button
             type="primary"
-            href={this.state.info.bankStatementUrl}	
+            href={this.state.info.bankStatementUrl}
+            target="_blank"	
           >
             View Bank Statement Proofs
           </Button></p>
      <p>      <Button
            type="primary"
-           href={this.state.info.otherUrl}	
+           href={this.state.info.otherUrl}
+           target="_blank"	
          >
            View Other Proofs
          </Button></p>

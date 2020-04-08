@@ -62,26 +62,6 @@ export default class ListClaim extends Component {
         title: "Suggestion",
         dataIndex: "suggestion",
         key: "suggestion"
-      },
-      {
-        title: "Action",
-        dataIndex: "actions",
-        render: (text, record, index) => {
-          return (
-            <div style={{ display: "flex" }}>
-              <Button type="primary" onClick={() => this.openModal(record)}>
-                Add Proof
-              </Button>
-              <Divider type="vertical" />
-              <Button
-                type="primary"
-                onClick={() => this.downloadProofs(record)}
-              >
-                View Proofs
-              </Button>
-            </div>
-          );
-        }
       }
     ];
   }

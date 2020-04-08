@@ -247,7 +247,7 @@ router.post("/upload",uploadNew.single('file'),(req, res) => {
         res.send(result.url)
       }
       else
-          res.status("409").json("No Files to Upload.");
+        res.status(500).json({ error: err.toString() });
     });
 });
 
