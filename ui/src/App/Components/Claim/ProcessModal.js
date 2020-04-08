@@ -137,80 +137,93 @@ export default class AcceptModal extends Component {
             <p>
             <Button
                 type="primary"
-                href={this.state.info.pps_number_url}	
+                href={this.state.info.pps_number_url}
+                target="_blank"	
               >
                 View PPS ID Proofs
               </Button></p>
 
               <p><Button
                 type="primary"
-                href={this.state.info.eir_code_url}	
+                href={this.state.info.eir_code_url}
+                target="_blank"	
               >
                 View EIR Code Proofs
               </Button></p>
               <p>    <Button
                 type="primary"
-                href={this.state.info.martial_status_url}	
+                href={this.state.info.martial_status_url}
+                target="_blank"	
               >
                 View Martial Status Proofs
               </Button></p>
               <p> <Button
                 type="primary"
-                href={this.state.info.current_value_property_url}	
+                href={this.state.info.current_value_property_url}
+                target="_blank"	
               >
                 View Current Value of Property Proofs
               </Button></p>
               <p>   <Button
                type="primary"
-               href={this.state.info.outstanding_balance_url}	
+               href={this.state.info.outstanding_balance_url}
+               target="_blank"	
              >
                View Outstanding Balance Proofs
              </Button></p>
              <p> <Button
               type="primary"
-              href={this.state.info.mortgage_term_url}	
+              href={this.state.info.mortgage_term_url}
+              target="_blank"	
             >
               View Mortgage Term Proofs
             </Button></p>
             <p>  <Button
              type="primary"
-             href={this.state.info.agreed_price_of_sale_url}	
+             href={this.state.info.agreed_price_of_sale_url}
+             target="_blank"	
            >
              View Agreed Price of Sale Proofs
            </Button></p>
            <p>   <Button
             type="primary"
-            href={this.state.info.purchase_cost_url}	
+            href={this.state.info.purchase_cost_url}
+            target="_blank"	
           >
             View Purchase Cost Proofs
           </Button></p>
           <p>    <Button
            type="primary"
-           href={this.state.info.repair_cost_url}	
+           href={this.state.info.repair_cost_url}
+           target="_blank"	
          >
            View Repair Cost Proofs
          </Button></p>
          <p>   <Button
           type="primary"
-          href={this.state.info.value_of_property_url}	
+          href={this.state.info.value_of_property_url}
+          target="_blank"	
         >
           View Value of Property Proofs
         </Button></p>
         <p>  <Button
          type="primary"
-         href={this.state.info.professional_fees_url}	
+         href={this.state.info.professional_fees_url}
+         target="_blank"	
        >
          View Professional Fees Proofs
        </Button></p>
        <p>  <Button
         type="primary"
-        href={this.state.info.funding_url}	
+        href={this.state.info.funding_url}
+        target="_blank"	
       >
         View Funding Proofs
       </Button></p>
       <p>    <Button
        type="primary"
-       href={this.state.info.job_profile_url}	
+       href={this.state.info.job_profile_url}
+       target="_blank"	
      >
        View Employment Details Proofs
      </Button></p>

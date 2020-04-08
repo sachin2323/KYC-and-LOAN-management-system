@@ -42,13 +42,6 @@ export default class ListKYC extends Component {
         return (
           <div style={{ display: "flex" }}>
             {(<ProcessModal record={record} list={this.listKYCs}/>)}
-            <Divider type="vertical" />
-            <Button
-                type="primary"
-                onClick={() =>{} }//this.downloadProofs(record)}
-              >
-                View Proofs
-              </Button>
           </div>
         )
       }
@@ -107,7 +100,7 @@ export default class ListKYC extends Component {
   render() {
     return (
       <div>
-        <Card title="List Of KYC" extra={<div style={{ display: "flex", justifyContent: "space-between" }}><Link to="/client/kyc/add-kyc"><Button style={{marginRight : "15px"}} type="primary">Add KYC</Button></Link><ImportKYC listKyc={this.listKYCs}/></div>}>
+        <Card title="List Of KYC" extra={<div style={{ display: "flex", justifyContent: "space-between" }}><ImportKYC listKyc={this.listKYCs}/></div>}>
           <Table dataSource={this.state.KYC} columns={this.columns} loading={this.state.loading} rowKey="id" />
         </Card>
       </div>

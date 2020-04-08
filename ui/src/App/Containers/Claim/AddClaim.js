@@ -6,7 +6,7 @@ import { getCurrentUser } from "../../Models/Auth";
 import {listSellers, listBanks} from "../../Models/Users";
 const FormItem = Form.Item;
 const Option = Select.Option;
-const currentUser = getCurrentUser();
+//const currentUser = getCurrentUser();
 
 class AddClaim extends Component {
   constructor(props) {
@@ -23,9 +23,6 @@ class AddClaim extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const user = getCurrentUser();
-        values.pps_number = user.national_id;
-        values.email  = user.email;
         console.log(values);
         this.addClaim(values);
       }
@@ -196,15 +193,22 @@ class AddClaim extends Component {
                 <h3>Personal Info</h3>
 
                 <FormItem>
-                <Input
-                  value={currentUser.national_id}
-                  defaultValue={currentUser.national_id}
-                  style={{ color: "blue" }}
-                  readOnly
-                  disabled={true}
-                  name="pps_number"
-                />
-              </FormItem>
+                  {getFieldDecorator("pps_number", {
+                    rules: [
+                      {
+                        type: "string",
+                        pattern:/^(\d{7})([A-Z]{1,2})$/i, 
+                        message: "PPS ID is Invalid. Please Input the correct PPS ID!"
+                        //pattern: /^[1-9]{1}[0-9]{0,}$/g,
+                        //message: "The input is not valid numerics!"
+                      },
+                      {
+                        required: true,
+                        message: "Please input your pps number!"
+                      }
+                    ]
+                  })(<Input placeholder="PPS Number" />)}
+                </FormItem>
 
               <FormItem
             label="Upload PPS Proof"
@@ -343,15 +347,16 @@ class AddClaim extends Component {
                 </FormItem>
 
                 <FormItem>
-                <Input
-                  value={currentUser.email}
-                  defaultValue={currentUser.email}
-                  style={{ color: "blue" }}
-                  readOnly
-                  disabled={true}
-                  name="email"
-                />
-              </FormItem>
+                  {getFieldDecorator("email", {
+                    rules: [
+                      {
+                        type: "string",
+                        required: true,
+                        message: "Please input your Email!"
+                      }
+                    ]
+                  })(<Input placeholder="Email" />)}
+                </FormItem>
                
 
                 <FormItem>

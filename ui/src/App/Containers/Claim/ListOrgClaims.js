@@ -57,12 +57,6 @@ export default class ListClaim extends Component {
             <div style={{ display: "flex" }}>
               <ProcessModal record={record} list={this.getInsurerClaims} />
               <Divider type="vertical" />
-              <Button
-                type="primary"
-                onClick={() => this.downloadProofs(record)}
-              >
-                View Proofs
-              </Button>
             </div>
           );
         }

@@ -223,7 +223,7 @@ let addClaimArray = function(args) {
     args.seller_email,
     args.eir_code_url?args.eir_code_url[0].url:"null",
     args.pps_number_url?args.pps_number_url[0].url:"null",
-    args.martial_status_url?args.pps_number_url[0].url:"null",
+    args.martial_status_url?args.martial_status_url[0].url:"null",
     args.current_value_property_url?args.current_value_property_url[0].url:"null",
     args.outstanding_balance_url?args.outstanding_balance_url[0].url:"null",
     args.mortgage_term_url?args.mortgage_term_url[0].url:"null",

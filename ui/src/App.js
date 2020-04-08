@@ -8,6 +8,8 @@ import "./App/Stylesheets/main.less";
 import "./App/Stylesheets/main.css";
 
 import * as Layouts from "./App/Layouts";
+ /* 404 */
+/*<Route component={Containers.NotFound} />*/
 
 export default class App extends React.Component {
   render() {
@@ -86,8 +88,6 @@ export default class App extends React.Component {
             path="/list-all-claims"
             component={Containers.ListAllClaims}
           />
-          {/* 404 */}
-          <Route component={Containers.NotFound} />
         </Switch>
       </Router>
     );
