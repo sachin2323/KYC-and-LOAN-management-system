@@ -222,6 +222,15 @@ class Handler {
     return this.connection.query(requestData);
   }
 
+  getKYCProofs(args) {
+    let requestData = {
+      chaincodeId: config.chaincodeId,
+      fcn: "getKYCProofs",
+      args: [args.kyc_id]
+    };
+    return this.connection.query(requestData);
+  }
+
   getStatusTimeline(args) {
     let requestData = {
       chaincodeId: config.chaincodeId,
@@ -267,6 +276,18 @@ class Handler {
       chaincodeId: config.chaincodeId,
       fcn: "addProofToClaim",
       args: parseArgs.addProofToClaimArray(args),
+      txId: tx_id,
+      chainId: config.chainId
+    };
+    return this.connection.submitTransaction(requestData);
+  }
+
+  addProofToKYC(args) {
+    let tx_id = this.connection.newTransactionID();
+    let requestData = {
+      chaincodeId: config.chaincodeId,
+      fcn: "addProofToKYC",
+      args: parseArgs.addProofToKYCArray(args),
       txId: tx_id,
       chainId: config.chainId
     };
@@ -373,6 +394,18 @@ class Handler {
       chaincodeId: config.chaincodeId,
       fcn: "addAddressToKYC",
       args: parseArgs.addAddressToKYCArray(args),
+      txId: tx_id,
+      chainId: config.chainId
+    };
+    return this.connection.submitTransaction(requestData);
+  }
+
+  addKYCProofToKYC(args) {
+    let tx_id = this.connection.newTransactionID();
+    let requestData = {
+      chaincodeId: config.chaincodeId,
+      fcn: "addKYCProofToKYC",
+      args: parseArgs.addKYCProofToKYC(args),
       txId: tx_id,
       chainId: config.chainId
     };
@@ -513,6 +546,15 @@ class Handler {
       chaincodeId: config.chaincodeId,
       fcn: "getAddressDetails",
       args: [args.address_id]
+    };
+    return this.connection.query(requestData);
+  }
+
+  GetKYCProofDetails(args) {
+    let requestData = {
+      chaincodeId: config.chaincodeId,
+      fcn: "GetKYCProofDetails",
+      args: [args.kycProof_id]
     };
     return this.connection.query(requestData);
   }

@@ -4,6 +4,15 @@ import { Card, Table, Button, message, Row, Col, Tag } from 'antd'
 import { getCurrentUser } from '../../Models/Auth'
 import { getClientKYC } from '../../Models/KYCRecords'
 
+/*if (this.state.KYC.status === "Rejected"){
+          return(
+            <Card title="KYC Record" extra={<Link to="/client/kyc/add-kyc"><Button type="primary">Add KYC</Button></Link>}>
+             <h3 style={{ color: "#052B82", textAlign: "center" }}>KYC is rejected please apply again</h3>
+             <div>{this.state.KYC.Suggestion}</div>
+            </Card>
+          )
+        } */
+
 class ClientKYC extends Component {
   constructor(props) {
     super(props);
@@ -89,6 +98,42 @@ class ClientKYC extends Component {
                 {this.renderStatus()}
               </li>
             </Col>
+            <Col span={6}>
+              <li>
+                <b>Passport</b>
+                <p>{this.state.KYC.passport}</p>
+              </li>
+            </Col>
+            <Col span={6}>
+              <li>
+                <b>Driver's License</b>
+                <p>{this.state.KYC.drivers_license}</p>
+              </li>
+            </Col>
+            <Col span={6}>
+              <li>
+                <b>Nationality</b>
+                <p>{this.state.KYC.nationality}</p>
+              </li>
+            </Col>
+            <Col span={6}>
+              <li>
+                <b>Email Address</b>
+                <p>{this.state.KYC.email_address}</p>
+              </li>
+            </Col>
+            <Col span={6}>
+              <li>
+                <b>National Age Card</b>
+                <p>{this.state.KYC.national_age_card}</p>
+              </li>
+            </Col>
+            <Col span={6}>
+              <li>
+                <b>Date Of Birth</b>
+                <p>{this.state.KYC.date_of_birth}</p>
+              </li>
+            </Col>
           </Row>
         </ul>
       </div>
@@ -161,6 +206,7 @@ class ClientKYC extends Component {
   }
 
   renderCard = () => {
+   // ()=>{this.getClientKYC()}
     if (this.state.KYC === null) {
       return (
         <Card title="KYC Record" loading={true} >
@@ -168,30 +214,33 @@ class ClientKYC extends Component {
       )
     } else if (this.state.KYC) {
       if (this.state.KYC.length !== 0) {
-        return (
-          <Card title="KYC Record" >
-            <div className="Asset-Cards">
-              <Row type="flex" justify="space-between" align="top">
-                <Col lg={24} sm={24}>
-                  <Card className="Asset-Details-Card" bordered={false} loading={this.state.loading}>
-                    {this.state.KYC ? this.renderContent() : null}
-                  </Card>
-                </Col>
-              </Row>
-            </div>
-          </Card>
-        )
-      } else {
+          return (
+            <Card title="KYC Record" >
+              <div className="Asset-Cards">
+              <Card title="KYC Record" extra={<Link to="/client/kyc/add-kyc"><Button type="primary">Add KYC</Button></Link>}>
+              <h3 style={{ color: "#052B82", textAlign: "center" }}>{this.state.KYC.suggestion}</h3>
+              </Card>  
+                <Row type="flex" justify="space-between" align="top">
+                  <Col lg={24} sm={24}>
+                    <Card className="Asset-Details-Card" bordered={false} loading={this.state.loading}>
+                      {this.state.KYC ? this.renderContent() : null}
+                    </Card>
+                  </Col>
+                </Row>
+              </div>
+            </Card>  
+          )
+      
+} else {
         return (
           <Card title="KYC Record" extra={<Link to="/client/kyc/add-kyc"><Button type="primary">Add KYC</Button></Link>}>
             <h3 style={{ color: "#052B82", textAlign: "center" }}>No record found</h3>
           </Card>
         )
       }
-      
+        
     }
-    
-  }
+    }
   render() {
     return (
       <div>

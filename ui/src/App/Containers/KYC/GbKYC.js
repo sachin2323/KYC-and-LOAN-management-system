@@ -34,15 +34,7 @@ class GbKYC extends Component {
           <span>{record.phoneNumbers ? record.phoneNumbers[0] : "*Hidden*"}</span>
         )
       }
-    }, {
-      title: 'Expire Time',
-      dataIndex: 'expire_time',
-      render: (text, record) => {
-        return (
-          <span>{record.expire_time}</span>
-        )
-      }
-    }, {
+    },{
       title: 'Actions',
       dataIndex: 'actions',
       render: (text, record, index) => {

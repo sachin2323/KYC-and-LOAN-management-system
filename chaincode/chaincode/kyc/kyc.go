@@ -36,20 +36,23 @@ type Address struct {
 	Class               string `json:"class"`
 }
 /*
-
 type KYCProof struct {
-	ID					string	`json:"id"`
-	IdentificationForm  string  `json:"identificationForm"`
-	UtilityBills        string  `json:"utilityBills"`
-	HomeInsurance       string  `json:"homeInsurance"`
-	CarInsurance        string  `json:"carInsurance"`
-	TaxCreditCertificate string `json:"taxCreditCertificate"`
-	SalaryCertificate	string 	`json:"salaryCertificate"`
-	EmployeePayslip     string  `json:"employeePayslip"`
-	BankStatement       string  `json:"bankStatement"`
-	Other 				string	`json:"other"`
-	CreatedAt           string  `json:"createdAt"`
-	Class				string  `json:"class`
+	ID					   	string  `json:"id"`
+	PPSIDURL			   	string  `json:"PPSIDUrl"`
+	DriversLicenseURL		string	`json:"driversLicenseUrl"` 
+	PassportURL				string	`json:"passportUrl"`
+	NationalAgeCardURL		string	`json:"nationalAgeCardUrl"`
+	IdentificationFormURL  	string  `json:"identificationFormUrl"`
+	UtilityBillsURL        	string  `json:"utilityBillsUrl"`
+	HomeInsuranceURL       	string  `json:"homeInsuranceUrl"`
+	CarInsuranceURL        	string  `json:"carInsuranceUrl"`
+	TaxCreditCertificateURL string  `json:"taxCreditCertificateUrl"`
+	SalaryCertificateURL	string 	`json:"salaryCertificateUrl"`
+	EmployeePayslipURL     	string  `json:"employeePayslipUrl"`
+	BankStatementURL       	string  `json:"bankStatementUrl"`
+	OtherURL 				string	`json:"otherUrl"`
+	CreatedAt           	string  `json:"createdAt"`	
+	Class					string  `json:"class"`
 }
 */
 // Record is the model for a sample KYC Record
@@ -70,11 +73,9 @@ type Record struct {
 	MothersMaidenName string   `json:"mothers_maiden_name"`
 	DriversLicense    string   `json:"drivers_license"`
 	Passport          string   `json:"passport"`
-	//CardInformation   string   `json:"card_information"`
 	Nationality       string   `json:"nationality"`
 	EmailAddress      string   `json:"email_address"`
 	NationalAgeCard   string   `json:"national_age_card"`
-	//KYCProofIDs		  []string  `json:"KYCproofIDs"`
 	IdentificationForm  string  `json:"identificationForm"`
 	UtilityBills        string  `json:"utilityBills"`
 	HomeInsurance       string  `json:"homeInsurance"`
@@ -84,7 +85,19 @@ type Record struct {
 	EmployeePayslip     string  `json:"employeePayslip"`
 	BankStatement       string  `json:"bankStatement"`
 	Other 				string	`json:"other"`
-	//Preferences       string   `json:"preferences"`
+	PPSIDURL			   	string  `json:"PPSIDUrl"`
+	DriversLicenseURL		string	`json:"driversLicenseUrl"` 
+	PassportURL				string	`json:"passportUrl"`
+	NationalAgeCardURL		string	`json:"nationalAgeCardUrl"`
+	IdentificationFormURL  	string  `json:"identificationFormUrl"`
+	UtilityBillsURL        	string  `json:"utilityBillsUrl"`
+	HomeInsuranceURL       	string  `json:"homeInsuranceUrl"`
+	CarInsuranceURL        	string  `json:"carInsuranceUrl"`
+	TaxCreditCertificateURL string  `json:"taxCreditCertificateUrl"`
+	SalaryCertificateURL	string 	`json:"salaryCertificateUrl"`
+	EmployeePayslipURL     	string  `json:"employeePayslipUrl"`
+	BankStatementURL       	string  `json:"bankStatementUrl"`
+	OtherURL 				string	`json:"otherUrl"`
 }
 
 // SubRecord belongs to a single PPS record
@@ -108,6 +121,7 @@ type VerificationRecord struct {
 	ID             string `json:"id"`
 	KYCID          string `json:"kycId"`
 	Status         string `json:"status"`
+	Suggestion	   string `json: "suggestion"`
 	VerifiedBy     string `json:"verifiedBy"`
 	ReferencedFrom string `json:"referencedFrom"`
 	OrganizationID string `json:"organizationId"`
@@ -143,7 +157,6 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, userID string, mspI
 		MothersMaidenName: 		args[6],
 		DriversLicense:    		args[7],
 		Passport:          		args[8],
-		//CardInformation:   	args[9],
 		Nationality:       		args[10],
 		EmailAddress:      		args[11],
 		NationalAgeCard:   		args[12],
@@ -156,7 +169,19 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, userID string, mspI
 		EmployeePayslip:     	args[19],
 		BankStatement:       	args[20],
 		Other: 				 	args[9],
-		//Preferences:       args[13]}
+		PPSIDURL:                 args[21],			 
+		DriversLicenseURL:        args[22],		
+		PassportURL:              args[23],			
+		NationalAgeCardURL:       args[24],		
+		IdentificationFormURL:    args[25], 
+		UtilityBillsURL:          args[26],       
+		HomeInsuranceURL:         args[27],       
+		CarInsuranceURL:          args[28],       
+		TaxCreditCertificateURL:  args[29], 
+		SalaryCertificateURL:     args[30],	
+		EmployeePayslipURL:       args[31],     	
+		BankStatementURL:         args[32],       
+		OtherURL:                 args[33], 
 	}	
 	fmt.Println(record)
 	recordAsBytes, _ := json.Marshal(record)
@@ -307,24 +332,28 @@ func AddAddress(APIstub shim.ChaincodeStubInterface, recordAsBytes []byte, args 
 	err = APIstub.PutState(args[0], updatedRecordAsBytes)
 	return eh.SystemError(err, updatedRecordAsBytes)
 }
+
 /*
 func AddKYCProof(APIstub shim.ChaincodeStubInterface, recordAsBytes []byte, args []string, userID string) sc.Response {
-
+	fmt.Println("Entering add kyc proof")
 	kycProof := KYCProof{
-		ID:					 	args[1],
-		IdentificationForm:  	args[2],
-		UtilityBills:        	args[3],
-		HomeInsurance:       	args[4],
-		CarInsurance:     	 	args[5],
-		TaxCreditCertificate: 	args[6],
-		SalaryCertificate:	 	args[7],
-		EmployeePayslip:     	args[8],
-		BankStatement:       	args[9],
-		Other: 				 	args[10],
-		CreatedAt:          	utils.GetTimestampAsISO(APIstub), 
-		Class:					"KYCProof",
+	ID:                       args[1],
+	PPSIDURL:                 args[2],			 
+	DriversLicenseURL:        args[3],		
+	PassportURL:              args[4],			
+	NationalAgeCardURL:       args[5],		
+	IdentificationFormURL:    args[6], 
+	UtilityBillsURL:          args[7],       
+	HomeInsuranceURL:         args[8],       
+	CarInsuranceURL:          args[9],       
+	TaxCreditCertificateURL:  args[10], 
+	SalaryCertificateURL:     args[11],	
+	EmployeePayslipURL:       args[12],     	
+	BankStatementURL:         args[13],       
+	OtherURL:                 args[14], 
+	CreatedAt:				  utils.GetTimestampAsISO(APIstub),           
+	Class:                    "KYCProof",		
 	}
-
 	kycProofAsBytes, _ := json.Marshal(kycProof)
 	err := APIstub.PutState(args[1], kycProofAsBytes)
 	if err != nil {
@@ -335,12 +364,11 @@ func AddKYCProof(APIstub shim.ChaincodeStubInterface, recordAsBytes []byte, args
 	err = json.Unmarshal(recordAsBytes, &record)
 	record.KYCProofIDs = append(record.KYCProofIDs, kycProof.ID)
 	updatedRecordAsBytes, _ := json.Marshal(record)
-
 	err = APIstub.PutState(args[0], updatedRecordAsBytes)
 	return eh.SystemError(err, updatedRecordAsBytes)
+
 }
 */
-
 // AddVerificationRecord will verify a KYCID and update the status
 //
 // args : [kycId, Status, referenceVerificationRecordID]
@@ -363,6 +391,7 @@ func AddVerificationRecord(APIstub shim.ChaincodeStubInterface, kycRecordAsBytes
 		ID:             verificationRecordID,
 		KYCID:          args[0],
 		Status:         args[1],
+		Suggestion:     args[3],
 		VerifiedBy:     userID,
 		ReferencedFrom: args[2],
 		OrganizationID: organizationID,

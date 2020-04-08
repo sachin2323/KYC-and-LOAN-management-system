@@ -27,8 +27,10 @@ import (
 // PopulatedRecord is kycRecord with status
 type PopulatedRecord struct {
 	kyc.Record
-	Status    string        `json:"status"`
-	Addresses []kyc.Address `json:"addresses"`
+	Status     string        `json:"status"`
+	Suggestion string        `json:"suggestion"` 
+	Addresses []kyc.Address  `json:"addresses"`
+	//KYCProofs []kyc.KYCProof `json:"kycProofs"`
 }
 
 // GetUserFromAttribute will get user from an attribute
@@ -282,6 +284,25 @@ func GetKYCRecordDetails(APIstub shim.ChaincodeStubInterface, args []string) sc.
 	}
 
 	populatedRecord.Addresses = addresses
+/*
+	fmt.Println("populating kyc proof record")
+	kycProofs := []kyc.KYCProof{}
+	kycProofIDs := record.KYCProofIDs
+	for i := 0 ; i < len(kycProofIDs); i++ {
+		kycProof := kyc.KYCProof{}
+		kycProofResponse := GetKYCProofDetails(APIstub, []string{kycProofIDs[i]})
+		if kycProofResponse.GetMessage() != "" {
+			return kycProofResponse
+		}
+		err = json.Unmarshal(kycProofResponse.GetPayload(), &kycProof)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		kycProofs = append(kycProofs, kycProof)
+	}
+
+	fmt.Println("done populating kyc proof record")
+*/
 	verificationRecordAsResponse := GetVerificationRecordByKYCID(APIstub, args)
 	if verificationRecordAsResponse.GetMessage() != "" {
 		populatedRecord.Status = "Unprocessed"
@@ -293,6 +314,7 @@ func GetKYCRecordDetails(APIstub shim.ChaincodeStubInterface, args []string) sc.
 			return shim.Error(err.Error())
 		}
 		populatedRecord.Status = verificationRecord.Status
+		populatedRecord.Suggestion = verificationRecord.Suggestion
 		populatedRecord.Record = record
 	}
 	populatedRecordAsBytes, err := json.Marshal(populatedRecord)
@@ -318,7 +340,19 @@ func GetAddressDetails(APIstub shim.ChaincodeStubInterface, args []string) sc.Re
 	return addressAsResponse
 
 }
+/*
+func GetKYCProofDetails(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
+	argAsResponse := eh.ArgumentError(1, args)
+	if argAsResponse.GetMessage() != "" {
+		return argAsResponse
+	}
+
+	KYCProofAsResponse := eh.AbsentError(APIstub, args[0])
+	return KYCProofAsResponse
+
+}
+*/
 // GetCurrentUser retrieves the user given an ID
 //
 // args : [userID]

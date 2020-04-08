@@ -197,23 +197,22 @@ class SearchKYC extends Component {
             />
             <p>{this.state.info}</p>
             <Form className="test-mailing">
-    	      <h1>Let's see if it works</h1>
+    	      <h3>Send an KYC request</h3>
             <div>
-            <h1>Email</h1>
+            <h3>Email</h3>
             <Input type="email" 
             name="user_email"
             placeholder = "Email ID"
             onChange={this.handleEmailChange} 
             value = {this.state.email}
             />
-              <TextArea
+              <TextArea autosize = {true}
                 id="test-mailing"
                 name="test-mailing"
                 onChange={this.handleFeedbackChange}
-                placeholder="Post some lorem ipsum here"
+                placeholder="Feedback"
                 required
                 value={this.state.feedback}
-                style={{width: '100%', height: '150px'}}
               />
             </div>
             <Input type="button" value="Submit" className="btn btn--submit" onClick={this.handleSubmit} />

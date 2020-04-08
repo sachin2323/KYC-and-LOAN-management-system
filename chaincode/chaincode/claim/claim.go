@@ -69,7 +69,7 @@ type Proof struct {
 	ID            string `json:"id"`
 	ClaimID       string `json:"claimId"`
 	CertificateID string `json:"certificateId"`
-	URL           string `json:"url"`
+	URLs           []string `json:"urls"`
 	Class         string `json:"class"`
 
 	// more can be accomodated according to the use case
@@ -229,11 +229,16 @@ func AddUser(APIstub shim.ChaincodeStubInterface, args []string, txnID string, u
 // args : [id, claimId, certificateId]
 func AddProof(APIstub shim.ChaincodeStubInterface, args []string, txnID string) sc.Response {
 
+	URLs, err := utils.SliceFromString(args[3])
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
 	proof := Proof{
 		ID:            args[0],
 		ClaimID:       args[1],
 		CertificateID: args[2],
-		URL:           args[3],
+		URLs:          URLs,
 		Class:         "Proof",
 	}
 	proofAsBytes, _ := json.Marshal(proof)

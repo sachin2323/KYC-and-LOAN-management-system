@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Modal, Button, Table, message, Tag, Row, Col } from "antd";
+import { Modal, Button, Table, message, Tag, Row, Col, Input } from "antd";
 import { getInfo, processKYC } from "../../Models/KYCRecords";
 import { getCurrentUser } from "../../Models/Auth";
+const { TextArea } = Input;
 export default class InfoModal extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +10,10 @@ export default class InfoModal extends Component {
       visible: false,
       info: null,
       records: null,
-      processButton: false
+      processButton: false,
+      rejectButton: false,
+      value:null,
+      status:null,
     };
     this.columns = [
       {
@@ -28,15 +32,31 @@ export default class InfoModal extends Component {
         key: "status"
       }
     ];
-  }
+  };
 
-  handleProcess = record => {
+
+  handleAccepted = (e) =>{
+    this.setState({status:e});
+    this.handleProcess();
+  };
+
+  handleRejected = (e) =>{
+    this.setState({status:e});
+    this.handleProcess();
+  };
+
+  handleChange = (e) =>{
+    this.setState({value : e.target.value })
+  };
+
+  handleProcess = (record) => {
     this.setState({ processButton: true });
     processKYC({
       data: {
         kyc_id: this.props.record.id,
-        status: "Processed",
-        reference_verification_id: record ? record.id : "No reference ID"
+        status:this.state.status,
+        reference_verification_id: record ? record.id : "No reference ID",
+        suggestion: this.state.value
       },
       onSuccess: data => {
         this.setState({
@@ -85,7 +105,7 @@ export default class InfoModal extends Component {
         console.log("came1");
       data.push(response[i].verification_record);
       if (!Object.keys(response[i].verification_record).length == 0) {
-        this.setState({ processed: true });
+        this.setState({ processed: null });
         console.log("came");
       }
     }
@@ -211,17 +231,35 @@ export default class InfoModal extends Component {
           </Col>
         </Row>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div />
+        {
+             <TextArea autosize = {true}
+             placeholder="Enter any suggestions"
+             id = "suggestion"
+             onChange = {this.handleChange}
+             value = {this.state.value} 
+             />
+          }
           {!this.state.processed ? (
             <Button
               type="primary"
               loading={this.state.processButton}
-              onClick={this.handleProcess}
+              onClick={()=>{this.handleAccepted("Processed")}}
             >
               Process
             </Button>
           ) : (
             <b>Processed!</b>
+          )}
+            {!this.state.processed ? (
+            <Button
+              type="primary"
+              loading={this.state.rejectButton}
+              onClick={()=>{this.handleRejected("Rejected")}}
+            >
+              Reject
+            </Button>
+          ) : (
+            <b>Rejected!</b>
           )}
         </div>
         {/* <Table style={{ marginTop: "15px" }} dataSource={this.state.records} columns={this.columns} loading={this.state.loading} rowKey="id" /> */}

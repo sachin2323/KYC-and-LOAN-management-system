@@ -80,7 +80,7 @@ export default class ListClaim extends Component {
       onSuccess: data => {
         data.response.forEach(element => {
           const link = document.createElement("a");
-          link.setAttribute("href", element.record.url);
+          link.setAttribute("href", element.record.URLs);
           link.setAttribute("target", "_blank");
           link.click();
         });

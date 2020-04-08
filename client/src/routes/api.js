@@ -16,6 +16,18 @@ let query = require("url");
 let Parser = require("../utils/Parser");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
+var store = multer.diskStorage({
+  destination: function (req, file, cb) {
+  cb(null, 'upload_two')
+},
+filename: function (req, file, cb) {
+  cb(null,file.originalname )
+}
+})
+
+//var uploadNew = multer({ storage: store }).single('file')
+var uploadNew = multer({ storage: store })
+
 
 const storage = multer.memoryStorage();
 const uploadBuffer = multer({ storage: storage });
@@ -194,6 +206,73 @@ router.post("/add-address-to-kyc", function (req, res) {
       res.status(500).json({ error: err.toString() });
     });
 });
+
+router.post("/add-kycProof-to-kyc", function (req, res) {
+  let handler = new Handler(req.user);
+  handler
+    .init()
+    .then(function () {
+      return handler.addKYCProofToKYC(req.body);
+    })
+    .then(function (data) {
+      res.status(200).json({ response: data });
+    })
+    .catch(function (err) {
+      res.status(500).json({ error: err.toString() });
+    });
+});
+
+/*
+router.post("/upload",uploadNew.single("file"),function(req, res) {  
+  cloudinary.uploader.upload(req.file.path, function (err, result) {
+    console.log(err, result);
+    console.log(result.url);
+    if (err instanceof multer.MulterError) {
+        return res.status(500).json(err)
+    } else if (err) {
+        return res.status(500).json(err)
+    }
+    return res.status(200).send(result.url)
+ 
+  });
+});
+*/
+
+
+router.post("/upload",uploadNew.single('file'),(req, res) => {  
+  cloudinary.uploader.upload(req.file.path, function (err, result) {
+  console.log(err, result);
+  if (req.file)
+      {
+        res.send(result.url)
+      }
+      else
+          res.status("409").json("No Files to Upload.");
+    });
+});
+
+/*
+router.post("/add-kyc-proof", uploadNew.single('image'), function (req, res) {
+  let handler = new Handler(req.user);
+  cloudinary.uploader.upload(req.file.path, function (err, result) {
+    console.log(err, result);
+    handler
+      .init()
+      .then(function () {
+        return handler.addProofToKYC({
+          imageUrl:result.url,
+          kyc_id: req.headers.kyc_id
+        });
+      })
+      .then(function (data) {
+        res.status(200).json({ response: data });
+      })
+      .catch(function (err) {
+        res.status(500).json({ error: err.toString() });
+      });
+  });
+});
+*/
 
 router.post("/add-verification-record", function (req, res) {
   let handler = new Handler(req.user);
@@ -391,6 +470,21 @@ router.get("/get-address-details", function (req, res) {
     .init()
     .then(function () {
       return handler.getAddressDetails(query.parse(req.url, true).query);
+    })
+    .then(function (data) {
+      res.status(200).json({ response: data });
+    })
+    .catch(function (err) {
+      res.status(500).json({ error: err.toString() });
+    });
+});
+
+router.get("/get-kycProof-details", function (req, res) {
+  let handler = new Handler(req.user);
+  handler
+    .init()
+    .then(function () {
+      return handler.GetKYCProofDetails(query.parse(req.url, true).query);
     })
     .then(function (data) {
       res.status(200).json({ response: data });
@@ -620,7 +714,7 @@ router.get("/get-tx-details", function (req, res) {
 });
 
 // 14. Add Proof to a claim x
-router.post("/add-proof", upload.single("proofimg"), function (req, res) {
+router.post("/add-proof", uploadNew.single('image'), function (req, res) {
   let handler = new Handler(req.user);
   cloudinary.uploader.upload(req.file.path, function (err, result) {
     console.log(err, result);
@@ -628,7 +722,7 @@ router.post("/add-proof", upload.single("proofimg"), function (req, res) {
       .init()
       .then(function () {
         return handler.addProofToClaim({
-          proofUrl: result.url,
+          imageUrl:result.url,
           claim_id: req.headers.claim_id
         });
       })
@@ -812,6 +906,23 @@ router.get("/get-claim-proof", function (req, res) {
     .init()
     .then(function () {
       return handler.getClaimProofs(req.query);
+    })
+    .then(function (data) {
+      res.status(200).json({ response: data });
+    })
+    .catch(function (err) {
+      res.status(500).json({ error: err.toString() });
+    });
+});
+
+router.get("/get-kyc-proof", function (req, res) {
+  let handler = new Handler(req.user);
+  console.log(req.body);
+
+  handler
+    .init()
+    .then(function () {
+      return handler.getKYCProofs(req.query);
     })
     .then(function (data) {
       res.status(200).json({ response: data });
