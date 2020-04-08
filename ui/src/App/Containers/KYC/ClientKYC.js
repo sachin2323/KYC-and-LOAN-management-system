@@ -218,7 +218,6 @@ class ClientKYC extends Component {
             <Card title="KYC Record" >
               <div className="Asset-Cards">
               <Card title="KYC Record" extra={<Link to="/client/kyc/add-kyc"><Button type="primary">Add KYC</Button></Link>}>
-              <h3 style={{ color: "#052B82", textAlign: "center" }}>{this.state.KYC.suggestion}</h3>
               </Card>  
                 <Row type="flex" justify="space-between" align="top">
                   <Col lg={24} sm={24}>

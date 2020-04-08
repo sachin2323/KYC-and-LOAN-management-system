@@ -86,7 +86,7 @@ handleChange = info => {
 
   // 1. Limit the number of uploaded files
   // Only to show two recent uploaded files, and old ones will be replaced by the new
-  fileList = fileList.slice(-2);
+  fileList = fileList.slice(-1);
 
   // 2. Read from response and show file link
   fileList = fileList.map(file => {
@@ -98,7 +98,7 @@ handleChange = info => {
     
   });
 
-  this.setState({ fileList });
+  this.setState({ fileList});
 };
 
 normFile = (e) => {
@@ -302,6 +302,7 @@ console.log('done');
             valuePropName: 'fileList',
             initialValue: this.state.fileList.response,
             getValueFromEvent: this.normFile,
+             
           })
          ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
           //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
@@ -312,7 +313,6 @@ console.log('done');
               onRemove={this.onRemove}
               onChange={this.handleChange}
               fileList={this.state.fileList}
-
             >
               <Button>
                 <Icon type="upload" /> Upload

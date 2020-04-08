@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { message, Row, Col, Form, Input, Button, Select} from "antd";
+import { message, Row, Col, Form, Input, Button, Select, Icon, Upload,} from "antd";
 import { addClaim } from "../../Models/ClaimRecords";
 import { getCurrentUser } from "../../Models/Auth";
 import {listSellers, listBanks} from "../../Models/Users";
 const FormItem = Form.Item;
 const Option = Select.Option;
+const currentUser = getCurrentUser();
 
 class AddClaim extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
-      newLink: null
+      newLink: null,
+      fileList: [],
     };
   }
   
@@ -21,11 +23,59 @@ class AddClaim extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        const user = getCurrentUser();
+        values.pps_number = user.national_id;
+        values.email  = user.email;
         console.log(values);
         this.addClaim(values);
       }
     });
   };
+
+  onRemove = (file) => {
+    this.setState(({ fileList }) => {
+      const index = fileList.indexOf(file)
+      const newFileList = fileList.slice()
+      newFileList.splice(index, 1)
+      return {
+        fileList: newFileList,
+      }
+    })
+  };
+  
+  beforeUpload = (file) => {
+    this.setState({
+      fileList: [file],
+    })
+   // return false
+  };
+
+  handleChange = info => {
+    let fileList = [...info.fileList];
+  
+    // 1. Limit the number of uploaded files
+    // Only to show two recent uploaded files, and old ones will be replaced by the new
+    fileList = fileList.slice(-1);
+  
+    // 2. Read from response and show file link
+    fileList = fileList.map(file => {
+      if (file.response) {
+        // Component will show file.url as link
+        file.url = file.response;
+      }
+      return file;
+      
+    });
+  
+    this.setState({ fileList});
+  };
+  
+  normFile = (e) => {
+    if (Array.isArray(e)) {
+       return e
+     }
+     return e && e.fileList
+   };
 
   addClaim = values => {
     this.setState({ loading: true });
@@ -146,23 +196,43 @@ class AddClaim extends Component {
                 <h3>Personal Info</h3>
 
                 <FormItem>
-                  {getFieldDecorator("pps_number", {
-                    rules: [
-                      {
-                        type: "string",
-                        pattern:/^(\d{7})([A-Z]{1,2})$/i, 
-                        message: "PPS ID is Invalid. Please Input the correct PPS ID!"
-                        //pattern: /^[1-9]{1}[0-9]{0,}$/g,
-                        //message: "The input is not valid numerics!"
-                      },
-                      {
-                        required: true,
-                        message: "Please input your pps number!"
-                      }
-                    ]
-                  })(<Input placeholder="PPS Number" />)}
-                </FormItem>
+                <Input
+                  value={currentUser.national_id}
+                  defaultValue={currentUser.national_id}
+                  style={{ color: "blue" }}
+                  readOnly
+                  disabled={true}
+                  name="pps_number"
+                />
+              </FormItem>
 
+              <FormItem
+            label="Upload PPS Proof"
+          > {getFieldDecorator("pps_number_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
+
+              
                 <FormItem>
                   {getFieldDecorator("surname", {
                     rules: [
@@ -234,6 +304,32 @@ class AddClaim extends Component {
                   })(<Input placeholder="EIR Code" />)}
                 </FormItem>
 
+                <FormItem
+            label="Upload EIR Proof"
+          > {getFieldDecorator("eir_code_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
+
                 <FormItem>
                   {getFieldDecorator("phone_number", {
                     rules: [
@@ -247,17 +343,15 @@ class AddClaim extends Component {
                 </FormItem>
 
                 <FormItem>
-                  {getFieldDecorator("email", {
-                    rules: [
-                      {
-                        type: "string",
-                        required: true,
-                        message: "Please input your Email!"
-                      }
-                    ]
-                  })(<Input placeholder="Email" />)}
-                </FormItem>
-
+                <Input
+                  value={currentUser.email}
+                  defaultValue={currentUser.email}
+                  style={{ color: "blue" }}
+                  readOnly
+                  disabled={true}
+                  name="email"
+                />
+              </FormItem>
                
 
                 <FormItem>
@@ -283,6 +377,32 @@ class AddClaim extends Component {
                     ]
                   })(<Input placeholder="Martial Status" />)}
                 </FormItem>
+
+                <FormItem
+            label="Upload Martial Status Proof"
+          > {getFieldDecorator("martial_status_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
 
                
                 <FormItem>
@@ -322,6 +442,33 @@ class AddClaim extends Component {
                   })(<Input placeholder="Outstanding Balance" />)}
                 </FormItem>
 
+                
+                <FormItem
+            label="Upload Outstanding Proof"
+          > {getFieldDecorator("outstanding_balance_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
+
                 <FormItem>
                   {getFieldDecorator("current_value_property", {
                     rules: [
@@ -334,7 +481,62 @@ class AddClaim extends Component {
                   })(<Input placeholder="Current Value of Property" />)}
                 </FormItem>
 
+                <FormItem
+            label="Upload Current Value of Property Proof"
+          > {getFieldDecorator("current_value_property_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
+                
+
                 <h3>Employment Details</h3>
+
+                
+                <FormItem
+            label="Upload Employment Details Proof"
+          > {getFieldDecorator("job_profile_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
+                
                 
                 <FormItem>
                   {getFieldDecorator("occupation", {
@@ -460,6 +662,33 @@ class AddClaim extends Component {
                   })(<Input placeholder="Purchase/Building Cost" />)}
                 </FormItem>
 
+                  
+                <FormItem
+            label="Upload Purchase/Building Cost Proof"
+          > {getFieldDecorator("purchase_cost_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
+
                 <FormItem>
                   {getFieldDecorator("repair_cost", {
                     rules: [
@@ -471,6 +700,32 @@ class AddClaim extends Component {
                     ]
                   })(<Input placeholder="Repair Cost" />)}
                 </FormItem>
+
+                <FormItem
+            label="Upload Repair Cost Proof"
+          > {getFieldDecorator("repair_cost_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
 
                 <FormItem>
                   {getFieldDecorator("value_of_property", {
@@ -484,6 +739,32 @@ class AddClaim extends Component {
                   })(<Input placeholder="Value of Property" />)}
                 </FormItem>
 
+                <FormItem
+            label="Upload Value of Property Proof"
+          > {getFieldDecorator("value_of_property_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
+
                 <FormItem>
                   {getFieldDecorator("professional_fees", {
                     rules: [
@@ -495,6 +776,32 @@ class AddClaim extends Component {
                     ]
                   })(<Input placeholder="Professional fees" />)}
                 </FormItem>
+
+                <FormItem
+            label="Upload Professional Fees Proof"
+          > {getFieldDecorator("professional_fees_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
 
                 <FormItem>
                   {getFieldDecorator("funding", {
@@ -508,6 +815,32 @@ class AddClaim extends Component {
                   })(<Input placeholder="Funding Amount" />)}
                 </FormItem>
 
+                <FormItem
+            label="Upload Funding Amount Proof"
+          > {getFieldDecorator("funding_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
+
                 <FormItem>
                   {getFieldDecorator("agreed_price_of_sale", {
                     rules: [
@@ -519,6 +852,32 @@ class AddClaim extends Component {
                     ]
                   })(<Input placeholder="Agreed Price of Sale" />)}
                 </FormItem>
+
+                <FormItem
+            label="Upload Agreed Price of Sale Proof"
+          > {getFieldDecorator("agreed_price_of_sale_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
 
                 <FormItem>
                   {getFieldDecorator("amount_of_loan_required", {
@@ -543,6 +902,32 @@ class AddClaim extends Component {
                     ]
                   })(<Input placeholder="Mortgage loan term (In Years)" />)}
                 </FormItem>
+
+                <FormItem
+            label="Upload Mortgage Term Proof"
+          > {getFieldDecorator("mortgage_term_url", {
+            valuePropName: 'fileList',
+            initialValue: this.state.fileList.response,
+            getValueFromEvent: this.normFile,
+             
+          })
+         ( //<div><input type="file" name="file" onChange={this.onChangeHandler}/>
+          //<button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> </div> 
+              <Upload
+              name="file"
+              action="http://localhost:3000/api/upload"
+              beforeUpload={this.beforeUpload}
+              onRemove={this.onRemove}
+              onChange={this.handleChange}
+              fileList={this.state.fileList}
+            >
+              <Button>
+                <Icon type="upload" /> Upload
+              </Button>
+            </Upload>
+          )}
+
+          </FormItem>
 
             </Col>
           </Row>

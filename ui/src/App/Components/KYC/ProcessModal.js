@@ -214,6 +214,89 @@ export default class InfoModal extends Component {
               <strong>Other: </strong>
               {this.state.info.other}
             </p>
+            <p>
+            <Button
+                type="primary"
+                href={this.state.info.PPSIDUrl}	
+              >
+                View PPS ID Proofs
+              </Button></p>
+              <p>
+            <Button
+                type="primary"
+                href={this.state.info.driversLicenseUrl}	
+              >
+                View Driver License Proofs
+              </Button></p>
+              <p>
+            <Button
+                type="primary"
+                href={this.state.info.passportUrl}	
+              >
+                View Passport Proofs
+              </Button></p>
+              <p>
+            <Button
+                type="primary"
+                href={this.state.info.nationalAgeCardUrl}	
+              >
+                View National Age Card Proofs
+              </Button></p>
+              <p>
+            <Button
+                type="primary"
+                href={this.state.info.identificationFormUrl}	
+              >
+                View Identification Form Proofs
+              </Button></p>
+           <p>   <Button
+                type="primary"
+                href={this.state.info.utilityBillsUrl}	
+              >
+                View Utility Bills Proofs
+              </Button></p>
+           <p>   <Button
+                type="primary"
+                href={this.state.info.homeInsuranceUrl}	
+              >
+                View Home Insurance Proofs
+              </Button></p>
+          <p>    <Button
+                type="primary"
+                href={this.state.info.carInsuranceUrl}	
+              >
+                View Car Insurance Proofs
+              </Button></p>
+          <p>     <Button
+               type="primary"
+               href={this.state.info.taxCreditCertificateUrl}	
+             >
+               View  Tax Credit Certificate Proofs
+             </Button></p>
+       <p>       <Button
+              type="primary"
+              href={this.state.info.salaryCertificateUrl}	
+            >
+              View Salary Certificate Proofs
+            </Button></p>
+      <p>       <Button
+             type="primary"
+             href={this.state.info.employeePayslipUrl}	
+           >
+             View Employee Pay Slip Proofs
+           </Button></p>
+      <p>      <Button
+            type="primary"
+            href={this.state.info.bankStatementUrl}	
+          >
+            View Bank Statement Proofs
+          </Button></p>
+     <p>      <Button
+           type="primary"
+           href={this.state.info.otherUrl}	
+         >
+           View Other Proofs
+         </Button></p>
           </Col>
           <Col span={12}>
             {/* <h2>Address [{this.state.info.addresses[0].addressType}]</h2> */}

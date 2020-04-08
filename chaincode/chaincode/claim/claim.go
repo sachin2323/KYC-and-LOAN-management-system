@@ -61,6 +61,19 @@ type Claim struct {
 	AmountOfLoanRequired string `json:"amount_of_loan_required"`
 	MortgageTerm	string		`json:"mortgage_term"`
 	Suggestion		string		`json:"suggestion"`
+	EirCodeUrl        string   	`json:"eir_code_url"`
+	PPSNumberUrl      string   	`json:"pps_number_url"`
+	MartialStatusUrl  string   	`json:"martial_status_url"`
+	CurrentValueOfPropertyUrl string `json:"current_value_property_url"`
+	OutstandingBalanceUrl string `json:"outstanding_balance_url"`
+	MortgageTermUrl		string		`json:"mortgage_term_url"`
+	AgreedPriceOfSaleUrl string 	`json:"agreed_price_of_sale_url"`
+	PurchaseCostUrl	string		`json:"purchase_cost_url"`
+	RepairCostUrl		string		`json:"repair_cost_url"`
+	ValueOfPropertyUrl string		`json:"value_of_property_url"`
+	ProfessionalFeesUrl string		`json:"professional_fees_url"`
+	FundingUrl			string 		`json:"funding_url"`
+	JobProfileUrl		string		`json:"job_profile_url"`	
 
 }
 
@@ -163,6 +176,19 @@ func Add(APIstub shim.ChaincodeStubInterface, args []string, txnID string, userI
 		DateOfBirth: 	args[13],
 		MartialStatus:	args[14],
 		NoOfDependents:	args[15],
+		EirCodeUrl:     args[18],        
+		PPSNumberUrl:     args[19],      
+		MartialStatusUrl:     args[20],  
+		CurrentValueOfPropertyUrl:     args[21], 
+		OutstandingBalanceUrl:     args[22], 
+		MortgageTermUrl:     args[23],	
+		AgreedPriceOfSaleUrl:     args[24], 
+		PurchaseCostUrl:     args[25],	
+		RepairCostUrl:     args[26],		
+		ValueOfPropertyUrl:     args[27],
+		ProfessionalFeesUrl:     args[28], 		
+		FundingUrl:     args[29],		
+		JobProfileUrl:     args[30],		
 		/*StatusOfLiving: args[16],
 		OutstandingBalance: args[17],
 		CurrentValueOfProperty: args[18], 
