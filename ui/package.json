@@ -7,7 +7,7 @@
     "axios": "^0.18.0",
     "emailjs-com": "^2.4.1",
     "i18n-react": "^0.6.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "js-file-download": "^0.4.1",
     "lodash": "^4.17.10",
     "moment": "^2.22.1",
