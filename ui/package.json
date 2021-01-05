@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.5.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "emailjs-com": "^2.4.1",
     "i18n-react": "^0.6.4",
     "jquery": "^3.4.1",
